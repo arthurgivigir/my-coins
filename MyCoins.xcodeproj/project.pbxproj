@@ -85,9 +85,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5672582B26110642006675F7 /* MyCoinsUIComponents */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsUIComponents; sourceTree = "<group>"; };
 		568921812607E0B200576399 /* MyCoinsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsCore; sourceTree = "<group>"; };
 		568921882607E0EB00576399 /* MyCoinsServices */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsServices; sourceTree = "<group>"; };
+		56A982C926111BC400B139D9 /* MyCoinsUIComponents */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsUIComponents; sourceTree = "<group>"; };
 		56D83F8C25E1970A00DE2FBB /* MyCoins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56D83F8F25E1970A00DE2FBB /* MyCoinsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoinsApp.swift; sourceTree = "<group>"; };
 		56D83F9125E1970A00DE2FBB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		56D8404125E19C2400DE2FBB /* MyCoinsFrameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5672582B26110642006675F7 /* MyCoinsUIComponents */,
+				56A982C926111BC400B139D9 /* MyCoinsUIComponents */,
 				568921882607E0EB00576399 /* MyCoinsServices */,
 				568921812607E0B200576399 /* MyCoinsCore */,
 			);

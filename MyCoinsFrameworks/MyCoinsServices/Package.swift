@@ -6,12 +6,14 @@ import PackageDescription
 let package = Package(
     name: "MyCoinsServices",
     platforms: [
-        .macOS(.v10_14), .iOS(.v14)
+        .macOS(.v10_15),
+        .iOS(.v14)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "MyCoinsServices",
+            type: .dynamic,
             targets: ["MyCoinsServices"]),
     ],
     dependencies: [

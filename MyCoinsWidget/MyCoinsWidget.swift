@@ -11,6 +11,7 @@ import Intents
 import Combine
 import MyCoinsCore
 import MyCoinsServices
+//import MyCoinsUIComponents
 
 struct Provider: IntentTimelineProvider {
     
@@ -26,19 +27,6 @@ struct Provider: IntentTimelineProvider {
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [CoinModel] = []
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-//        let currentDate = Date()
-//        for entryHour in 0..<5 {
-//            if let entryDate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate) {
-//
-//                CoinFetcher.shared
-//                    .getValueFrom(coin: "USD-BRL") { coin in
-//                        guard var coin = coin else { return }
-//                        coin.date = entryDate
-//                        entries.append(coin)
-//                }
-//            }
-//        }
         CoinFetcher.shared
             .getValueFrom(coin: "USD-BRL") { coin in
                 guard var coin = coin else { return }
@@ -55,7 +43,7 @@ struct Provider: IntentTimelineProvider {
     }
 }
 
-struct MyCoinsWidgetEntryView : View {
+struct MainWidgetView : View {
     var entry: Provider.Entry
 
     var body: some View {
@@ -80,7 +68,7 @@ struct MyCoinsWidget: Widget {
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-            MyCoinsWidgetEntryView(entry: entry)
+            MainWidgetView(entry: entry)
         }
         .configurationDisplayName("My Coins Widget")
         .description("This is an example widget.")
@@ -89,7 +77,7 @@ struct MyCoinsWidget: Widget {
 
 struct MyCoinsWidget_Previews: PreviewProvider {
     static var previews: some View {
-        MyCoinsWidgetEntryView(entry: CoinModel(date: Date()))
+        MainWidgetView(entry: CoinModel(date: Date()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
