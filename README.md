@@ -1,1 +1,3 @@
 # MyCoins
+
+Swift Package Manager
