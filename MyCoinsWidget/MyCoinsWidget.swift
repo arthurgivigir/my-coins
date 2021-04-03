@@ -64,7 +64,7 @@ struct TextWidgetView : View {
 
             GeometryReader { geometry in
                 VStack {
-                    Text("\(coin.bid ?? "R$ 0,00")")
+                    Text(coin.formattedBit)
                         .bold()
                         .font(.headline)
                         .foregroundColor(.white)
@@ -97,8 +97,8 @@ struct MyCoinsWidget: Widget {
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-//            MainWidgetView(coin: entry)
-            TextWidgetView(coin: entry)
+            MainWidgetView(coin: entry)
+//            TextWidgetView(coin: entry)
         }
         .configurationDisplayName("My Coins Widget")
         .description("This is an example widget.")

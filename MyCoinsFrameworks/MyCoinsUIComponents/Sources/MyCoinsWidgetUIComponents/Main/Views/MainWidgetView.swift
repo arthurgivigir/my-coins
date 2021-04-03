@@ -30,7 +30,7 @@ public struct MainWidgetView: View {
 
             GeometryReader { geometry in
                 VStack {
-                    Text("\(coin.bid ?? "0.00")")
+                    Text(coin.formattedBit)
                         .bold()
                         .font(.headline)
                         .foregroundColor(.white)
