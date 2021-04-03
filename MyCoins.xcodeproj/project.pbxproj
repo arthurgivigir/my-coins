@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		563E974E261902390063A3A8 /* MyCoinsUIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 563E974D261902390063A3A8 /* MyCoinsUIComponents */; };
+		563E974F261902390063A3A8 /* MyCoinsUIComponents in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 563E974D261902390063A3A8 /* MyCoinsUIComponents */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		563E9753261902CB0063A3A8 /* MyCoinsUIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 563E9752261902CB0063A3A8 /* MyCoinsUIComponents */; };
+		563E9754261902CB0063A3A8 /* MyCoinsUIComponents in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 563E9752261902CB0063A3A8 /* MyCoinsUIComponents */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		563E975A261907260063A3A8 /* MyCoinsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 563E9759261907260063A3A8 /* MyCoinsCore */; };
+		563E975B261907260063A3A8 /* MyCoinsCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 563E9759261907260063A3A8 /* MyCoinsCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		563E975C2619072A0063A3A8 /* MyCoinsServices in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AFF2607EC78008763E8 /* MyCoinsServices */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		56D83F9025E1970A00DE2FBB /* MyCoinsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D83F8F25E1970A00DE2FBB /* MyCoinsApp.swift */; };
 		56D83F9225E1970A00DE2FBB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D83F9125E1970A00DE2FBB /* ContentView.swift */; };
 		56D83F9425E1970D00DE2FBB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56D83F9325E1970D00DE2FBB /* Assets.xcassets */; };
@@ -22,7 +29,6 @@
 		56D8403125E19B8500DE2FBB /* MyCoinsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 56D8402325E19B8100DE2FBB /* MyCoinsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		56E98AF82607EC6E008763E8 /* MyCoinsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AF72607EC6E008763E8 /* MyCoinsCore */; };
 		56E98AFA2607EC6E008763E8 /* MyCoinsServices in Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AF92607EC6E008763E8 /* MyCoinsServices */; };
-		56E98AFE2607EC78008763E8 /* MyCoinsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AFD2607EC78008763E8 /* MyCoinsCore */; };
 		56E98B002607EC78008763E8 /* MyCoinsServices in Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AFF2607EC78008763E8 /* MyCoinsServices */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +74,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				563E9754261902CB0063A3A8 /* MyCoinsUIComponents in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,6 +85,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				563E975C2619072A0063A3A8 /* MyCoinsServices in Embed Frameworks */,
+				563E975B261907260063A3A8 /* MyCoinsCore in Embed Frameworks */,
+				563E974F261902390063A3A8 /* MyCoinsUIComponents in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +126,7 @@
 			files = (
 				56E98AF82607EC6E008763E8 /* MyCoinsCore in Frameworks */,
 				56E98AFA2607EC6E008763E8 /* MyCoinsServices in Frameworks */,
+				563E9753261902CB0063A3A8 /* MyCoinsUIComponents in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +148,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56E98AFE2607EC78008763E8 /* MyCoinsCore in Frameworks */,
+				563E974E261902390063A3A8 /* MyCoinsUIComponents in Frameworks */,
+				563E975A261907260063A3A8 /* MyCoinsCore in Frameworks */,
 				56E98B002607EC78008763E8 /* MyCoinsServices in Frameworks */,
 				56D8402525E19B8100DE2FBB /* SwiftUI.framework in Frameworks */,
 				56D8402425E19B8100DE2FBB /* WidgetKit.framework in Frameworks */,
@@ -261,6 +273,7 @@
 			packageProductDependencies = (
 				56E98AF72607EC6E008763E8 /* MyCoinsCore */,
 				56E98AF92607EC6E008763E8 /* MyCoinsServices */,
+				563E9752261902CB0063A3A8 /* MyCoinsUIComponents */,
 			);
 			productName = MyCoins;
 			productReference = 56D83F8C25E1970A00DE2FBB /* MyCoins.app */;
@@ -317,8 +330,9 @@
 			);
 			name = MyCoinsWidgetExtension;
 			packageProductDependencies = (
-				56E98AFD2607EC78008763E8 /* MyCoinsCore */,
 				56E98AFF2607EC78008763E8 /* MyCoinsServices */,
+				563E974D261902390063A3A8 /* MyCoinsUIComponents */,
+				563E9759261907260063A3A8 /* MyCoinsCore */,
 			);
 			productName = MyCoinsWidgetExtension;
 			productReference = 56D8402325E19B8100DE2FBB /* MyCoinsWidgetExtension.appex */;
@@ -804,6 +818,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		563E974D261902390063A3A8 /* MyCoinsUIComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyCoinsUIComponents;
+		};
+		563E9752261902CB0063A3A8 /* MyCoinsUIComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyCoinsUIComponents;
+		};
+		563E9759261907260063A3A8 /* MyCoinsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyCoinsCore;
+		};
 		56E98AF72607EC6E008763E8 /* MyCoinsCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MyCoinsCore;
@@ -811,10 +837,6 @@
 		56E98AF92607EC6E008763E8 /* MyCoinsServices */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MyCoinsServices;
-		};
-		56E98AFD2607EC78008763E8 /* MyCoinsCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MyCoinsCore;
 		};
 		56E98AFF2607EC78008763E8 /* MyCoinsServices */ = {
 			isa = XCSwiftPackageProductDependency;

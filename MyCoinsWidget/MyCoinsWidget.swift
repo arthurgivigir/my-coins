@@ -11,7 +11,8 @@ import Intents
 import Combine
 import MyCoinsCore
 import MyCoinsServices
-//import MyCoinsUIComponents
+import MyCoinsWidgetUIComponents
+import MyCoinsUIComponents
 
 struct Provider: IntentTimelineProvider {
     
@@ -43,22 +44,50 @@ struct Provider: IntentTimelineProvider {
     }
 }
 
-struct MainWidgetView : View {
-    var entry: Provider.Entry
-
-    var body: some View {
+struct TextWidgetView : View {
+    
+    public let coin: CoinModel
+    private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
+    
+    public init(coin: CoinModel) {
+        self.coin = coin
+    }
+    
+    public var body: some View {
         ZStack {
-            Color.green
-            
-            VStack {
-                Text(self.entry.date, style: .time)
-                
-                Text("\(entry.bid ?? "0.00")")
-                    .bold()
-                    .font(.headline)
+            LinearGradient(
+                gradient:
+                    Gradient(
+                        colors: [.mcPrimary, secondGradient]),
+                        startPoint: .top, endPoint: .bottom
+                    )
+
+            GeometryReader { geometry in
+                VStack {
+                    Text("\(coin.bid ?? "R$ 0,00")")
+                        .bold()
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    
+                    Divider()
+                        .background(Color.white)
+                        .frame(width: 100, alignment: .center)
+                    
+                    Text("E você ai pensando em viajar né minha filha?")
+                        .font(.system(.footnote))
+                        .fontWeight(.light)
+                        .minimumScaleFactor(0.5)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.white)
+                }
+                .padding(10)
+                .frame(width: geometry.size.width,
+                       height: geometry.size.height,
+                       alignment: .center)
             }
-            
+
         }
+        .background(Color.white)
     }
 }
 
@@ -68,7 +97,8 @@ struct MyCoinsWidget: Widget {
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-            MainWidgetView(entry: entry)
+//            MainWidgetView(coin: entry)
+            TextWidgetView(coin: entry)
         }
         .configurationDisplayName("My Coins Widget")
         .description("This is an example widget.")
@@ -77,7 +107,7 @@ struct MyCoinsWidget: Widget {
 
 struct MyCoinsWidget_Previews: PreviewProvider {
     static var previews: some View {
-        MainWidgetView(entry: CoinModel(date: Date()))
+        TextWidgetView(coin: CoinModel(date: Date()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
