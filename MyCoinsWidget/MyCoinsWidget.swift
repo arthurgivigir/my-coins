@@ -102,8 +102,8 @@ struct MyCoinsWidget: Widget {
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-//            MainWidgetView(coin: entry)
-            TextWidgetView(coin: entry)
+            MainWidgetView(coin: entry)
+//            TextWidgetView(coin: entry)
         }
         .configurationDisplayName("My Coins Widget")
         .description("This is an example widget.")

@@ -30,10 +30,15 @@ public struct MainWidgetView: View {
 
             GeometryReader { geometry in
                 VStack {
-                    Text(coin.formattedBit)
-                        .bold()
-                        .font(.headline)
-                        .foregroundColor(.white)
+                    HStack {
+                        Text(coin.formattedBit)
+                            .bold()
+                            .font(.headline)
+                            .foregroundColor(.white)
+                        
+                        RateView(rate: coin.rate)
+                            .frame(width: 10, height: 10, alignment: .center)
+                    }
                     
                     Divider()
                         .background(Color.white)
