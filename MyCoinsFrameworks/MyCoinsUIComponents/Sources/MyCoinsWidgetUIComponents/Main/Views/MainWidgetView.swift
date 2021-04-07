@@ -10,7 +10,7 @@ import MyCoinsCore
 import MyCoinsUIComponents
 import WidgetKit
 
-public struct MainWidgetView: View {
+struct TextWidgetView : View {
     
     public let coin: CoinModel
     private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
@@ -24,7 +24,7 @@ public struct MainWidgetView: View {
             LinearGradient(
                 gradient:
                     Gradient(
-                        colors: [.mcPrimary, secondGradient]),
+                        colors: [.black, .mcPrimary]),
                         startPoint: .top, endPoint: .bottom
                     )
 
