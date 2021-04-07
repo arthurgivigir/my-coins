@@ -17,6 +17,10 @@ public struct CoinModel: TimelineEntry, Codable {
     public var pctChange, bid, ask, timestamp: String?
     public var createDate: String?
     
+    public init(date: Date) {
+        self.date = date
+    }
+    
     private var formatter: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -33,9 +37,20 @@ public struct CoinModel: TimelineEntry, Codable {
         
         return defaultValue
     }
-
-    public init(date: Date) {
-        self.date = date
+    
+    public var rate: RateEnum {
+        if let pctChange = self.pctChange, let value = Double(pctChange) {
+            switch value {
+            case _ where value < 0:
+                return .down
+            case _ where value > 0:
+                return .up
+            default:
+                return .stable
+            }
+        }
+        
+        return .stable
     }
 
     enum CodingKeys: String, CodingKey {

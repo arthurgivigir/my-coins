@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5623909B261D293200F262D4 /* MyCoinsCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AF72607EC6E008763E8 /* MyCoinsCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5623909C261D293300F262D4 /* MyCoinsServices in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AF92607EC6E008763E8 /* MyCoinsServices */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		563E974E261902390063A3A8 /* MyCoinsUIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 563E974D261902390063A3A8 /* MyCoinsUIComponents */; };
 		563E974F261902390063A3A8 /* MyCoinsUIComponents in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 563E974D261902390063A3A8 /* MyCoinsUIComponents */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		563E9753261902CB0063A3A8 /* MyCoinsUIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 563E9752261902CB0063A3A8 /* MyCoinsUIComponents */; };
@@ -74,6 +76,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5623909C261D293300F262D4 /* MyCoinsServices in Embed Frameworks */,
+				5623909B261D293200F262D4 /* MyCoinsCore in Embed Frameworks */,
 				563E9754261902CB0063A3A8 /* MyCoinsUIComponents in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";

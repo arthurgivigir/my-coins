@@ -19,11 +19,11 @@ struct CoinService: CoinServiceProtocol {
     
     func getValueFrom(coin: String) -> AnyPublisher<CoinModel?, Error> {
         
-        if let url = URL(string: "https://economia.awesomeapi.com.br/all/\(coin)") {
+        if let url = URL(string: "https://economia.awesomeapi.com.br/json/\(coin)") {
             return AF.request(url)
-                .publishDecodable(type: [String: CoinModel].self, queue: .global(qos: .background))
+                .publishDecodable(type: [CoinModel].self, queue: .global(qos: .background))
                 .value()
-                .map { coins in return coins.values.first }
+                .map { coins in return coins.first }
                 .mapError { aferror in APIErrorEnum(error: aferror) }
                 .eraseToAnyPublisher()
         }

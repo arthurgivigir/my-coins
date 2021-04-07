@@ -24,7 +24,7 @@ class MyCoinsServicesTests: XCTestCase {
             } receiveValue: { coinModel in
                 
                 if let coinModel = coinModel {
-                    print("Coin Value: \(String(describing: coinModel.bid))")
+                    print("Coin Value: \(String(describing: coinModel.rate))")
                 } else {
                     XCTFail("Returned empty hotels from service")
                 }
