@@ -13,12 +13,20 @@ public extension Color {
         return Color("Primary", bundle: Bundle.module)
     }
     
+    static var mcPrimaryDarker: Color {
+        return Color("PrimaryDarker", bundle: Bundle.module)
+    }
+    
     static var mcSecondary: Color {
         return Color("Secondary", bundle: Bundle.module)
     }
     
     static var mcTertiary: Color {
         return Color("Tertiary", bundle: Bundle.module)
+    }
+    
+    static var mcQuaternary: Color {
+        return Color("Quaternary", bundle: Bundle.module)
     }
     
     static var mcMainBackground: Color {
