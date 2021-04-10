@@ -44,57 +44,57 @@ struct Provider: IntentTimelineProvider {
     }
 }
 
-struct TextWidgetView : View {
-    
-    public let coin: CoinModel
-    private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
-    
-    public init(coin: CoinModel) {
-        self.coin = coin
-    }
-    
-    public var body: some View {
-        ZStack {
-            LinearGradient(
-                gradient:
-                    Gradient(
-                        colors: [.black, .mcPrimary]),
-                        startPoint: .top, endPoint: .bottom
-                    )
-
-            GeometryReader { geometry in
-                VStack {
-                    HStack {
-                        Text(coin.formattedBit)
-                            .bold()
-                            .font(.headline)
-                            .foregroundColor(.white)
-                        
-                        RateView(rate: coin.rate)
-                            .frame(width: 10, height: 10, alignment: .center)
-                    }
-                    
-                    Divider()
-                        .background(Color.white)
-                        .frame(width: 100, alignment: .center)
-                    
-                    Text("E você ai pensando em viajar né minha filha?")
-                        .font(.system(.footnote))
-                        .fontWeight(.light)
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.white)
-                }
-                .padding(10)
-                .frame(width: geometry.size.width,
-                       height: geometry.size.height,
-                       alignment: .center)
-            }
-
-        }
-        .background(Color.white)
-    }
-}
+//struct TextWidgetView : View {
+//
+//    public let coin: CoinModel
+//    private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
+//
+//    public init(coin: CoinModel) {
+//        self.coin = coin
+//    }
+//
+//    public var body: some View {
+//        ZStack {
+//            LinearGradient(
+//                gradient:
+//                    Gradient(
+//                        colors: [.mcPrimaryDarker, .mcPrimary]),
+//                        startPoint: .top, endPoint: .bottom
+//                    )
+//
+//            GeometryReader { geometry in
+//                VStack {
+//                    HStack {
+//                        Text(coin.formattedBit)
+//                            .bold()
+//                            .font(.headline)
+//                            .foregroundColor(.white)
+//
+//                        RateView(rate: coin.rate)
+//                            .frame(width: 10, height: 10, alignment: .center)
+//                    }
+//
+//                    Divider()
+//                        .background(Color.white)
+//                        .frame(width: 100, alignment: .center)
+//
+//                    Text("E você ai pensando em viajar né minha filha?")
+//                        .font(.system(.footnote))
+//                        .fontWeight(.light)
+//                        .minimumScaleFactor(0.5)
+//                        .multilineTextAlignment(.center)
+//                        .foregroundColor(.white)
+//                }
+//                .padding(10)
+//                .frame(width: geometry.size.width,
+//                       height: geometry.size.height,
+//                       alignment: .center)
+//            }
+//
+//        }
+//        .background(Color.white)
+//    }
+//}
 
 @main
 struct MyCoinsWidget: Widget {
@@ -102,8 +102,8 @@ struct MyCoinsWidget: Widget {
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-//            MainWidgetView(coin: entry)
-            TextWidgetView(coin: entry)
+            MainWidgetView(coin: entry)
+//            TextWidgetView(coin: entry)
         }
         .configurationDisplayName("My Coins Widget")
         .description("This is an example widget.")
@@ -115,7 +115,9 @@ struct MyCoinsWidget_Previews: PreviewProvider {
 //        RateView(rate: .stable)
 //            .padding(20)
 //            .previewContext(WidgetPreviewContext(family: .systemSmall))
-        TextWidgetView(coin: CoinModel(date: Date()))
+        MainWidgetView(coin: CoinModel(date: Date()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
+//        TextWidgetView(coin: CoinModel(date: Date()))
+//            .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
