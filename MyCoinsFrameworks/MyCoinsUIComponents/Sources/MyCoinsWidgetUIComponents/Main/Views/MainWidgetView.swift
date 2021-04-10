@@ -13,21 +13,26 @@ import WidgetKit
 public struct MainWidgetView : View {
     
     public let coin: CoinModel
+    private var hasBackground: Bool = true
     private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
     
-    public init(coin: CoinModel) {
+    public init(coin: CoinModel, hasBackground: Bool = true) {
         self.coin = coin
+        self.hasBackground = hasBackground
     }
     
     public var body: some View {
         ZStack {
-            LinearGradient(
-                gradient:
-                    Gradient(
-                        colors: [.mcPrimaryDarker, .mcPrimary]),
-                        startPoint: .top, endPoint: .bottom
-                    )
-
+            
+            if hasBackground {
+                LinearGradient(
+                    gradient:
+                        Gradient(
+                            colors: [.mcPrimaryDarker, .mcPrimary]),
+                            startPoint: .top, endPoint: .bottom
+                        )
+            }
+            
             GeometryReader { geometry in
                 VStack {
                     HStack {
@@ -58,7 +63,7 @@ public struct MainWidgetView : View {
             }
 
         }
-        .background(Color.white)
+        .background(self.hasBackground ? Color.white : .clear)
     }
 }
 
