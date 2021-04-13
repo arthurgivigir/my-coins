@@ -8,6 +8,7 @@
 import SwiftUI
 import MyCoinsCore
 import MyCoinsWidgetUIComponents
+import MyCoinsUIComponents
 
 struct HomeView: View {
     
@@ -42,8 +43,8 @@ struct HomeView: View {
                                     .foregroundColor(.white)
             )
             .background(
-                Image(.charts)
-                    .resizable()
+                
+                LottieView(name: LottieNames.capitalInvestiment.rawValue, loopMode: .loop)
                     .scaledToFit()
                     .opacity(0.5)
                     .frame(minWidth: 0,
@@ -51,6 +52,7 @@ struct HomeView: View {
                            minHeight: 0,
                            maxHeight: .infinity,
                        alignment: .bottom)
+                    
             )
             .background(
                 LinearGradient(
