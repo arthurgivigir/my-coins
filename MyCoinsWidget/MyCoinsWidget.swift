@@ -29,7 +29,13 @@ struct Provider: IntentTimelineProvider {
         var entries: [CoinModel] = []
 
         CoinFetcher.shared
-            .getValueFrom(coin: "USD-BRL") { coin in
+            .getValueFrom(coin: "USD-BRL") { coin, error in
+                
+                if let error = error {
+                    print("😭 Ocorreu um erro: \(error.localizedDescription)")
+                    return
+                }
+                
                 guard var coin = coin else { return }
                 
                 let date = Date()

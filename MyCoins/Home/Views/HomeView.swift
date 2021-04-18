@@ -12,6 +12,8 @@ import MyCoinsUIComponents
 
 struct HomeView: View {
     
+    @ObservedObject private var homeViewModel = HomeViewModel()
+    
     init() {
         self.setNavigationColor()
     }
@@ -19,15 +21,19 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack() {
-                
-                VStack {
-                    MainWidgetView(coin: CoinModel(date: Date()), hasBackground: false)
-                        .frame(minWidth: 0,
-                               maxWidth: .infinity,
-                               minHeight: 0,
-                               maxHeight: 200,
-                           alignment: .center)
-                }
+                MainWidgetView(
+                    coin: self.homeViewModel.coinModel,
+                    hasBackground: false,
+                    primaryFont: .title2,
+                    secondaryFont: .title3)
+                    .frame(minWidth: 0,
+                           maxWidth: .infinity,
+                           minHeight: 0,
+                           maxHeight: 200,
+                       alignment: .center)
+            }
+            .onAppear() {
+                self.homeViewModel.fetch()
             }
             .frame(minWidth: 0,
                    maxWidth: .infinity,
@@ -43,8 +49,7 @@ struct HomeView: View {
                                     .foregroundColor(.white)
             )
             .background(
-                
-                LottieView(name: LottieNames.capitalInvestiment.rawValue, loopMode: .loop)
+                MCLottieView(name: LottieNames.capitalInvestiment.rawValue, loopMode: .loop)
                     .scaledToFit()
                     .opacity(0.5)
                     .frame(minWidth: 0,

@@ -34,6 +34,7 @@
 		56E98AF82607EC6E008763E8 /* MyCoinsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AF72607EC6E008763E8 /* MyCoinsCore */; };
 		56E98AFA2607EC6E008763E8 /* MyCoinsServices in Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AF92607EC6E008763E8 /* MyCoinsServices */; };
 		56E98B002607EC78008763E8 /* MyCoinsServices in Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AFF2607EC78008763E8 /* MyCoinsServices */; };
+		56F8E935262CC41B00BB224C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8E934262CC41B00BB224C /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		56D8402925E19B8100DE2FBB /* MyCoinsWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = MyCoinsWidget.intentdefinition; sourceTree = "<group>"; };
 		56D8402A25E19B8500DE2FBB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56D8402C25E19B8500DE2FBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		56F8E934262CC41B00BB224C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 		56C7A39426225AAA007CBA3E /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				56F8E933262CC38400BB224C /* ViewModels */,
 				56C7A39526225AB1007CBA3E /* Views */,
 			);
 			path = Home;
@@ -291,6 +294,14 @@
 				568921812607E0B200576399 /* MyCoinsCore */,
 			);
 			path = MyCoinsFrameworks;
+			sourceTree = "<group>";
+		};
+		56F8E933262CC38400BB224C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				56F8E934262CC41B00BB224C /* HomeViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -468,6 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56F8E935262CC41B00BB224C /* HomeViewModel.swift in Sources */,
 				56C7A39926225AD9007CBA3E /* HomeView.swift in Sources */,
 				5647D48D2626457600819595 /* LottieNames.swift in Sources */,
 				56D83F9025E1970A00DE2FBB /* MyCoinsApp.swift in Sources */,

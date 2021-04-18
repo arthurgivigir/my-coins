@@ -12,13 +12,31 @@ import WidgetKit
 
 public struct MainWidgetView : View {
     
-    public let coin: CoinModel
+    private let coin: CoinModel
     private var hasBackground: Bool = true
+    private var primaryFont: Font.TextStyle = .headline
+    private var secondaryFont: Font.TextStyle = .footnote
+    
     private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
     
-    public init(coin: CoinModel, hasBackground: Bool = true) {
+    public init(
+        coin: CoinModel,
+        hasBackground: Bool = true
+    ) {
         self.coin = coin
         self.hasBackground = hasBackground
+    }
+    
+    public init(
+        coin: CoinModel,
+        hasBackground: Bool = true,
+        primaryFont: Font.TextStyle,
+        secondaryFont: Font.TextStyle
+    ) {
+        self.coin = coin
+        self.hasBackground = hasBackground
+        self.primaryFont = primaryFont
+        self.secondaryFont = secondaryFont
     }
     
     public var body: some View {
@@ -38,7 +56,7 @@ public struct MainWidgetView : View {
                     HStack {
                         Text(coin.formattedBit)
                             .bold()
-                            .font(.headline)
+                            .font(.system(self.primaryFont))
                             .foregroundColor(.white)
                         
                         RateView(rate: coin.rate)
@@ -50,7 +68,7 @@ public struct MainWidgetView : View {
                         .frame(width: 100, alignment: .center)
                     
                     Text("E você ai pensando em viajar né minha filha?")
-                        .font(.system(.footnote))
+                        .font(.system(self.secondaryFont))
                         .fontWeight(.light)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.center)
