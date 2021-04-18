@@ -38,6 +38,16 @@ public struct CoinModel: TimelineEntry, Codable {
         return defaultValue
     }
     
+    public var formattedHour: String {
+        let date = Date(timeIntervalSince1970: Double(self.timestamp ?? "") ?? 0.0)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.locale = .current
+        
+        return dateFormatter.string(from: date)
+    }
+    
     public var rate: RateEnum {
         if let pctChange = self.pctChange, let value = Double(pctChange) {
             switch value {
