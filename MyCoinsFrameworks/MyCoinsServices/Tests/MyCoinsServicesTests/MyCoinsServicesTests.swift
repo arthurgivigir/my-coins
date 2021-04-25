@@ -82,7 +82,7 @@ class MyCoinsServicesTests: XCTestCase {
                     
                     _ = coinsModel.map { coinModel in
                         print("Coin Value: \(String(describing: coinModel?.bid))")
-                        print("Coin timestamp: \(String(describing: coinModel?.formattedHour))")
+                        print("Coin timestamp: \(String(describing: coinModel?.createDate))")
                     }
                     
                 } else {

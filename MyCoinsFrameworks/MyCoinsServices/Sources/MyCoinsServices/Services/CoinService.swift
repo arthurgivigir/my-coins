@@ -47,7 +47,7 @@ struct CoinService: CoinServiceProtocol {
     }
     
     func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[CoinModel?]?, Error> {
-        if let url = URL(string: "https://economia.awesomeapi.com.br/json/\(coin)/\(range)") {
+        if let url = URL(string: "https://economia.awesomeapi.com.br/json/daily/\(coin)/\(range)") {
             return AF.request(url)
                 .publishDecodable(type: [CoinModel].self, queue: .global(qos: .background))
                 .value()

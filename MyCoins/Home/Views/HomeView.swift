@@ -31,6 +31,13 @@ struct HomeView: View {
                            minHeight: 0,
                            maxHeight: 200,
                        alignment: .center)
+                HStack {
+                    ChartView(
+                        title: "Variação cambial",
+                        data: self.$homeViewModel.rangeValues,
+                        lastData: .constant("teste")
+                    )
+                }
             }
             .onAppear() {
                 self.homeViewModel.fetch()

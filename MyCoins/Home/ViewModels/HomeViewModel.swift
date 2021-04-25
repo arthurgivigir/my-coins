@@ -13,11 +13,13 @@ import MyCoinsServices
 final class HomeViewModel: ObservableObject {
     
     @Published private (set) var coinModel = CoinModel(date: Date())
+    @Published var rangeValues = [(String, Double)]()
     
     private var cancellables: Set<AnyCancellable> = []
     
     public func fetch() {
         self.getValueFromCoin()
+        self.getRangeFromCoin()
         
         Timer.publish(every: 60, on: .main, in: .default)
             .autoconnect()
@@ -43,6 +45,22 @@ final class HomeViewModel: ObservableObject {
                     return
                 }
             }
+    }
+    
+    private func getRangeFromCoin() {
+        CoinFetcher.shared.getRangeFrom(coin: "USD-BRL") { [weak self] values, error in
+            
+            if let error = error {
+                print("😭 Ocorreu um erro: \(error.localizedDescription)")
+                return
+            }
+            
+//            if let values = values {
+                print(values)
+                self?.rangeValues = values
+                return
+//            }
+        }
     }
     
 }
