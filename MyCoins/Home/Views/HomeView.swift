@@ -35,7 +35,8 @@ struct HomeView: View {
                     ChartView(
                         title: "Variação cambial",
                         data: self.$homeViewModel.rangeValues,
-                        lastData: .constant("teste")
+                        lastData: .constant("teste"),
+                        chartData: self.$homeViewModel.chartValues
                     )
                 }
             }

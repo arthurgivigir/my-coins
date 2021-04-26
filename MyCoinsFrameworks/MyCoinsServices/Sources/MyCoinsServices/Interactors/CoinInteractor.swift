@@ -13,9 +13,11 @@ public protocol CoinInteractorProtocol {
     func getValueFrom(coin: String) -> AnyPublisher<CoinModel?, Error>
     func getValueFrom(coins: [String]) -> AnyPublisher<[CoinModel?]?, Error>
     func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[CoinModel?]?, Error>
+    func getStockPricesFrom(coin: String) -> AnyPublisher<[String: StockPriceMinutelyModel]?, Error>
 }
 
 public struct CoinInteractor: CoinInteractorProtocol {
+    
     private var coinService: CoinServiceProtocol
     
     public init() {
@@ -34,4 +36,7 @@ public struct CoinInteractor: CoinInteractorProtocol {
         return coinService.getValuesFrom(coin: coin, range: range).eraseToAnyPublisher()
     }
     
+    public func getStockPricesFrom(coin: String) -> AnyPublisher<[String: StockPriceMinutelyModel]?, Error> {
+        return coinService.getStockPricesFrom(coin: coin)
+    }
 }

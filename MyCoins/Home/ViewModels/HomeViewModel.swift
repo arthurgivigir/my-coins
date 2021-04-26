@@ -14,6 +14,7 @@ final class HomeViewModel: ObservableObject {
     
     @Published private (set) var coinModel = CoinModel(date: Date())
     @Published var rangeValues = [(String, Double)]()
+    @Published var chartValues = [(Double)]()
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -56,9 +57,14 @@ final class HomeViewModel: ObservableObject {
             }
             
 //            if let values = values {
-                print(values)
-                self?.rangeValues = values
-                return
+            print(values)
+            self?.rangeValues = values
+            
+            self?.chartValues = values.map { _, value in
+                return value
+            }
+        
+            return
 //            }
         }
     }

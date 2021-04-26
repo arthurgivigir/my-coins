@@ -59,7 +59,7 @@ public class CoinFetcher {
                 print("\(String(describing: coinModel))")
                 
                 let valuesRange: [(String, Double)] = coinModel!.map{ coin in
-                    return (coin!.bid!, Double(coin!.bid!)!)
+                    return (coin!.formattedHour, Double(coin!.bid!)!)
                 }
                 
                 completion(valuesRange, nil)
