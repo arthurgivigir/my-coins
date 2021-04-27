@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftUICharts
+import AAInfographics
 
 public struct ChartView: View {
     
@@ -41,7 +42,10 @@ public struct ChartView: View {
     
     public var body: some View {
 
-        LineView(data: self.chartData, title: self.title, price: "4.50")
+        ChartTestView(chartData: self.$chartData)
+            .frame(width: UIScreen.main.bounds.width, height: 300, alignment: .center)
+        
+//        LineView(data: self.chartData, title: self.title, price: "4.50")
 //        LineChartView(
 //            data: self.chartData,
 //            title: self.title,
@@ -131,13 +135,14 @@ struct Line: View {
         if let min = min, let max = max, min != max {
             if (min <= 0){
                 return (frame.size.height-padding) / CGFloat(max - min)
-            }else{
+            } else {
                 return (frame.size.height-padding) / CGFloat(max + min)
             }
         }
         
         return 0
     }
+    
     var path: Path {
         let points = self.data
         return Path.lineChart(points: points, step: CGPoint(x: stepWidth, y: stepHeight))
@@ -172,5 +177,33 @@ extension Path {
             path.addLine(to: p2)
         }
         return path
+    }
+}
+
+struct ChartTestView: UIViewRepresentable {
+    @Binding var chartData: [Double]
+    
+    func makeUIView(context: Context) -> AAChartView {
+        AAChartView()
+    }
+
+    func updateUIView(_ uiView: AAChartView, context: Context) {
+        let aaChartModel = AAChartModel()
+                    .chartType(.line)//Can be any of the chart types listed under `AAChartType`.
+                    .animationType(.bounce)
+                    .title("TITLE")//The chart title
+                    .subtitle("subtitle")//The chart subtitle
+                    .dataLabelsEnabled(false) //Enable or disable the data labels. Defaults to false
+                    .tooltipValueSuffix("USD")//the value suffix of the chart tooltip
+//                    .categories(["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+//                                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
+                    .colorsTheme(["#fe117c","#ffc069","#06caf4","#7dffc0"])
+                    .series([
+                        AASeriesElement()
+                            .name("Tokyo")
+                            .data(self.chartData),
+                        ])
+        
+        uiView.aa_drawChartWithChartModel(aaChartModel)
     }
 }

@@ -67,4 +67,28 @@ public class CoinFetcher {
             .store(in: &cancellables)
     }
     
+    public func getStockFrom(coin: String, completion: @escaping RETURNED_ARRAY_METHOD) {
+        self.service
+            .getStockPricesFrom(coin: coin)
+            .receive(on: RunLoop.main)
+            .sink {  receivedCompletition in
+                
+                switch receivedCompletition {
+                case .failure(let error):
+                    completion([], error)
+                case .finished:
+                    print("😃Finished publisher from getStockFrom")
+                }
+            
+            } receiveValue: { stockValues in
+                let valuesRange: [(String, Double)] = stockValues!.map { stock in
+                    return (stock.key, Double(stock.value.close)!)
+                }
+                
+                completion(valuesRange, nil)
+            }
+            .store(in: &cancellables)
+
+    }
+    
 }
