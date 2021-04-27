@@ -43,7 +43,7 @@ public struct ChartView: View {
     public var body: some View {
 
         ChartTestView(chartData: self.$chartData)
-            .frame(width: UIScreen.main.bounds.width, height: 300, alignment: .center)
+            .frame(width: UIScreen.main.bounds.width, height: 220, alignment: .center)
         
 //        LineView(data: self.chartData, title: self.title, price: "4.50")
 //        LineChartView(
@@ -200,10 +200,11 @@ struct ChartTestView: UIViewRepresentable {
                     .colorsTheme(["#fe117c","#ffc069","#06caf4","#7dffc0"])
                     .series([
                         AASeriesElement()
-                            .name("Tokyo")
+                            .name("")
                             .data(self.chartData),
                         ])
         
         uiView.aa_drawChartWithChartModel(aaChartModel)
+        uiView.scrollView.bounces = false
     }
 }
