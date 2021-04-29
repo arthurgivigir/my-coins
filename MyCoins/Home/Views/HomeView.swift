@@ -34,9 +34,9 @@ struct HomeView: View {
                 HStack {
                     ChartView(
                         title: "Variação cambial",
-                        data: self.$homeViewModel.rangeValues,
-                        lastData: .constant("teste"),
-                        chartData: self.$homeViewModel.chartValues
+                        subtitle: "Dólar hoje",
+                        chartData: self.$homeViewModel.chartValues,
+                        chartCategories: self.$homeViewModel.chartCategories
                     )
                 }
             }

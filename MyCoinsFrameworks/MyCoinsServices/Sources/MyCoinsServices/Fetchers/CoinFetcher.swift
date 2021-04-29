@@ -58,11 +58,24 @@ public class CoinFetcher {
             } receiveValue: { coinModel in
                 print("\(String(describing: coinModel))")
                 
-                let valuesRange: [(String, Double)] = coinModel!.map{ coin in
-                    return (coin!.formattedHour, Double(coin!.bid!)!)
+                let coins = coinModel?.sorted(by: { coin1, coin2 in
+                    if let hour1 = coin1?.formattedHour, let hour2 = coin2?.formattedHour {
+                        return hour1 < hour2
+                    }
+                    
+                    return false
+                })
+                
+                if let coins = coins {
+                    let valuesRange: [(String, Double)] = coins.map { coin in
+                        return (coin!.formattedHour, Double(coin!.bid!)!)
+                    }
+                    
+                    completion(valuesRange, nil)
+                    return
                 }
                 
-                completion(valuesRange, nil)
+                completion([], nil)
             }
             .store(in: &cancellables)
     }

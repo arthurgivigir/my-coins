@@ -15,6 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published private (set) var coinModel = CoinModel(date: Date())
     @Published var rangeValues = [(String, Double)]()
     @Published var chartValues = [(Double)]()
+    @Published var chartCategories = [(String)]()
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -56,16 +57,14 @@ final class HomeViewModel: ObservableObject {
                 return
             }
             
-//            if let values = values {
-            print(values)
             self?.rangeValues = values
             
-            self?.chartValues = values.map { _, value in
-                return value
+            _ = values.map { name, value in
+                self?.chartValues.append(value)
+                self?.chartCategories.append(name)
             }
         
             return
-//            }
         }
         
 //        CoinFetcher.shared.getStockFrom(coin: "USD-BRL") { [weak self] values, error in
