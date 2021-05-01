@@ -33,7 +33,7 @@ struct HomeView: View {
                                minHeight: 0,
                                maxHeight: 180,
                            alignment: .center)
-                        .background(BlurEffectView())
+                        .background(BlurEffectView(effect: .regular))
                         .cornerRadius(20)
                         .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
                         
@@ -80,7 +80,7 @@ struct HomeView: View {
                    alignment: .top
             )
             .edgesIgnoringSafeArea(.bottom)
-            .navigationBarTitle("FunCoin", displayMode: .inline)
+            .navigationBarTitle("Câmbio Sincero", displayMode: .inline)
             .navigationBarItems(trailing:
                                     Image(systemName: "ellipsis")
                                     .font(.system(size: 20, weight: .regular))
@@ -103,18 +103,5 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-    }
-}
-
-
-struct BlurEffectView: UIViewRepresentable {
-    
-    func makeUIView(context: Context) -> UIVisualEffectView {
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
-        return UIVisualEffectView(effect: blurEffect)
-    }
-    
-    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
-        uiView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 }
