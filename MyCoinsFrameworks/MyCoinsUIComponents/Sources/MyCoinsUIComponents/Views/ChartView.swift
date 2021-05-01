@@ -35,7 +35,6 @@ public struct ChartView: View {
             chartData: self.$chartData,
             chartCategories: self.$chartCategories
         )
-        .frame(width: UIScreen.main.bounds.width, height: 220, alignment: .center)
     }
 }
 
@@ -79,11 +78,12 @@ private struct ChartViewReprentable: UIViewRepresentable {
             .chartType(.line)//Can be any of the chart types listed under `AAChartType`.
             .animationType(.bounce)
             .title(self.title)//The chart title
-            .subtitle(self.subtitle)//The chart subtitle
+//            .subtitle(self.subtitle)//The chart subtitle
             .dataLabelsEnabled(false) //Enable or disable the data labels. Defaults to false
             .tooltipValueSuffix("USD")//the value suffix of the chart tooltip
             .categories(self.chartCategories)
-            .colorsTheme(["#fe117c","#ffc069","#06caf4","#7dffc0"])
+            .colorsTheme(["#9019EB"])
+            .dataLabelsStyle(AAStyle(color: "#310F42", fontSize: 17.0, weight: .bold))
             .series([
                 AASeriesElement()
                     .name("")

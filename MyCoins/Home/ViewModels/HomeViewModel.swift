@@ -66,25 +66,6 @@ final class HomeViewModel: ObservableObject {
         
             return
         }
-        
-//        CoinFetcher.shared.getStockFrom(coin: "USD-BRL") { [weak self] values, error in
-//            
-//            if let error = error {
-//                print("😭 Ocorreu um erro: \(error.localizedDescription)")
-//                return
-//            }
-//            
-////            if let values = values {
-//            print(values)
-//            self?.rangeValues = values
-//            
-//            self?.chartValues = values.map { _, value in
-//                return value
-//            }
-//        
-//            return
-////            }
-//        }
     }
     
 }

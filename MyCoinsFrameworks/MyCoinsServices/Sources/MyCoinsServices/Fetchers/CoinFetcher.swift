@@ -14,12 +14,12 @@ public class CoinFetcher {
     public typealias RETURNED_METHOD = (CoinModel?, Error?) -> Void
     public typealias RETURNED_ARRAY_METHOD = ([(String, Double)], Error?) -> Void
     private var cancellables = Set<AnyCancellable>()
-    private let service: CoinService
+    private let service: CoinInteractor
     
     public static let shared: CoinFetcher = CoinFetcher()
     
     private init() {
-        self.service = CoinService()
+        self.service = CoinInteractor()
     }
     
     public func getValueFrom(coin: String, completion: @escaping RETURNED_METHOD) {
@@ -78,30 +78,6 @@ public class CoinFetcher {
                 completion([], nil)
             }
             .store(in: &cancellables)
-    }
-    
-    public func getStockFrom(coin: String, completion: @escaping RETURNED_ARRAY_METHOD) {
-        self.service
-            .getStockPricesFrom(coin: coin)
-            .receive(on: RunLoop.main)
-            .sink {  receivedCompletition in
-                
-                switch receivedCompletition {
-                case .failure(let error):
-                    completion([], error)
-                case .finished:
-                    print("😃Finished publisher from getStockFrom")
-                }
-            
-            } receiveValue: { stockValues in
-                let valuesRange: [(String, Double)] = stockValues!.map { stock in
-                    return (stock.key, Double(stock.value.close)!)
-                }
-                
-                completion(valuesRange, nil)
-            }
-            .store(in: &cancellables)
-
     }
     
 }
