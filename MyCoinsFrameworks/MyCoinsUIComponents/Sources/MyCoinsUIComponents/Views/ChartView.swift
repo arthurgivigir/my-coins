@@ -7,51 +7,90 @@
 
 import SwiftUI
 import SwiftUICharts
+import AAInfographics
 
 public struct ChartView: View {
     
     private var title: String
-    private var customStyle: ChartStyle
+    private var subtitle: String
     
-    @Binding private var data: [(String, Double)]
-    @Binding private var lastData: String
-    
+    @Binding private var chartData: [Double]
+    @Binding private var chartCategories: [String]
     
     public init(
         title: String,
-        data: Binding<[(String, Double)]>,
-        lastData: Binding<String>) {
+        subtitle: String,
+        chartData: Binding<[Double]>,
+        chartCategories: Binding<[String]>) {
         self.title = title
-        self._data = data
-        self._lastData = lastData
-        
-        customStyle = ChartStyle(
-            backgroundColor: .purple,
-            accentColor: Color.mcSecondary,
-            secondGradientColor: Color.mcSecondary,
-            textColor: .white,
-            legendTextColor: Color.mcPrimaryDarker,
-            dropShadowColor: .white
-        )
+        self.subtitle = subtitle
+        self._chartData = chartData
+        self._chartCategories = chartCategories
     }
     
     public var body: some View {
-
-        BarChartView(
-            data: ChartData(values: self.data),
+        ChartViewReprentable(
             title: self.title,
-            legend: self.lastData,
-            style: customStyle,
-            form: CGSize(width: UIScreen.main.bounds.size.width - 50, height: 200),
-            dropShadow: false,
-            animatedToBack: false
-        ).preferredColorScheme(.light)
-        
+            subtitle: self.subtitle,
+            chartData: self.$chartData,
+            chartCategories: self.$chartCategories
+        )
     }
 }
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartView(title: "Teste", data: .constant([("2018 Q4",63150), ("2019 Q1",50900), ("2019 Q2",77550), ("2019 Q3",79600), ("2019 Q4",92550)]), lastData: .constant("Teste"))
+        ChartView(
+            title: "Teste",
+            subtitle: "Testando",
+            chartData: .constant([1,2,3,4,5,3,2,4]),
+            chartCategories: .constant(["1", "2", "3", "4", "5", "3", "2", "4"])
+        )
+    }
+}
+
+private struct ChartViewReprentable: UIViewRepresentable {
+
+    private var title: String
+    private var subtitle: String
+
+    @Binding private var chartData: [Double]
+    @Binding private var chartCategories: [String]
+    
+    internal init(
+        title: String,
+        subtitle: String,
+        chartData: Binding<[Double]>,
+        chartCategories: Binding<[String]>
+    ) {
+        self.title = title
+        self.subtitle = subtitle
+        self._chartData = chartData
+        self._chartCategories = chartCategories
+    }
+    
+    func makeUIView(context: Context) -> AAChartView {
+        AAChartView()
+    }
+
+    func updateUIView(_ uiView: AAChartView, context: Context) {
+        let aaChartModel = AAChartModel()
+            .chartType(.line)//Can be any of the chart types listed under `AAChartType`.
+            .animationType(.bounce)
+            .title(self.title)//The chart title
+//            .subtitle(self.subtitle)//The chart subtitle
+            .dataLabelsEnabled(false) //Enable or disable the data labels. Defaults to false
+            .tooltipValueSuffix("USD")//the value suffix of the chart tooltip
+            .categories(self.chartCategories)
+            .colorsTheme(["#9019EB"])
+            .dataLabelsStyle(AAStyle(color: "#310F42", fontSize: 17.0, weight: .bold))
+            .series([
+                AASeriesElement()
+                    .name("")
+                    .data(self.chartData),
+                ])
+        
+        uiView.aa_drawChartWithChartModel(aaChartModel)
+        uiView.scrollView.bounces = false
     }
 }

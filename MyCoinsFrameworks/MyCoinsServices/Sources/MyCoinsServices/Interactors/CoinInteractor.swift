@@ -16,6 +16,7 @@ public protocol CoinInteractorProtocol {
 }
 
 public struct CoinInteractor: CoinInteractorProtocol {
+    
     private var coinService: CoinServiceProtocol
     
     public init() {
@@ -33,5 +34,4 @@ public struct CoinInteractor: CoinInteractorProtocol {
     public func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[CoinModel?]?, Error> {
         return coinService.getValuesFrom(coin: coin, range: range).eraseToAnyPublisher()
     }
-    
 }

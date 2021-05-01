@@ -14,6 +14,7 @@ protocol CoinServiceProtocol {
     func getValueFrom(coin: String) -> AnyPublisher<CoinModel?, Error>
     func getValueFrom(coins: [String]) -> AnyPublisher<[CoinModel?]?, Error>
     func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[CoinModel?]?, Error>
+    func getStockPricesFrom(coin: String) -> AnyPublisher<[String: StockPriceMinutelyModel]?, Error>
 }
 
 struct CoinService: CoinServiceProtocol {
@@ -47,12 +48,30 @@ struct CoinService: CoinServiceProtocol {
     }
     
     func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[CoinModel?]?, Error> {
-        if let url = URL(string: "https://economia.awesomeapi.com.br/json/daily/\(coin)/\(range)") {
+        if let url = URL(string: "https://economia.awesomeapi.com.br/USD/50") {
             return AF.request(url)
                 .publishDecodable(type: [CoinModel].self, queue: .global(qos: .background))
                 .value()
                 .map { coins in return Array(coins) }
                 .mapError { aferror in APIErrorEnum(error: aferror) }
+                .eraseToAnyPublisher()
+        }
+        
+        return CurrentValueSubject(nil).eraseToAnyPublisher()
+    }
+    
+    func getStockPricesFrom(coin: String) -> AnyPublisher<[String: StockPriceMinutelyModel]?, Error> {
+        if let url = URL(string: "https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=EUR&to_symbol=USD&interval=5min&outputsize=full&apikey=demo") {
+            return AF.request(url)
+                .publishDecodable(type: StockPriceModel.self, queue: .global(qos: .background))
+                .value()
+                .map { coins in
+                    return coins.stockPriceMinutelyModel
+                    
+                }
+                .mapError { aferror in
+                    APIErrorEnum(error: aferror)
+                }
                 .eraseToAnyPublisher()
         }
         

@@ -24,6 +24,7 @@ let package = Package(
 //        .package(name: "Charts", url: "https://github.com/spacenation/swiftui-charts", from: "1.0.0")
         .package(name: "SwiftUICharts", url: "https://github.com/AppPear/ChartView", from: "1.5.5"),
         .package(name: "Charts", url: "https://github.com/danielgindi/Charts", from: "4.0.1"),
+        .package(name: "AAInfographics", url: "https://github.com/AAChartModel/AAChartKit-Swift", from: "6.0.0"),
         
     ],
     targets: [
@@ -31,7 +32,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "MyCoinsUIComponents",
-            dependencies: ["MyCoinsCore", "Lottie", "SwiftUICharts", "Charts"]),
+            dependencies: ["MyCoinsCore", "Lottie", "SwiftUICharts", "Charts", "AAInfographics"]),
         .target(
             name: "MyCoinsWidgetUIComponents",
             dependencies: ["MyCoinsCore", "MyCoinsUIComponents"]),

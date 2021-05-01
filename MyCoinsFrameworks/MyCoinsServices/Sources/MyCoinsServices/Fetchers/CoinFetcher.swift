@@ -14,12 +14,12 @@ public class CoinFetcher {
     public typealias RETURNED_METHOD = (CoinModel?, Error?) -> Void
     public typealias RETURNED_ARRAY_METHOD = ([(String, Double)], Error?) -> Void
     private var cancellables = Set<AnyCancellable>()
-    private let service: CoinService
+    private let service: CoinInteractor
     
     public static let shared: CoinFetcher = CoinFetcher()
     
     private init() {
-        self.service = CoinService()
+        self.service = CoinInteractor()
     }
     
     public func getValueFrom(coin: String, completion: @escaping RETURNED_METHOD) {
@@ -58,11 +58,24 @@ public class CoinFetcher {
             } receiveValue: { coinModel in
                 print("\(String(describing: coinModel))")
                 
-                let valuesRange: [(String, Double)] = coinModel!.map{ coin in
-                    return (coin!.bid!, Double(coin!.bid!)!)
+                let coins = coinModel?.sorted(by: { coin1, coin2 in
+                    if let hour1 = coin1?.formattedHour, let hour2 = coin2?.formattedHour {
+                        return hour1 < hour2
+                    }
+                    
+                    return false
+                })
+                
+                if let coins = coins {
+                    let valuesRange: [(String, Double)] = coins.map { coin in
+                        return (coin!.formattedHour, Double(coin!.bid!)!)
+                    }
+                    
+                    completion(valuesRange, nil)
+                    return
                 }
                 
-                completion(valuesRange, nil)
+                completion([], nil)
             }
             .store(in: &cancellables)
     }
