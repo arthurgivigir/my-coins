@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MyCoinsApp: App {
+    
+    private var homeViewModel = HomeViewModel()
+    
     var body: some Scene {
         WindowGroup {
             HomeView()
+                .environmentObject(self.homeViewModel)
                 .preferredColorScheme(.dark)
         }
     }

@@ -7,12 +7,10 @@
 
 import SwiftUI
 import MyCoinsCore
-import MyCoinsWidgetUIComponents
-import MyCoinsUIComponents
 
 struct HomeView: View {
     
-    @ObservedObject private var homeViewModel = HomeViewModel()
+    @EnvironmentObject var homeViewModel: HomeViewModel
     
     init() {
         self.setNavigationColor()
@@ -22,53 +20,21 @@ struct HomeView: View {
         NavigationView {
             VStack {
                 // Widget Space
-                HStack {
-                    MainWidgetView(
-                        coin: self.homeViewModel.coinModel,
-                        hasBackground: false,
-                        primaryFont: .largeTitle,
-                        secondaryFont: .callout)
-                        .frame(minWidth: 0,
-                               maxWidth: .infinity,
-                               minHeight: 0,
-                               maxHeight: 180,
-                           alignment: .center)
-                        .background(BlurEffectView(effect: .regular))
-                        .cornerRadius(20)
-                        .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
-                        
-                }
-                .padding(20)
-                .frame(minWidth: 0,
-                       maxWidth: .infinity,
-                       minHeight: 0,
-                       maxHeight: 220,
-                   alignment: .center)
+                HomeHeaderView()
+                    .padding(20)
+                    .frame(minWidth: 0,
+                           maxWidth: .infinity,
+                           minHeight: 0,
+                           maxHeight: 220,
+                       alignment: .center)
                 
                 // Chart and animation space
-                VStack {
-                    ChartView(
-                        title: "Variação cambial",
-                        subtitle: "Dólar hoje",
-                        chartData: self.$homeViewModel.chartValues,
-                        chartCategories: self.$homeViewModel.chartCategories
-                    )
-                    .frame(width: UIScreen.main.bounds.width, height: 220, alignment: .top)
-                    
-                    MCLottieView(name: LottieNames.capitalInvestiment.rawValue, loopMode: .loop)
-                        .scaledToFit()
-                        .opacity(0.8)
-                        .frame(minWidth: 0,
-                               maxWidth: 250,
-                               minHeight: 0,
-                               maxHeight: .infinity,
-                           alignment: .bottom)
-                }
-                .padding(30)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-                .background(Color.white)
-                .cornerRadius(20)
-                .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+                HomeChartView()
+                    .padding(30)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+                    .background(Color.white)
+                    .cornerRadius(20)
+                    .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
             }
             .onAppear() {
                 self.homeViewModel.fetch()
