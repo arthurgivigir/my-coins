@@ -11,4 +11,15 @@ public enum RateEnum {
     case up
     case down
     case stable
+    
+    public func getTableName() -> String {
+        switch self {
+        case .up:
+            return "upMessage"
+        case .down:
+            return "downMessage"
+        default:
+            return "stableMessage"
+        }
+    }
 }

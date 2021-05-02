@@ -8,6 +8,7 @@
 import Foundation
 import MyCoinsCore
 import Combine
+import Firebase
 
 public protocol CoinInteractorProtocol {
     func getValueFrom(coin: String) -> AnyPublisher<CoinModel?, Error>

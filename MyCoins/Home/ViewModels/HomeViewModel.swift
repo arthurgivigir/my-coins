@@ -16,6 +16,9 @@ final class HomeViewModel: ObservableObject {
     @Published var rangeValues = [(String, Double)]()
     @Published var chartValues = [(Double)]()
     @Published var chartCategories = [(String)]()
+    @Published var showToast: Bool = false
+    @Published var messageToast: String = ""
+    @Published var subtitleToast: String = ""
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -23,10 +26,11 @@ final class HomeViewModel: ObservableObject {
         self.getValueFromCoin()
         self.getRangeFromCoin()
         
-        Timer.publish(every: 60, on: .main, in: .default)
+        Timer.publish(every: 600, on: .main, in: .default)
             .autoconnect()
             .sink { time in
                 self.getValueFromCoin()
+                self.getRangeFromCoin()
                 print(time)
             }
             .store(in: &cancellables)
@@ -37,8 +41,8 @@ final class HomeViewModel: ObservableObject {
             .shared
             .getValueFrom(coin: "USD-BRL") { [weak self] coinModel, error in
                 
-                if let error = error {
-                    print("😭 Ocorreu um erro: \(error.localizedDescription)")
+                if let error = error as? APIErrorEnum {
+                    self?.errorCheck(error)
                     return
                 }
                 
@@ -52,8 +56,8 @@ final class HomeViewModel: ObservableObject {
     private func getRangeFromCoin() {
         CoinFetcher.shared.getRangeFrom(coin: "USD-BRL") { [weak self] values, error in
             
-            if let error = error {
-                print("😭 Ocorreu um erro: \(error.localizedDescription)")
+            if let error = error as? APIErrorEnum {
+                self?.errorCheck(error)
                 return
             }
             
@@ -64,6 +68,24 @@ final class HomeViewModel: ObservableObject {
                 self?.chartCategories.append(name)
             }
         
+            return
+        }
+    }
+    
+    private func errorCheck(_ error: APIErrorEnum?) {
+        switch error {
+        case .network:
+            print("😭 Ocorreu um erro: \(String(describing: error?.localizedDescription))")
+            self.showToast = true
+            self.messageToast = "Ocorreu um erro!"
+            self.subtitleToast = "Verifique sua conexão e tente novamente!"
+            return
+            
+        default:
+            print("😭 Ocorreu um erro: \(String(describing: error?.localizedDescription))")
+            self.showToast = true
+            self.messageToast = "Ocorreu um erro!"
+            self.subtitleToast = "Tente novamente!"
             return
         }
     }

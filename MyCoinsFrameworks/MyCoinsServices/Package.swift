@@ -13,12 +13,13 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "MyCoinsServices",
-            type: .dynamic,
+            type: .static,
             targets: ["MyCoinsServices"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.2.0")),
+        .package(name: "Firebase", url: "https://github.com/firebase/firebase-ios-sdk.git", .branch("master")),
         .package(path: "MyCoinsCore")
     ],
     targets: [
@@ -28,7 +29,8 @@ let package = Package(
             name: "MyCoinsServices",
             dependencies: [
                 "Alamofire",
-                "MyCoinsCore"
+                "MyCoinsCore",
+                .product(name: "FirebaseFirestore", package: "Firebase"),
             ]
         ),
         .testTarget(
