@@ -67,7 +67,7 @@ public struct MainWidgetView : View {
                         .background(Color.white)
                         .frame(width: 100, alignment: .center)
                     
-                    Text("E você ai pensando em viajar né minha filha?")
+                    Text(coin.message ?? "")
                         .font(.system(self.secondaryFont))
                         .fontWeight(.light)
                         .minimumScaleFactor(0.5)

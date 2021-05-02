@@ -16,6 +16,7 @@ public struct CoinModel: TimelineEntry, Codable {
     public var name, high, low, varBid: String?
     public var pctChange, bid, ask, timestamp: String?
     public var createDate: String?
+    public var message: String?
     
     public init(date: Date) {
         self.date = date

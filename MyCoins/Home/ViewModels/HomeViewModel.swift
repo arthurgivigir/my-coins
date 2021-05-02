@@ -26,10 +26,11 @@ final class HomeViewModel: ObservableObject {
         self.getValueFromCoin()
         self.getRangeFromCoin()
         
-        Timer.publish(every: 60, on: .main, in: .default)
+        Timer.publish(every: 600, on: .main, in: .default)
             .autoconnect()
             .sink { time in
                 self.getValueFromCoin()
+                self.getRangeFromCoin()
                 print(time)
             }
             .store(in: &cancellables)

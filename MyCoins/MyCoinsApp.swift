@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import MyCoinsServices
 
 @main
 struct MyCoinsApp: App {
     
     private var homeViewModel = HomeViewModel()
+    
+    init() {
+        MyCoinsServices.shared.setupFirebase()
+    }
     
     var body: some Scene {
         WindowGroup {
