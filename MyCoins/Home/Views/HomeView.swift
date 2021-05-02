@@ -7,10 +7,13 @@
 
 import SwiftUI
 import MyCoinsCore
+import AlertToast
 
 struct HomeView: View {
     
     @EnvironmentObject var homeViewModel: HomeViewModel
+    @State private var showingAlert: Bool = false
+    @State private var showingSheet = false
     
     init() {
         self.setNavigationColor()
@@ -47,21 +50,37 @@ struct HomeView: View {
             )
             .edgesIgnoringSafeArea(.bottom)
             .navigationBarTitle("Câmbio Sincero", displayMode: .inline)
-            .navigationBarItems(trailing:
-                                    Image(systemName: "ellipsis")
-                                    .font(.system(size: 20, weight: .regular))
-                                    .foregroundColor(.white)
-            )
-            .background(
-                LinearGradient(
-                gradient:
-                    Gradient(
-                        colors: [.mcPrimaryDarker, .mcPrimary]),
-                        startPoint: .top, endPoint: .bottom
-                    )
-                .edgesIgnoringSafeArea(.vertical)
-            )
+            .background(self.background)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button("Configuração do Widget") {
+                            self.showingAlert = true
+                        }
+                        
+                        Button("Sobre") {
+                            self.showingSheet = true
+                        }
+                    }
+                    label: {
+                        Label("menu", systemImage: "ellipsis")
+                            .font(.system(size: 20, weight: .regular))
+                            .foregroundColor(.white)
+                    }
+                }
+            }
             
+        }
+        .toast(isPresenting: self.$homeViewModel.showToast){
+            AlertToast(
+                displayMode: .hud,
+                type: .error(.red),
+                title: self.homeViewModel.messageToast,
+                subTitle: self.homeViewModel.subtitleToast
+            )
+        }
+        .sheet(isPresented: $showingSheet) {
+            SheetView()
         }
     }
 }
@@ -69,5 +88,20 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(HomeViewModel())
+    }
+}
+
+
+struct SheetView: View {
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        Button("Press to dismiss") {
+            presentationMode.wrappedValue.dismiss()
+        }
+        .font(.title)
+        .padding()
+        .background(self.background)
     }
 }

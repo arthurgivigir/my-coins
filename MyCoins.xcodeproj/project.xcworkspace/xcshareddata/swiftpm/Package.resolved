@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "AlertToast",
+        "repositoryURL": "https://github.com/elai950/AlertToast",
+        "state": {
+          "branch": null,
+          "revision": "e53a1541095fd5985c4cadcbbc90b8ba09028894",
+          "version": "1.2.6"
+        }
+      },
+      {
         "package": "Charts",
         "repositoryURL": "https://github.com/danielgindi/Charts",
         "state": {

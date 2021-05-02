@@ -8,6 +8,16 @@ import SwiftUI
 
 public extension View {
     
+    var background: some View {
+        return LinearGradient(
+                gradient:
+                    Gradient(
+                        colors: [.mcPrimaryDarker, .mcPrimary]),
+                        startPoint: .top, endPoint: .bottom
+                    )
+                .edgesIgnoringSafeArea(.vertical)
+    }
+    
     func setNavigationColor() {
         UINavigationBar.appearance().barTintColor = .clear
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)

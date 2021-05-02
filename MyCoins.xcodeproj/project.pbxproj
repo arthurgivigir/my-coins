@@ -37,6 +37,7 @@
 		56F8E935262CC41B00BB224C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8E934262CC41B00BB224C /* HomeViewModel.swift */; };
 		6C32FBF9263DCD8500C0ADD8 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C32FBF8263DCD8500C0ADD8 /* HomeHeaderView.swift */; };
 		6C32FBFB263DCEA300C0ADD8 /* HomeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C32FBFA263DCEA300C0ADD8 /* HomeChartView.swift */; };
+		6CBB194D263EE98F00332B5A /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 6CBB194C263EE98F00332B5A /* AlertToast */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				566EEE0D2635F0070001A842 /* MyCoinsServices in Frameworks */,
+				6CBB194D263EE98F00332B5A /* AlertToast in Frameworks */,
 				56E98AF82607EC6E008763E8 /* MyCoinsCore in Frameworks */,
 				563E9753261902CB0063A3A8 /* MyCoinsUIComponents in Frameworks */,
 			);
@@ -341,6 +343,7 @@
 				56E98AF72607EC6E008763E8 /* MyCoinsCore */,
 				563E9752261902CB0063A3A8 /* MyCoinsUIComponents */,
 				566EEE0C2635F0070001A842 /* MyCoinsServices */,
+				6CBB194C263EE98F00332B5A /* AlertToast */,
 			);
 			productName = MyCoins;
 			productReference = 56D83F8C25E1970A00DE2FBB /* MyCoins.app */;
@@ -440,6 +443,7 @@
 			);
 			mainGroup = 56D83F8325E1970A00DE2FBB;
 			packageReferences = (
+				6CBB194B263EE98F00332B5A /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 56D83F8D25E1970A00DE2FBB /* Products */;
 			projectDirPath = "";
@@ -889,6 +893,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		6CBB194B263EE98F00332B5A /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = exactVersion;
+				version = 1.2.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		563E974D261902390063A3A8 /* MyCoinsUIComponents */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -913,6 +928,11 @@
 		56E98AF72607EC6E008763E8 /* MyCoinsCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MyCoinsCore;
+		};
+		6CBB194C263EE98F00332B5A /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CBB194B263EE98F00332B5A /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
