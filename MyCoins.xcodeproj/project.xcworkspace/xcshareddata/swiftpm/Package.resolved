@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "eaf6e622dd41b07b251d8f01752eab31bc811493",
-          "version": "5.4.1"
+          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
+          "version": "5.4.3"
         }
       },
       {
@@ -132,8 +132,8 @@
         "repositoryURL": "https://github.com/airbnb/lottie-ios.git",
         "state": {
           "branch": null,
-          "revision": "b3c60ba1716baab6faeeb217d8ce1da336f92718",
-          "version": "3.2.1"
+          "revision": "e428f89675588f2fe58891eac5f7c971098cf1a0",
+          "version": "3.2.2"
         }
       },
       {

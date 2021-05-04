@@ -7,13 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5623909B261D293200F262D4 /* MyCoinsCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AF72607EC6E008763E8 /* MyCoinsCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		563E974E261902390063A3A8 /* MyCoinsUIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 563E974D261902390063A3A8 /* MyCoinsUIComponents */; };
-		563E974F261902390063A3A8 /* MyCoinsUIComponents in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 563E974D261902390063A3A8 /* MyCoinsUIComponents */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		563E9753261902CB0063A3A8 /* MyCoinsUIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 563E9752261902CB0063A3A8 /* MyCoinsUIComponents */; };
-		563E9754261902CB0063A3A8 /* MyCoinsUIComponents in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 563E9752261902CB0063A3A8 /* MyCoinsUIComponents */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		563E975A261907260063A3A8 /* MyCoinsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 563E9759261907260063A3A8 /* MyCoinsCore */; };
-		563E975B261907260063A3A8 /* MyCoinsCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 563E9759261907260063A3A8 /* MyCoinsCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		5647D4892626456000819595 /* capital_investment.json in Resources */ = {isa = PBXBuildFile; fileRef = 5647D4882626456000819595 /* capital_investment.json */; };
 		5647D48D2626457600819595 /* LottieNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647D48C2626457600819595 /* LottieNames.swift */; };
 		56C7A39926225AD9007CBA3E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C7A39826225AD9007CBA3E /* HomeView.swift */; };
@@ -33,10 +29,12 @@
 		56F8E935262CC41B00BB224C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8E934262CC41B00BB224C /* HomeViewModel.swift */; };
 		6C1C3E18263F24E1001327BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C3E17263F24E1001327BC /* GoogleService-Info.plist */; };
 		6C1C3E1A263F262E001327BC /* MyCoinsServices in Frameworks */ = {isa = PBXBuildFile; productRef = 6C1C3E19263F262E001327BC /* MyCoinsServices */; };
-		6C1C3E1C263F27E0001327BC /* MyCoinsServices in Frameworks */ = {isa = PBXBuildFile; productRef = 6C1C3E1B263F27E0001327BC /* MyCoinsServices */; };
 		6C1C3E1F263F4509001327BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C3E17263F24E1001327BC /* GoogleService-Info.plist */; };
 		6C32FBF9263DCD8500C0ADD8 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C32FBF8263DCD8500C0ADD8 /* HomeHeaderView.swift */; };
 		6C32FBFB263DCEA300C0ADD8 /* HomeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C32FBFA263DCEA300C0ADD8 /* HomeChartView.swift */; };
+		6C90E691263F4C7D0077941D /* MyCoinsServices in Frameworks */ = {isa = PBXBuildFile; productRef = 6C90E690263F4C7D0077941D /* MyCoinsServices */; };
+		6C90E692263F53E20077941D /* MyCoinsCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 56E98AF72607EC6E008763E8 /* MyCoinsCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6C90E693263F53E30077941D /* MyCoinsUIComponents in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 563E9752261902CB0063A3A8 /* MyCoinsUIComponents */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6CBB194D263EE98F00332B5A /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 6CBB194C263EE98F00332B5A /* AlertToast */; };
 /* End PBXBuildFile section */
 
@@ -82,8 +80,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5623909B261D293200F262D4 /* MyCoinsCore in Embed Frameworks */,
-				563E9754261902CB0063A3A8 /* MyCoinsUIComponents in Embed Frameworks */,
+				6C90E692263F53E20077941D /* MyCoinsCore in Embed Frameworks */,
+				6C90E693263F53E30077941D /* MyCoinsUIComponents in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,8 +92,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				563E975B261907260063A3A8 /* MyCoinsCore in Embed Frameworks */,
-				563E974F261902390063A3A8 /* MyCoinsUIComponents in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,7 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C1C3E1C263F27E0001327BC /* MyCoinsServices in Frameworks */,
+				6C90E691263F4C7D0077941D /* MyCoinsServices in Frameworks */,
 				563E974E261902390063A3A8 /* MyCoinsUIComponents in Frameworks */,
 				563E975A261907260063A3A8 /* MyCoinsCore in Frameworks */,
 				56D8402525E19B8100DE2FBB /* SwiftUI.framework in Frameworks */,
@@ -402,7 +398,7 @@
 			packageProductDependencies = (
 				563E974D261902390063A3A8 /* MyCoinsUIComponents */,
 				563E9759261907260063A3A8 /* MyCoinsCore */,
-				6C1C3E1B263F27E0001327BC /* MyCoinsServices */,
+				6C90E690263F4C7D0077941D /* MyCoinsServices */,
 			);
 			productName = MyCoinsWidgetExtension;
 			productReference = 56D8402325E19B8100DE2FBB /* MyCoinsWidgetExtension.appex */;
@@ -927,7 +923,7 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = MyCoinsServices;
 		};
-		6C1C3E1B263F27E0001327BC /* MyCoinsServices */ = {
+		6C90E690263F4C7D0077941D /* MyCoinsServices */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MyCoinsServices;
 		};
