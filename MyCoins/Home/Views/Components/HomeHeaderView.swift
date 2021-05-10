@@ -33,5 +33,11 @@ struct HomeHeaderView: View {
 struct HomeHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         HomeHeaderView()
+            .environmentObject(HomeViewModel())
+            .frame(minWidth: 0,
+                   maxWidth: 400,
+                   minHeight: 0,
+                   maxHeight: 280,
+               alignment: .center)
     }
 }

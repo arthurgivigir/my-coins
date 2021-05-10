@@ -6,7 +6,6 @@
 //
 import Foundation
 import WidgetKit
-import SwiftUI
 import Intents
 
 public struct CoinModel: TimelineEntry, Codable {
@@ -45,6 +44,16 @@ public struct CoinModel: TimelineEntry, Codable {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         dateFormatter.locale = .current
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    public var formattedDate: String {
+        let date = Date(timeIntervalSince1970: Double(self.timestamp ?? "") ?? 0.0)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM HH:mm"
+        dateFormatter.locale = Locale(identifier: "pt-BR")
         
         return dateFormatter.string(from: date)
     }

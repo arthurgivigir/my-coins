@@ -8,6 +8,7 @@
 import SwiftUI
 import MyCoinsCore
 import AlertToast
+import MyCoinsUIComponents
 
 struct HomeView: View {
     
@@ -32,12 +33,30 @@ struct HomeView: View {
                        alignment: .center)
                 
                 // Chart and animation space
-                HomeChartView()
-                    .padding(30)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-                    .background(Color.white)
-                    .cornerRadius(20)
-                    .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+                VStack {
+                    
+                    VStack(alignment: .leading) {
+                        Text("Última atualização: \(self.homeViewModel.coinModel.formattedDate)")
+                            .font(.caption2)
+                            .foregroundColor(.black.opacity(0.8))
+                        Text("Referência: 1 Dólar americano (turismo)")
+                            .font(.caption2)
+                            .foregroundColor(.black.opacity(0.8))
+                    }
+                    .padding(20)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 60, alignment: .topLeading)
+                    
+                    HomeChartView()
+                        .padding(30)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+                .background(Color.white.opacity(0.6))
+                .cornerRadius(20)
+                .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
             }
             .onAppear() {
                 self.homeViewModel.fetch()

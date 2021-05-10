@@ -39,7 +39,7 @@ final class HomeViewModel: ObservableObject {
     private func getValueFromCoin() {
         CoinFetcher
             .shared
-            .getValueFrom(coin: "USD-BRL") { [weak self] coinModel, error in
+            .getValueFrom(coin: "USD-BRLT") { [weak self] coinModel, error in
                 
                 if let error = error as? APIErrorEnum {
                     self?.errorCheck(error)
@@ -54,7 +54,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func getRangeFromCoin() {
-        CoinFetcher.shared.getRangeFrom(coin: "USD-BRL") { [weak self] values, error in
+        CoinFetcher.shared.getRangeFrom(coin: "USD-BRLT") { [weak self] values, error in
             
             if let error = error as? APIErrorEnum {
                 self?.errorCheck(error)

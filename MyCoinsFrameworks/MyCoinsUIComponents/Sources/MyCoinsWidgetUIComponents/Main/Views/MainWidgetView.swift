@@ -67,14 +67,15 @@ public struct MainWidgetView : View {
                         .background(Color.white)
                         .frame(width: 100, alignment: .center)
                     
-                    Text(coin.message ?? "")
+                    Text(coin.message ?? "Nada novo por aqui... Circulando! Circulando!")
                         .font(.system(self.secondaryFont))
                         .fontWeight(.light)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.center)
                         .foregroundColor(.white)
                 }
-                .padding(10)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 20)
                 .frame(width: geometry.size.width,
                        height: geometry.size.height,
                        alignment: .center)
