@@ -39,7 +39,7 @@ public struct PullToRefreshModifier: ViewModifier {
     public func body(content: Content) -> some View {
         ZStack(alignment: .top) {
             Text("Carregando...")
-                .offset(y: 100)
+                .offset(y: 50)
             
             content
                 .offset(
@@ -60,8 +60,16 @@ public struct PullToRefreshModifier: ViewModifier {
                                 return
                             }
                             
+                            /// Solution based on asymptotic curve
+                            /// https://stackoverflow.com/questions/62268937/swiftui-how-to-change-the-speed-of-drag-based-on-distance-already-dragged
                             if value.translation.height > 0 {
-                                self.draggedOffset = value.translation
+                                let limit: CGFloat = 300 // the less the faster resistance
+                                let xOff = value.translation.width
+                                let yOff = value.translation.height
+                                let dist = sqrt(xOff*xOff + yOff*yOff);
+                                let factor = 1 / (dist / limit + 1)
+                                self.draggedOffset = CGSize(width: value.translation.width * factor,
+                                                    height: value.translation.height * factor)
                             }
                         }
                         .onEnded { value in
@@ -74,7 +82,7 @@ public struct PullToRefreshModifier: ViewModifier {
                                 return
                             }
                             
-                            withAnimation {
+                            withAnimation(.spring()) {
                                 self.draggedOffset = .zero
                                 self.target?()
                             }
