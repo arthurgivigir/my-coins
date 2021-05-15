@@ -1,15 +1,16 @@
 //
-//  MyCoinsServicesTests.swift
-//  MyCoinsServicesTests
+//  AlphavantageServicesTests.swift
+//  
 //
-//  Created by Arthur Givigir on 3/3/21.
+//  Created by Arthur Givigir on 15/05/21.
 //
-
 import XCTest
+import Foundation
+
 import Combine
 @testable import MyCoinsServices
 
-class MyCoinsServicesTests: XCTestCase {
+class AlphavantageServicesTests: XCTestCase {
     
     private let interactor = CoinInteractor()
     private var disposables: Set<AnyCancellable> = []
@@ -36,38 +37,11 @@ class MyCoinsServicesTests: XCTestCase {
         wait(for: [promise], timeout: 5)
     }
     
-    
-    func testReturnCoins() throws {
+    func testReturnStockPrices() throws {
         let promise = expectation(description: "Result coin from service")
         
         interactor
-            .getValueFrom(coins: ["USD-BRL", "EUR-BRL"])
-            .sink { completion in
-                
-            } receiveValue: { coinsModel in
-                
-                if let coinsModel = coinsModel {
-                    
-                    _ = coinsModel.map { coinModel in
-                        print("Coin Value: \(String(describing: coinModel?.bid))")
-                    }
-                    
-                } else {
-                    XCTFail("Returned empty hotels from service")
-                }
-                
-                promise.fulfill()
-            }
-            .store(in: &disposables)
-
-        wait(for: [promise], timeout: 5)
-    }
-    
-    func testReturnCoinsByDays() throws {
-        let promise = expectation(description: "Result coin from service")
-        
-        interactor
-            .getValuesFrom(coin: "USD-BRL", range: 7)
+            .getStockPricesFrom(from: "USD", to: "BRL")
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -81,8 +55,9 @@ class MyCoinsServicesTests: XCTestCase {
                 if let coinsModel = coinsModel {
                     
                     _ = coinsModel.map { coinModel in
-                        print("Coin Value: \(String(describing: coinModel?.bid))")
-                        print("Coin timestamp: \(String(describing: coinModel?.createDate))")
+                        print("Coin Value: \(String(describing: coinModel.value.close))")
+                        print("Coin Value: \(String(describing: coinModel.key))")
+//                        print("Coin timestamp: \(String(describing: coinModel?.))")
                     }
                     
                 } else {
@@ -93,7 +68,7 @@ class MyCoinsServicesTests: XCTestCase {
             }
             .store(in: &disposables)
 
-        wait(for: [promise], timeout: 5)
+        wait(for: [promise], timeout: 10)
     }
 
 }

@@ -8,13 +8,13 @@
 import Foundation
 
 // MARK: - StockPriceModel
-public struct StockPriceModel: Codable {
+public struct StockPriceMinutelyDailyModel: Codable {
     public let stockPriceDailyModel: StockPriceDailyModel
     public let stockPriceMinutelyModel: [String: StockPriceMinutelyModel]
 
     enum CodingKeys: String, CodingKey {
         case stockPriceDailyModel = "Meta Data"
-        case stockPriceMinutelyModel = "Time Series FX (5min)"
+        case stockPriceMinutelyModel = "Time Series FX (15min)"
     }
 }
 
