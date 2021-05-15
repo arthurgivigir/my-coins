@@ -60,9 +60,9 @@ public class CoinFetcher {
             .store(in: &cancellables)
     }
     
-    public func getRangeFrom(coin: String, completion: @escaping RETURNED_ARRAY_METHOD) {
+    public func getRangeFrom(coin: String, range: Int, completion: @escaping RETURNED_ARRAY_METHOD) {
         self.service
-            .getValuesFrom(coin: coin, range: 15)
+            .getValuesFrom(coin: coin, range: range)
             .receive(on: RunLoop.main)
             .sink { receivedCompletition in
                 
@@ -77,7 +77,7 @@ public class CoinFetcher {
                 print("\(String(describing: coinModel))")
                 
                 let coins = coinModel?.sorted(by: { coin1, coin2 in
-                    if let hour1 = coin1?.formattedHour, let hour2 = coin2?.formattedHour {
+                    if let hour1 = coin1?.timestamp, let hour2 = coin2?.timestamp {
                         return hour1 < hour2
                     }
                     

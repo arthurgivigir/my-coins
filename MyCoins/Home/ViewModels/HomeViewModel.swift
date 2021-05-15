@@ -23,6 +23,8 @@ final class HomeViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     public func fetch() {
+        
+        self.refreshValues()
         self.getValueFromCoin()
         self.getRangeFromCoin()
         
@@ -54,7 +56,9 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func getRangeFromCoin() {
-        CoinFetcher.shared.getRangeFrom(coin: "USD-BRLT") { [weak self] values, error in
+        CoinFetcher
+            .shared
+            .getRangeFrom(coin: "USD-BRLT", range: 25) { [weak self] values, error in
             
             if let error = error as? APIErrorEnum {
                 self?.errorCheck(error)
@@ -70,6 +74,12 @@ final class HomeViewModel: ObservableObject {
         
             return
         }
+    }
+    
+    private func refreshValues() {
+        self.rangeValues = []
+        self.chartValues = []
+        self.chartCategories = []
     }
     
     private func errorCheck(_ error: APIErrorEnum?) {
