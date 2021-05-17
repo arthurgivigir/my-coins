@@ -12,7 +12,7 @@ import MyCoinsServices
 
 final class HomeViewModel: ObservableObject {
     
-    @Published private (set) var coinModel = CoinModel(date: Date())
+    @Published private (set) var coinModel = RealtimeCurrencyExchangeRate(date: Date())
     @Published var rangeValues = [(String, Double)]()
     @Published var chartValues = [(Double)]()
     @Published var chartCategories = [(String)]()
@@ -39,9 +39,24 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func getValueFromCoin() {
+//        CoinFetcher
+//            .shared
+//            .getValueFrom(coin: "USD-BRLT") { [weak self] coinModel, error in
+//                
+//                if let error = error as? APIErrorEnum {
+//                    self?.errorCheck(error)
+//                    return
+//                }
+//                
+//                if let coinModel = coinModel {
+//                    self?.coinModel = coinModel
+//                    return
+//                }
+//            }
+        
         CoinFetcher
             .shared
-            .getValueFrom(coin: "USD-BRLT") { [weak self] coinModel, error in
+            .getStockValue(from: "USD", to: "BRL") { [weak self] coinModel, error in
                 
                 if let error = error as? APIErrorEnum {
                     self?.errorCheck(error)

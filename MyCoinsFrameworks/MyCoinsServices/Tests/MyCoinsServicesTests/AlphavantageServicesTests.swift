@@ -19,13 +19,13 @@ class AlphavantageServicesTests: XCTestCase {
         let promise = expectation(description: "Result coin from service")
         
         interactor
-            .getValueFrom(coin: "USD-BRL")
+            .getStockPriceFrom(from: "USD", to: "BRL")
             .sink { completion in
                 
             } receiveValue: { coinModel in
                 
                 if let coinModel = coinModel {
-                    print("Coin Value: \(String(describing: coinModel.rate))")
+                    print("Coin Value: \(String(describing: coinModel.askPrice))")
                 } else {
                     XCTFail("Returned empty hotels from service")
                 }

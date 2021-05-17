@@ -12,6 +12,7 @@ import FirebaseFirestore
 
 public class CoinFetcher {
     
+    public typealias RETURNED_STOCK_REALTIME = (RealtimeCurrencyExchangeRate?, Error?) -> Void
     public typealias RETURNED_METHOD = (CoinModel?, Error?) -> Void
     public typealias RETURNED_ARRAY_METHOD = ([(String, Double)], Error?) -> Void
     private var cancellables = Set<AnyCancellable>()
@@ -24,6 +25,40 @@ public class CoinFetcher {
     private init() {
         self.service = CoinInteractor()
         self.firestore = Firestore.firestore()
+    }
+    
+    public func getStockValue(from: String, to: String, completion: @escaping RETURNED_STOCK_REALTIME) {
+        self.service
+            .getStockPriceFrom(from: from, to: to)
+            .receive(on: RunLoop.main)
+            .sink { receivedCompletition in
+                
+                switch receivedCompletition {
+                case .failure(let error):
+                    completion(nil, error)
+                case .finished:
+                    print("😃Finished publisher from getValueFrom")
+                }
+                
+            } receiveValue: { [weak self] coinModel in
+                
+                if var coin = coinModel {
+                    coin.message = self?.defaultMessage
+                    
+                    self?.firestore
+                        .collection(coin.rate.getTableName())
+                        .getDocuments() { (querySnapshot, error) in
+                            
+                        self?.setCoinMessage(coin: &coin, documents: querySnapshot?.documents, error: error)
+                        completion(coin, nil)
+                    }
+                    
+                    return
+                }
+                
+                completion(coinModel, nil)
+            }
+            .store(in: &cancellables)
     }
     
     public func getValueFrom(coin: String, completion: @escaping RETURNED_METHOD) {
@@ -99,6 +134,24 @@ public class CoinFetcher {
     }
     
     private func setCoinMessage(coin: inout CoinModel, documents: [QueryDocumentSnapshot]?, error: Error?) {
+        coin.message = self.defaultMessage
+        
+        guard let documents = documents else {
+            print("Error getting documents: \(String(describing: error))")
+            return
+        }
+        
+        let maxCount = documents.count > 0 ? documents.count - 1 : 0
+        let randomRange: Int = Int.random(in: 0...maxCount)
+        
+        if let message = documents[randomRange].data()["message"] as? String {
+            coin.message = message
+        }
+        
+    }
+    
+    
+    private func setCoinMessage(coin: inout RealtimeCurrencyExchangeRate, documents: [QueryDocumentSnapshot]?, error: Error?) {
         coin.message = self.defaultMessage
         
         guard let documents = documents else {
