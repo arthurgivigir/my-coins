@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WidgetKit
 
 // MARK: - StockPriceModel
 public struct StockPriceMinutelyDailyModel: Codable {
@@ -41,11 +42,30 @@ public struct StockPriceDailyModel: Codable {
 }
 
 // MARK: - TimeSeriesFX5Min
-public struct StockPriceMinutelyModel: Codable {
+public struct StockPriceMinutelyModel: TimelineEntry, Codable {
+    public var date: Date = Date()
     public let open: String
     public let high: String
     public let low: String
     public let close: String
+    public var message: String?
+    
+    private var formatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale(identifier: "pt_BR")
+        return formatter
+    }
+    
+    public var formattedBit: String {
+        let defaultValue = "R$ 0,00"
+        
+        if let value = Double(self.close) {
+            return formatter.string(from: NSNumber(value: value)) ?? defaultValue
+        }
+        
+        return defaultValue
+    }
     
     enum CodingKeys: String, CodingKey {
         case open = "1. open"

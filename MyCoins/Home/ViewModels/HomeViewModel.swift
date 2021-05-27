@@ -26,33 +26,26 @@ final class HomeViewModel: ObservableObject {
         
         self.refreshValues()
         self.getValueFromCoin()
-        self.getRangeFromCoin()
+//        self.getRangeFromCoin()
         
         Timer.publish(every: 600, on: .main, in: .default)
             .autoconnect()
             .sink { time in
                 self.getValueFromCoin()
-                self.getRangeFromCoin()
+//                self.getRangeFromCoin()
                 print(time)
             }
             .store(in: &cancellables)
     }
     
     private func getValueFromCoin() {
-//        CoinFetcher
-//            .shared
-//            .getValueFrom(coin: "USD-BRLT") { [weak self] coinModel, error in
-//                
-//                if let error = error as? APIErrorEnum {
-//                    self?.errorCheck(error)
-//                    return
-//                }
-//                
-//                if let coinModel = coinModel {
-//                    self?.coinModel = coinModel
-//                    return
-//                }
-//            }
+        
+        CoinFetcher
+            .shared
+            .getStockValues(from: "USD", to: "BRL") { stocks, error in
+                
+                
+            }
         
         CoinFetcher
             .shared
@@ -71,24 +64,24 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func getRangeFromCoin() {
-        CoinFetcher
-            .shared
-            .getRangeFrom(coin: "USD-BRLT", range: 25) { [weak self] values, error in
-            
-            if let error = error as? APIErrorEnum {
-                self?.errorCheck(error)
-                return
-            }
-            
-            self?.rangeValues = values
-            
-            _ = values.map { name, value in
-                self?.chartValues.append(value)
-                self?.chartCategories.append(name)
-            }
-        
-            return
-        }
+//        CoinFetcher
+//            .shared
+//            .getRangeFrom(coin: "USD-BRLT", range: 25) { [weak self] values, error in
+//            
+//            if let error = error as? APIErrorEnum {
+//                self?.errorCheck(error)
+//                return
+//            }
+//            
+//            self?.rangeValues = values
+//            
+//            _ = values.map { name, value in
+//                self?.chartValues.append(value)
+//                self?.chartCategories.append(name)
+//            }
+//        
+//            return
+//        }
     }
     
     private func refreshValues() {

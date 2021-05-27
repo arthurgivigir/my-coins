@@ -13,8 +13,8 @@ import FirebaseFirestore
 public class CoinFetcher {
     
     public typealias RETURNED_STOCK_REALTIME = (RealtimeCurrencyExchangeRate?, Error?) -> Void
-    public typealias RETURNED_METHOD = (CoinModel?, Error?) -> Void
-    public typealias RETURNED_ARRAY_METHOD = ([(String, Double)], Error?) -> Void
+    public typealias RETURNED_ARRAY_METHOD = ([String : StockPriceMinutelyModel], Error?) -> Void
+    
     private var cancellables = Set<AnyCancellable>()
     private let service: CoinInteractor
     private var firestore: Firestore
@@ -61,76 +61,41 @@ public class CoinFetcher {
             .store(in: &cancellables)
     }
     
-    public func getValueFrom(coin: String, completion: @escaping RETURNED_METHOD) {
+    public func getStockValues(from coin: String, to: String, completion: @escaping RETURNED_ARRAY_METHOD) {
         self.service
-            .getValueFrom(coin: coin)
+            .getStockPricesFrom(from: coin, to: to)
             .receive(on: RunLoop.main)
             .sink { receivedCompletition in
                 
                 switch receivedCompletition {
                 case .failure(let error):
-                    completion(nil, error)
+                    completion([:], error)
                 case .finished:
                     print("😃Finished publisher from getValueFrom")
                 }
                 
-            } receiveValue: { [weak self] coinModel in
+            } receiveValue: { coins in
                 
-                if var coin = coinModel {
-                    coin.message = self?.defaultMessage
-                    
-                    self?.firestore
-                        .collection(coin.rate.getTableName())
-                        .getDocuments() { (querySnapshot, error) in
-                            
-                        self?.setCoinMessage(coin: &coin, documents: querySnapshot?.documents, error: error)
-                        completion(coin, nil)
-                    }
-                    
-                    return
-                }
-                
-                completion(coinModel, nil)
-            }
-            .store(in: &cancellables)
-    }
-    
-    public func getRangeFrom(coin: String, range: Int, completion: @escaping RETURNED_ARRAY_METHOD) {
-        self.service
-            .getValuesFrom(coin: coin, range: range)
-            .receive(on: RunLoop.main)
-            .sink { receivedCompletition in
-                
-                switch receivedCompletition {
-                case .failure(let error):
-                    completion([], error)
-                case .finished:
-                    print("😃Finished publisher from getValueFrom")
-                }
-                
-            } receiveValue: { coinModel in
-                print("\(String(describing: coinModel))")
-                
-                let coins = coinModel?.sorted(by: { coin1, coin2 in
-                    if let hour1 = coin1?.timestamp, let hour2 = coin2?.timestamp {
-                        return hour1 < hour2
-                    }
-                    
-                    return false
-                })
+                print("\(String(describing: coins))")
                 
                 if let coins = coins {
-                    let valuesRange: [(String, Double)] = coins.map { coin in
-                        return (coin!.formattedHour, Double(coin!.bid!)!)
+                    
+                    var sortedCoins = coins
+                        .sorted { $0.key > $1.key }
+                        .map { stocks in
+                        return (stocks.key.formattedDate(), stocks.value)
                     }
                     
-                    completion(valuesRange, nil)
+                    print("🚧 \(sortedCoins)")
+                    
+                    completion(coins, nil)
                     return
                 }
                 
-                completion([], nil)
+                completion([:], nil)
             }
             .store(in: &cancellables)
+
     }
     
     private func setCoinMessage(coin: inout CoinModel, documents: [QueryDocumentSnapshot]?, error: Error?) {
@@ -166,6 +131,66 @@ public class CoinFetcher {
             coin.message = message
         }
         
+    }
+    
+//
+//    public var rate: RateEnum {
+//        if let exchangeRate = self.exchangeRate, let value = Double(exchangeRate) {
+//            switch value {
+//            case _ where value < 0:
+//                return .down
+//            case _ where value > 0:
+//                return .up
+//            default:
+//                return .stable
+//            }
+//        }
+//
+//        return .stable
+//    }
+//
+//
+//    public var formattedHour: String {
+//        let date = Date(timeIntervalSince1970: Double(self.lastRefreshed ?? "") ?? 0.0)
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "HH:mm"
+//        dateFormatter.locale = .current
+//
+//        return dateFormatter.string(from: date)
+//    }
+//
+//    public var formattedDate: String {
+//        let dateFormatter = DateFormatter()
+//
+//        if let lastRefreshed = self.lastRefreshed {
+//            let date = dateFormatter.date(from: lastRefreshed) ?? Date()
+//
+//            dateFormatter.dateFormat = "dd MMMM HH:mm"
+//            dateFormatter.locale = Locale(identifier: "pt-BR")
+//
+//            return dateFormatter.string(from: date)
+//        }
+//
+//        return ""
+//    }
+
+}
+
+
+extension String {
+    
+    public func formattedDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        let date = dateFormatter.date(from: self) ?? Date()
+        dateFormatter.dateFormat = "dd MMMM HH:mm"
+        dateFormatter.locale = Locale(identifier: "pt-BR")
+        
+        dateFormatter.string(from: date)
+    
     }
     
 }
