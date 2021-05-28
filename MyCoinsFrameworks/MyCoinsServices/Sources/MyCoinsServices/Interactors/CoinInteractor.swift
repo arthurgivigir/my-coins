@@ -11,9 +11,9 @@ import Combine
 import Firebase
 
 public protocol CoinInteractorProtocol {
-    func getValueFrom(coin: String) -> AnyPublisher<CoinModel?, Error>
-    func getValueFrom(coins: [String]) -> AnyPublisher<[CoinModel?]?, Error>
-    func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[CoinModel?]?, Error>
+    func getValueFrom(coin: String) -> AnyPublisher<OldCoinModel?, Error>
+    func getValueFrom(coins: [String]) -> AnyPublisher<[OldCoinModel?]?, Error>
+    func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[OldCoinModel?]?, Error>
     
     func getStockPriceFrom(from: String, to: String) -> AnyPublisher<RealtimeCurrencyExchangeRate?, Error>
     func getStockPricesFrom(from: String, to: String) -> AnyPublisher<[String: StockPriceMinutelyModel]?, Error>
@@ -31,15 +31,15 @@ public struct CoinInteractor: CoinInteractorProtocol {
         return coinService.getStockPriceFrom(from: from, to: to).eraseToAnyPublisher()
     }
     
-    public func getValueFrom(coin: String) -> AnyPublisher<CoinModel?, Error> {
+    public func getValueFrom(coin: String) -> AnyPublisher<OldCoinModel?, Error> {
         return coinService.getValueFrom(coin: coin).eraseToAnyPublisher()
     }
     
-    public func getValueFrom(coins: [String]) -> AnyPublisher<[CoinModel?]?, Error> {
+    public func getValueFrom(coins: [String]) -> AnyPublisher<[OldCoinModel?]?, Error> {
         return coinService.getValueFrom(coins: coins).eraseToAnyPublisher()
     }
     
-    public func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[CoinModel?]?, Error> {
+    public func getValuesFrom(coin: String, range: Int) -> AnyPublisher<[OldCoinModel?]?, Error> {
         return coinService.getValuesFrom(coin: coin, range: range).eraseToAnyPublisher()
     }
     

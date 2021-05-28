@@ -8,7 +8,7 @@ import Foundation
 import WidgetKit
 import Intents
 
-public struct CoinModel: TimelineEntry, Codable {
+public struct OldCoinModel: TimelineEntry, Codable {
     public var date: Date = Date()
     public var code: String?
     public var codein: String?

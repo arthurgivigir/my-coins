@@ -12,14 +12,17 @@ import FirebaseFirestore
 
 public class CoinFetcher {
     
+    public static let shared: CoinFetcher = CoinFetcher()
+    
+    public let lastCoinValue = CurrentValueSubject<[String : StockPriceMinutelyModel], Error>([:])
+    public let realtimeCoinValues = CurrentValueSubject<[(String, Double)], Error>([])
+    
     public typealias RETURNED_STOCK_REALTIME = (RealtimeCurrencyExchangeRate?, Error?) -> Void
     public typealias RETURNED_ARRAY_METHOD = ([String : StockPriceMinutelyModel], Error?) -> Void
     
     private var cancellables = Set<AnyCancellable>()
     private let service: CoinInteractor
     private var firestore: Firestore
-    
-    public static let shared: CoinFetcher = CoinFetcher()
     private var defaultMessage: String = "Todo dia um 7 a 1 diferente..."
     
     private init() {
@@ -74,19 +77,35 @@ public class CoinFetcher {
                     print("😃Finished publisher from getValueFrom")
                 }
                 
-            } receiveValue: { coins in
+            } receiveValue: { [weak self] coins in
                 
                 print("\(String(describing: coins))")
                 
                 if let coins = coins {
                     
-                    var sortedCoins = coins
+                    let sortedCoins = coins
                         .sorted { $0.key > $1.key }
-                        .map { stocks in
-                        return (stocks.key.formattedDate(), stocks.value)
+                        .map { stock -> (String, StockPriceMinutelyModel) in
+                            
+                            var stockOrganized = stock.value
+                            stockOrganized.updatedAt = stock.key.toDate()
+                            
+                            return (stock.key.formattedDate(), stockOrganized)
+                        }
+                        
+                    var todayStock = sortedCoins.first
+                    
+                    let yesterdayStock = sortedCoins.filter { stock in
+                        guard let yesterday = todayStock?.1.updatedAt?.yesterday() else { return false }
+                        return stock.1.updatedAt?.compare(yesterday) == .orderedSame
+                    }.first
+                    
+                    if let yesterdayStockClose = yesterdayStock?.1.close,
+                       let todayStockClose = todayStock?.1.close {
+                       
+                        
                     }
                     
-                    print("🚧 \(sortedCoins)")
                     
                     completion(coins, nil)
                     return
@@ -98,7 +117,11 @@ public class CoinFetcher {
 
     }
     
-    private func setCoinMessage(coin: inout CoinModel, documents: [QueryDocumentSnapshot]?, error: Error?) {
+    private func calculateRatingValue(stocks: [String : StockPriceMinutelyModel]) {
+        
+    }
+    
+    private func setCoinMessage(coin: inout OldCoinModel, documents: [QueryDocumentSnapshot]?, error: Error?) {
         coin.message = self.defaultMessage
         
         guard let documents = documents else {
@@ -180,7 +203,7 @@ public class CoinFetcher {
 
 extension String {
     
-    public func formattedDate() {
+    public func formattedDate() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
@@ -189,8 +212,20 @@ extension String {
         dateFormatter.dateFormat = "dd MMMM HH:mm"
         dateFormatter.locale = Locale(identifier: "pt-BR")
         
-        dateFormatter.string(from: date)
-    
+        return dateFormatter.string(from: date)
     }
     
+    func toDate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        return dateFormatter.date(from: self)
+    }
+}
+
+extension Date {
+    func yesterday() -> Date? {
+        return Calendar.current.date(byAdding: .day, value: -1, to: self)
+    }
 }
