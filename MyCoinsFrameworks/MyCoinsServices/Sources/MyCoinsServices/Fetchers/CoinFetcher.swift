@@ -8,6 +8,7 @@
 import Combine
 import MyCoinsCore
 import Foundation
+import Firebase
 
 public class CoinFetcher {
     
@@ -18,9 +19,13 @@ public class CoinFetcher {
     
     private var cancellables = Set<AnyCancellable>()
     private let interactor: CoinInteractor
+    private var firestore: Firestore
+    private var defaultMessage: String = "Todo dia um 7 a 1 diferente..."
     
     private init() {
         self.interactor = CoinInteractor()
+        
+        self.firestore = Firestore.firestore()
     }
     
     public func getCoinValue(from: String, to: String, completion: @escaping RETURNED_STOCK_REALTIME) {
@@ -38,7 +43,20 @@ public class CoinFetcher {
                 }
 
             } receiveValue: { coinModel in
-                completion(coinModel, nil)
+                
+                if var todayCoin = coinModel {
+                    todayCoin.message = self.defaultMessage
+
+                    self.firestore
+                         .collection(todayCoin.rate.getTableName())
+                         .getDocuments() { (querySnapshot, error) in
+
+                            self.setCoinMessage(coin: &todayCoin, documents: querySnapshot?.documents, error: error)
+                            completion(todayCoin, nil)
+                    }
+                    
+                    
+                }
             }
             .store(in: &cancellables)
         
@@ -75,10 +93,37 @@ public class CoinFetcher {
                         categories.append(coinModel.formattedUpdatedAt ?? "")
                     }
                     
-                    completion(coinsModel.first, categories.reversed(), values.reversed(), nil)
+                    if var todayCoin = coinsModel.first {
+                        todayCoin.message = self.defaultMessage
+
+                        self.firestore
+                             .collection(todayCoin.rate.getTableName())
+                             .getDocuments() { (querySnapshot, error) in
+
+                                self.setCoinMessage(coin: &todayCoin, documents: querySnapshot?.documents, error: error)
+                                completion(todayCoin, categories.reversed(), values.reversed(), nil)
+                        }
+                    }
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    private func setCoinMessage(coin: inout CoinModel, documents: [QueryDocumentSnapshot]?, error: Error?) {
+        coin.message = self.defaultMessage
+        
+        guard let documents = documents else {
+            print("Error getting documents: \(String(describing: error))")
+            return
+        }
+        
+        let maxCount = documents.count > 0 ? documents.count - 1 : 0
+        let randomRange: Int = Int.random(in: 0...maxCount)
+        
+        if let message = documents[randomRange].data()["message"] as? String {
+            coin.message = message
+        }
+        
     }
 
 }
