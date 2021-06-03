@@ -20,6 +20,7 @@ public struct PullToRefreshModifier: ViewModifier {
     @State private var draggedOffset: CGSize = .zero
     @State private var startPos : CGPoint = .zero
     @State private var isSwipping = true
+    @State private var opacity = 0.0
 
     private let direction: Direction
     private let target: Target?
@@ -38,8 +39,15 @@ public struct PullToRefreshModifier: ViewModifier {
 
     public func body(content: Content) -> some View {
         ZStack(alignment: .top) {
-            Text("Carregando...")
-                .offset(y: 50)
+            MCLottieView(name: "capital_investment", loopMode: .loop)
+                .scaledToFit()
+                .opacity(opacity)
+                .frame(minWidth: 0,
+                       maxWidth: .infinity,
+                       minHeight: 0,
+                       maxHeight: 100,
+                   alignment: .center)
+                .offset(y: 25)
             
             content
                 .offset(
@@ -56,10 +64,6 @@ public struct PullToRefreshModifier: ViewModifier {
                                 self.isSwipping.toggle()
                             }
 
-                            if maxDistance > 0, value.translation.height >= maxDistance {
-                                return
-                            }
-                            
                             /// Solution based on asymptotic curve
                             /// https://stackoverflow.com/questions/62268937/swiftui-how-to-change-the-speed-of-drag-based-on-distance-already-dragged
                             if value.translation.height > 0 {
@@ -70,6 +74,14 @@ public struct PullToRefreshModifier: ViewModifier {
                                 let factor = 1 / (dist / limit + 1)
                                 self.draggedOffset = CGSize(width: value.translation.width * factor,
                                                     height: value.translation.height * factor)
+                                
+                                if maxDistance > 0, value.translation.height >= maxDistance {
+                                    return
+                                } else {
+                                    withAnimation {
+                                        self.opacity = 1.0
+                                    }
+                                }
                             }
                         }
                         .onEnded { value in
@@ -83,13 +95,18 @@ public struct PullToRefreshModifier: ViewModifier {
                             }
                             
                             if direction == .vertical, value.translation.height > 100  {
-                                withAnimation(.spring()) {
+                                
+                                withAnimation(.spring().delay(0.2)) {
                                     self.draggedOffset = .zero
+                                    self.opacity = .zero
                                     self.target?()
                                 }
+                                
                             } else if direction == .vertical, value.translation.height > 0  {
-                                withAnimation(.spring()) {
+                                
+                                withAnimation(.spring().delay(0.2)) {
                                     self.draggedOffset = .zero
+                                    self.opacity = .zero
                                 }
                             }
                         }
