@@ -36,9 +36,9 @@
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
-		<string>LaunchScreenBackground</string>
+		<string>Launchscreen-background</string>
 		<key>UIImageName</key>
-		<string>CoinIcon</string>
+		<string>Launchscreen-icon</string>
 		<key>UIImageRespectsSafeAreaInsets</key>
 		<true/>
 	</dict>
