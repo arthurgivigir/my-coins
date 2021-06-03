@@ -36,10 +36,10 @@ struct HomeView: View {
                 VStack {
                     
                     VStack(alignment: .leading) {
-                        Text("Última atualização: \(self.homeViewModel.coinModel.formattedDate)")
+                        Text("Última atualização: \(self.homeViewModel.coinModel.formattedUpdatedAt ?? "")")
                             .font(.caption2)
                             .foregroundColor(.black.opacity(0.8))
-                        Text("Referência: 1 Dólar americano (turismo)")
+                        Text("Referência: 1 Dólar americano (comercial)")
                             .font(.caption2)
                             .foregroundColor(.black.opacity(0.8))
                     }
@@ -52,7 +52,7 @@ struct HomeView: View {
                         .background(Color.white)
                         .cornerRadius(20)
                         .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
-                        .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.fetch))
+//                        .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.fetch))
                     
                     
                 }
@@ -61,7 +61,7 @@ struct HomeView: View {
                 .cornerRadius(20)
                 .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
             }
-            .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.fetch))
+            .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.reload))
             .onAppear() {
                 self.homeViewModel.fetch()
             }

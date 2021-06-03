@@ -14,108 +14,72 @@ public class CoinFetcher {
     
     public static let shared: CoinFetcher = CoinFetcher()
     
-    public let lastCoinValue = CurrentValueSubject<[String : StockPriceMinutelyModel], Error>([:])
-    public let realtimeCoinValues = CurrentValueSubject<[(String, Double)], Error>([])
-    
-    public typealias RETURNED_STOCK_REALTIME = (RealtimeCurrencyExchangeRate?, Error?) -> Void
-    public typealias RETURNED_ARRAY_METHOD = ([String : StockPriceMinutelyModel], Error?) -> Void
+    public typealias RETURNED_STOCK_REALTIME = (CoinModel?, Error?) -> Void
+    public typealias RETURNED_ARRAY_METHOD = (CoinModel?, [String]?, [Double]?, Error?) -> Void
     
     private var cancellables = Set<AnyCancellable>()
-    private let service: CoinInteractor
+    private let interactor: CoinInteractor
     private var firestore: Firestore
     private var defaultMessage: String = "Todo dia um 7 a 1 diferente..."
     
     private init() {
-        self.service = CoinInteractor()
+        self.interactor = CoinInteractor()
         self.firestore = Firestore.firestore()
     }
     
-//    public func getStockValue(from: String, to: String, completion: @escaping RETURNED_STOCK_REALTIME) {
-//        self.service
-//            .getStockPriceFrom(from: from, to: to)
-//            .receive(on: RunLoop.main)
-//            .sink { receivedCompletition in
-//                
-//                switch receivedCompletition {
-//                case .failure(let error):
-//                    completion(nil, error)
-//                case .finished:
-//                    print("😃Finished publisher from getValueFrom")
-//                }
-//                
-//            } receiveValue: { [weak self] coinModel in
-//                
-//                if var coin = coinModel {
-//                    coin.message = self?.defaultMessage
-//                    
-//                    self?.firestore
-//                        .collection(coin.rate.getTableName())
-//                        .getDocuments() { (querySnapshot, error) in
-//                            
-//                        self?.setCoinMessage(coin: &coin, documents: querySnapshot?.documents, error: error)
-//                        completion(coin, nil)
-//                    }
-//                    
-//                    return
-//                }
-//                
-//                completion(coinModel, nil)
-//            }
-//            .store(in: &cancellables)
-//    }
-//    
-//    public func getStockValues(from coin: String, to: String, completion: @escaping RETURNED_ARRAY_METHOD) {
-//        self.service
-//            .getStockPricesFrom(from: coin, to: to)
-//            .receive(on: RunLoop.main)
-//            .sink { receivedCompletition in
-//                
-//                switch receivedCompletition {
-//                case .failure(let error):
-//                    completion([:], error)
-//                case .finished:
-//                    print("😃Finished publisher from getValueFrom")
-//                }
-//                
-//            } receiveValue: { [weak self] coins in
-//                
-//                print("\(String(describing: coins))")
-//                
-//                if let coins = coins {
-//                    
-//                    let sortedCoins = coins
-//                        .sorted { $0.key > $1.key }
-//                        .map { stock -> (String, StockPriceMinutelyModel) in
-//                            
-//                            var stockOrganized = stock.value
-//                            stockOrganized.updatedAt = stock.key.toDate()
-//                            
-//                            return (stock.key.formattedDate(), stockOrganized)
-//                        }
-//                        
-//                    var todayStock = sortedCoins.first
-//                    
-//                    let yesterdayStock = sortedCoins.filter { stock in
-//                        guard let yesterday = todayStock?.1.updatedAt?.yesterday() else { return false }
-//                        return stock.1.updatedAt?.compare(yesterday) == .orderedSame
-//                    }.first
-//                    
-//                    if let yesterdayStockClose = yesterdayStock?.1.close,
-//                       let todayStockClose = todayStock?.1.close {
-//                       
-//                        
-//                    }
-//                    
-//                    
-//                    completion(coins, nil)
-//                    return
-//                }
-//                
-//                completion([:], nil)
-//            }
-//            .store(in: &cancellables)
-//
-//    }
+    public func getCoinValue(from: String, to: String, completion: @escaping RETURNED_STOCK_REALTIME) {
+        
+        self.interactor
+            .getCoinValueFrom(from: from, to: to)
+            .receive(on: RunLoop.main)
+            .sink { receivedCompletition in
+
+                switch receivedCompletition {
+                case .failure(let error):
+                    completion(nil, error)
+                case .finished:
+                    print("😃Finished publisher from getValueFrom")
+                }
+
+            } receiveValue: { coinModel in
+                completion(coinModel, nil)
+            }
+            .store(in: &cancellables)
+        
+    }
+    
+    public func getCoinValues(from: String, to: String, completion: @escaping RETURNED_ARRAY_METHOD) {
+        
+        self.interactor
+            .getCoinValuesFrom(from: from, to: to)
+            .receive(on: RunLoop.main)
+            .sink { receivedCompletition in
+
+                switch receivedCompletition {
+                case .failure(let error):
+                    completion(nil, nil, nil, error)
+                case .finished:
+                    print("😃Finished publisher from getValueFrom")
+                }
+
+            } receiveValue: { coinsModel in
+                
+                var categories: [String] = []
+                var values: [Double] = []
+                
+                if let coinsModel = coinsModel {
+                    _ = coinsModel.map { coinModel in
+                        
+                        let coinValue = Double(coinModel.close)
+                        values.append(coinValue ?? 0.0)
+                        categories.append(coinModel.formattedUpdatedAt ?? "")
+                    }
+                    
+                    completion(coinsModel.first, categories, values, nil)
+                }
+            }
+            .store(in: &cancellables)
+    }
     
     private func calculateRatingValue(stocks: [String : StockPriceMinutelyModel]) {
         

@@ -20,20 +20,20 @@ struct Provider: IntentTimelineProvider {
         MyCoinsServices.shared.setupFirebase()
     }
     
-    func placeholder(in context: Context) -> RealtimeCurrencyExchangeRate {
-        RealtimeCurrencyExchangeRate(date: Date())
+    func placeholder(in context: Context) -> CoinModel {
+        CoinModel(date: Date())
     }
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (RealtimeCurrencyExchangeRate) -> ()) {
-        let entry = RealtimeCurrencyExchangeRate(date: Date())
+    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (CoinModel) -> ()) {
+        let entry = CoinModel(date: Date())
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [RealtimeCurrencyExchangeRate] = []
-
+        var entries: [CoinModel] = []
+        
         CoinFetcher.shared
-            .getStockValue(from: "USD", to: "BRL") { coin, error in
+            .getCoinValue(from: "USD", to: "BRL") { coin, error in
                 
                 if let error = error {
                     print("😭 Ocorreu um erro: \(error.localizedDescription)")
@@ -125,7 +125,7 @@ struct MyCoinsWidget_Previews: PreviewProvider {
 //        RateView(rate: .stable)
 //            .padding(20)
 //            .previewContext(WidgetPreviewContext(family: .systemSmall))
-        MainWidgetView(coin: RealtimeCurrencyExchangeRate(date: Date()))
+        MainWidgetView(coin: CoinModel(date: Date()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
 //        TextWidgetView(coin: CoinModel(date: Date()))
 //            .previewContext(WidgetPreviewContext(family: .systemSmall))

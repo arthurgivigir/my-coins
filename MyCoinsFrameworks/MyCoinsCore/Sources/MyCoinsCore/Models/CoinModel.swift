@@ -7,7 +7,7 @@
 import Foundation
 import WidgetKit
 
-public struct CoinModel: Codable {
+public struct CoinModel: TimelineEntry, Codable {
     
     public var date: Date = Date()
     public let open: String
@@ -18,6 +18,23 @@ public struct CoinModel: Codable {
     public var updatedAt: Date?
     public var pctChange: Double?
     public var formattedUpdatedAt: String?
+    
+    public var formattedBit: String {
+        let defaultValue = "R$ 0,00"
+        
+        if let value = Double(self.close) {
+            return formatter.string(from: NSNumber(value: value)) ?? defaultValue
+        }
+        
+        return defaultValue
+    }
+    
+    private var formatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale(identifier: "pt_BR")
+        return formatter
+    }
     
     public var rate: RateEnum {
         if let pctChange = self.pctChange {
@@ -35,13 +52,14 @@ public struct CoinModel: Codable {
     }
     
     public init(
+        date: Date,
         open: String = "",
         high: String = "",
         low: String = "",
         close: String = "",
-        message: String?,
-        updatedAt: Date?,
-        pctChange: Double?
+        message: String? = nil,
+        updatedAt: Date? = nil,
+        pctChange: Double? = nil
     ) {
         self.open = open
         self.high = high

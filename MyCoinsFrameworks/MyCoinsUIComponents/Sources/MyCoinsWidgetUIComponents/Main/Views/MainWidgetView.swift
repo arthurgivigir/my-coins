@@ -12,7 +12,7 @@ import WidgetKit
 
 public struct MainWidgetView : View {
     
-    private let coin: RealtimeCurrencyExchangeRate
+    private let coin: CoinModel
     private var hasBackground: Bool = true
     private var primaryFont: Font.TextStyle = .headline
     private var secondaryFont: Font.TextStyle = .footnote
@@ -20,7 +20,7 @@ public struct MainWidgetView : View {
     private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
     
     public init(
-        coin: RealtimeCurrencyExchangeRate,
+        coin: CoinModel,
         hasBackground: Bool = true
     ) {
         self.coin = coin
@@ -28,7 +28,7 @@ public struct MainWidgetView : View {
     }
     
     public init(
-        coin: RealtimeCurrencyExchangeRate,
+        coin: CoinModel,
         hasBackground: Bool = true,
         primaryFont: Font.TextStyle,
         secondaryFont: Font.TextStyle
@@ -88,7 +88,7 @@ public struct MainWidgetView : View {
 
 struct MainWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MainWidgetView(coin: RealtimeCurrencyExchangeRate(date: Date()))
+        MainWidgetView(coin: CoinModel(date: Date()))
             .previewDevice(PreviewDevice(rawValue: "iPhone 12 mini"))
 //            .previewContext(WidgetPreviewContext(family: .systemSmall))
     }

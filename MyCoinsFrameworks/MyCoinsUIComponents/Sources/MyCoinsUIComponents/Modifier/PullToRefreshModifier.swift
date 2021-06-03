@@ -47,7 +47,7 @@ public struct PullToRefreshModifier: ViewModifier {
                            height: direction == .horizontal ? 0 : draggedOffset.height)
                 )
                 .gesture(
-                    DragGesture()
+                    DragGesture(minimumDistance: 25)
                         .onChanged { value in
                             
                             /// Identify when user swipe up
@@ -82,9 +82,15 @@ public struct PullToRefreshModifier: ViewModifier {
                                 return
                             }
                             
-                            withAnimation(.spring()) {
-                                self.draggedOffset = .zero
-                                self.target?()
+                            if direction == .vertical, value.translation.height > 100  {
+                                withAnimation(.spring()) {
+                                    self.draggedOffset = .zero
+                                    self.target?()
+                                }
+                            } else if direction == .vertical, value.translation.height > 0  {
+                                withAnimation(.spring()) {
+                                    self.draggedOffset = .zero
+                                }
                             }
                         }
             )
