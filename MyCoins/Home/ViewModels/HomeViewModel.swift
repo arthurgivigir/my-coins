@@ -36,7 +36,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     public func reload() {
-        if !Date().timeIntervalSince(lastUpdate).isLess(than: 60) {
+        if !Date().timeIntervalSince(lastUpdate).isLess(than: 300) {
             self.refreshValues()
             self.getCoinValues()
             self.lastUpdate = Date()
@@ -45,7 +45,7 @@ final class HomeViewModel: ObservableObject {
         
         self.showToast = true
         self.messageToast = "Aguarde mais um pouco!"
-        self.subtitleToast = "Espere um minuto para tentar atualizar novamente!"
+        self.subtitleToast = "Espere 5 minutos para tentar atualizar novamente!"
         
     }
     

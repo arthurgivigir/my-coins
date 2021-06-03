@@ -68,14 +68,18 @@ public class CoinFetcher {
                 var values: [Double] = []
                 
                 if let coinsModel = coinsModel {
-                    _ = coinsModel.map { coinModel in
+                    _ = coinsModel.enumerated().map { offset, coinModel in
+                        
+                        if offset >= 25 {
+                            return
+                        }
                         
                         let coinValue = Double(coinModel.close)
                         values.append(coinValue ?? 0.0)
                         categories.append(coinModel.formattedUpdatedAt ?? "")
                     }
                     
-                    completion(coinsModel.first, categories, values, nil)
+                    completion(coinsModel.first, categories.reversed(), values.reversed(), nil)
                 }
             }
             .store(in: &cancellables)
