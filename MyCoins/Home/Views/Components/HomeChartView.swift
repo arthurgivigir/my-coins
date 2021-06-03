@@ -21,15 +21,6 @@ struct HomeChartView: View {
                 chartCategories: self.$homeViewModel.chartCategories
             )
             .frame(width: UIScreen.main.bounds.width, height: 220, alignment: .top)
-            
-            MCLottieView(name: LottieNames.capitalInvestiment.rawValue, loopMode: .loop)
-                .scaledToFit()
-                .opacity(0.8)
-                .frame(minWidth: 0,
-                       maxWidth: 250,
-                       minHeight: 0,
-                       maxHeight: .infinity,
-                   alignment: .bottom)
         }
     }
 }

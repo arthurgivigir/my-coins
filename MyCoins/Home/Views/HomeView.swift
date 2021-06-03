@@ -24,6 +24,7 @@ struct HomeView: View {
         NavigationView {
             VStack {
                 // Widget Space
+                
                 HomeHeaderView()
                     .padding(20)
                     .frame(minWidth: 0,
