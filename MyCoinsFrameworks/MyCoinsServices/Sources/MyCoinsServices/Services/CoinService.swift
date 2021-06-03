@@ -10,6 +10,7 @@ import MyCoinsCore
 import Alamofire
 import Combine
 
+
 protocol CoinServiceProtocol {
     func getValueFrom(coin: String) -> AnyPublisher<OldCoinModel?, Error>
     func getValueFrom(coins: [String]) -> AnyPublisher<[OldCoinModel?]?, Error>
@@ -80,22 +81,22 @@ struct CoinService: CoinServiceProtocol {
     }
     
     
-//    func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[StockPriceMinutelyModel]?, Error> {
-//        if let url = URL(string: "\(alphavantageUrl)query?function=FX_INTRADAY&from_symbol=\(from)&to_symbol=\(to)&interval=\(TimeInterval.fifteen.rawValue)&outputsize=\(OutputSize.compact)&apikey=\(apiKey)") {
-//            return AF.request(url)
-//                .publishDecodable(type: StockPriceMinutelyDailyModel.self, queue: .global(qos: .background))
-//                .value()
-//                .map { coins in
-//                    return coins.stockPriceMinutelyModel
-//                }
-//                .mapError { aferror in
-//                    APIErrorEnum(error: aferror)
-//                }
-//                .eraseToAnyPublisher()
-//        }
-//        
-//        return CurrentValueSubject(nil).eraseToAnyPublisher()
-//    }
+    func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[CoinModel]?, Error> {
+        if let url = URL(string: "\(alphavantageUrl)query?function=FX_INTRADAY&from_symbol=\(from)&to_symbol=\(to)&interval=\(TimeInterval.fifteen.rawValue)&outputsize=\(OutputSize.compact)&apikey=\(apiKey)") {
+            return AF.request(url)
+                .publishDecodable(type: CoinValuesResponse.self, queue: .global(qos: .background))
+                .value()
+                .map { coins in
+                    return coins.coinValues
+                }
+                .mapError { aferror in
+                    APIErrorEnum(error: aferror)
+                }
+                .eraseToAnyPublisher()
+        }
+        
+        return CurrentValueSubject(nil).eraseToAnyPublisher()
+    }
     
     func getStockPricesFrom(from: String, to: String) -> AnyPublisher<[String: StockPriceMinutelyModel]?, Error> {
         if let url = URL(string: "\(alphavantageUrl)query?function=FX_INTRADAY&from_symbol=\(from)&to_symbol=\(to)&interval=\(TimeInterval.fifteen.rawValue)&outputsize=\(OutputSize.compact)&apikey=\(apiKey)") {
@@ -127,5 +128,35 @@ struct CoinService: CoinServiceProtocol {
         case fifteen = "15min"
         case thirty = "30min"
         case sixty = "60min"
+    }
+    
+    internal struct CoinValuesResponse: Codable {
+        
+        let coinValues: [CoinModel]
+        
+        enum StockPriceMinutelyDailyKeys: String, CodingKey {
+            case stockPriceDailyModel = "Meta Data"
+            case stockPriceMinutelyModel = "Time Series FX (15min)"
+        }
+        
+        public init(from decoder: Decoder) throws {
+            
+            var coinValues: [CoinModel] = []
+            let values = try decoder.container(keyedBy: StockPriceMinutelyDailyKeys.self)
+            let stockPriceMinutely = try values.decode([String: CoinModel].self, forKey: .stockPriceMinutelyModel)
+            
+            let stockPriceMinutelyArray = Array(stockPriceMinutely)
+                .sorted { $0.key > $1.key }
+                .map { stock -> CoinModel in
+                
+                    var stockOrganized = stock.value
+                    stockOrganized.updatedAt = stock.key.toDate()
+                    stockOrganized.formattedUpdatedAt = stock.key.formattedDate()
+                    
+                    return stockOrganized
+                }
+            
+            self.coinValues = stockPriceMinutelyArray
+        }
     }
 }

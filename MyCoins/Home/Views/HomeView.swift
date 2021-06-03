@@ -72,7 +72,7 @@ struct HomeView: View {
                    alignment: .top
             )
             .edgesIgnoringSafeArea(.bottom)
-            .navigationBarTitle("Câmbio Sincero", displayMode: .inline)
+            .navigationBarTitle("Zooin", displayMode: .inline)
             .background(self.background)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

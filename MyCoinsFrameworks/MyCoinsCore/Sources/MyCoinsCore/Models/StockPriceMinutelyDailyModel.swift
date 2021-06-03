@@ -1,6 +1,6 @@
 //
 //  StockPriceModel.swift
-//  
+//
 //
 //  Created by Arthur Gradim Givigir on 26/04/21.
 //
@@ -8,44 +8,34 @@
 import Foundation
 import WidgetKit
 
-public struct WidgetCoinModel: TimelineEntry {
-    public var date: Date
-    public let coinModel: CoinModel
-}
-
 public struct CoinModel: Codable {
     
-    public let coinPriceMinutelyModel: [String: CoinPriceMinutelyModel]
-
-    enum CodingKeys: String, CodingKey {
-        case coinPriceMinutelyModel = "Time Series FX (15min)"
-    }
-}
-
-public struct CoinPriceMinutelyModel: Codable {
+    public var date: Date = Date()
     public let open: String
     public let high: String
     public let low: String
     public let close: String
-    public var updatedAt: Date?
     public var message: String?
+    public var updatedAt: Date?
     public var pctChange: Double?
+    public var formattedUpdatedAt: String?
     
-    private var formatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = Locale(identifier: "pt_BR")
-        return formatter
-    }
-    
-    public var formattedBit: String {
-        let defaultValue = "R$ 0,00"
-        
-        if let value = Double(self.close) {
-            return formatter.string(from: NSNumber(value: value)) ?? defaultValue
-        }
-        
-        return defaultValue
+    public init(
+        open: String = "",
+        high: String = "",
+        low: String = "",
+        close: String = "",
+        message: String?,
+        updatedAt: Date?,
+        pctChange: Double?
+    ) {
+        self.open = open
+        self.high = high
+        self.low = low
+        self.close = close
+        self.message = message
+        self.updatedAt = updatedAt
+        self.pctChange = pctChange
     }
     
     enum CodingKeys: String, CodingKey {
@@ -55,6 +45,12 @@ public struct CoinPriceMinutelyModel: Codable {
         case close = "4. close"
     }
 }
+
+
+
+
+
+
 
 
 
@@ -105,13 +101,14 @@ public struct StockPriceDailyModel: Codable {
 }
 
 // MARK: - TimeSeriesFX5Min
-public struct StockPriceMinutelyModel: Codable {
+public struct StockPriceMinutelyModel: TimelineEntry, Codable {
+    public var date: Date = Date()
     public let open: String
     public let high: String
     public let low: String
     public let close: String
-    public var updatedAt: Date?
     public var message: String?
+    public var updatedAt: Date?
     public var pctChange: Double?
     
     private var formatter: NumberFormatter {

@@ -13,6 +13,7 @@ import Combine
 class AlphavantageServicesTests: XCTestCase {
     
     private let interactor = CoinInteractor()
+    private let service = CoinService()
     private var disposables: Set<AnyCancellable> = []
     
     func testReturnByOneCoin() throws {
@@ -60,6 +61,41 @@ class AlphavantageServicesTests: XCTestCase {
 //                        print("Coin timestamp: \(String(describing: coinModel?.))")
                     }
                     
+                } else {
+                    XCTFail("Returned empty hotels from service")
+                }
+                
+                promise.fulfill()
+            }
+            .store(in: &disposables)
+
+        wait(for: [promise], timeout: 10)
+    }
+    
+    
+    func testReturnCoinServiceValues() throws {
+        let promise = expectation(description: "Result coin from service")
+        
+        service
+            .getCoinValuesFrom(from: "USD", to: "BRL")
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print("😭\(error.localizedDescription)")
+                case .finished:
+                    print("Finished testReturnCoinsByDays")
+                }
+                
+            } receiveValue: { coinsModel in
+                
+                if let coinsModel = coinsModel {
+                    
+                    _ = coinsModel.map { coinModel in
+                        print("Coin Value: \(String(describing: coinModel.formattedUpdatedAt))")
+                        print("Coin Value: \(String(describing: coinModel.close))")
+                        print("---------------------------------------------------------------------")
+                    }
+//                    
                 } else {
                     XCTFail("Returned empty hotels from service")
                 }
