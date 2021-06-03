@@ -16,33 +16,12 @@ class AlphavantageServicesTests: XCTestCase {
     private let service = CoinService()
     private var disposables: Set<AnyCancellable> = []
     
-    func testReturnByOneCoin() throws {
-        let promise = expectation(description: "Result coin from service")
-        
-        interactor
-            .getStockPriceFrom(from: "USD", to: "BRL")
-            .sink { completion in
-                
-            } receiveValue: { coinModel in
-                
-                if let coinModel = coinModel {
-                    print("Coin Value: \(String(describing: coinModel.askPrice))")
-                } else {
-                    XCTFail("Returned empty hotels from service")
-                }
-                
-                promise.fulfill()
-            }
-            .store(in: &disposables)
-
-        wait(for: [promise], timeout: 5)
-    }
     
-    func testReturnStockPrices() throws {
+    func testReturnCoinInteractorValue() throws {
         let promise = expectation(description: "Result coin from service")
         
         interactor
-            .getStockPricesFrom(from: "USD", to: "BRL")
+            .getCoinValueFrom(from: "USD", to: "BRL")
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -51,16 +30,16 @@ class AlphavantageServicesTests: XCTestCase {
                     print("Finished testReturnCoinsByDays")
                 }
                 
-            } receiveValue: { coinsModel in
+            } receiveValue: { coinModel in
                 
-                if let coinsModel = coinsModel {
-                    
-                    _ = coinsModel.map { coinModel in
-                        print("Coin Value: \(String(describing: coinModel.value.close))")
-                        print("Coin Value: \(String(describing: coinModel.key))")
-//                        print("Coin timestamp: \(String(describing: coinModel?.))")
-                    }
-                    
+                if let coinModel = coinModel {
+                    print("---------------------------------------------------------------------")
+                    print("Coin Value: \(String(describing: coinModel.formattedUpdatedAt))")
+                    print("Coin Value: \(String(describing: coinModel.close))")
+                    print("Coin Value: \(String(describing: coinModel.pctChange))")
+                    print("Coin Value: \(String(describing: coinModel.rate))")
+                    print("---------------------------------------------------------------------")
+                
                 } else {
                     XCTFail("Returned empty hotels from service")
                 }
@@ -71,7 +50,6 @@ class AlphavantageServicesTests: XCTestCase {
 
         wait(for: [promise], timeout: 10)
     }
-    
     
     func testReturnCoinServiceValues() throws {
         let promise = expectation(description: "Result coin from service")
@@ -91,6 +69,7 @@ class AlphavantageServicesTests: XCTestCase {
                 if let coinsModel = coinsModel {
                     
                     _ = coinsModel.map { coinModel in
+                        print("---------------------------------------------------------------------")
                         print("Coin Value: \(String(describing: coinModel.formattedUpdatedAt))")
                         print("Coin Value: \(String(describing: coinModel.close))")
                         print("---------------------------------------------------------------------")
