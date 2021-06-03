@@ -8,7 +8,6 @@
 import Combine
 import MyCoinsCore
 import Foundation
-import FirebaseFirestore
 
 public class CoinFetcher {
     
@@ -19,12 +18,9 @@ public class CoinFetcher {
     
     private var cancellables = Set<AnyCancellable>()
     private let interactor: CoinInteractor
-    private var firestore: Firestore
-    private var defaultMessage: String = "Todo dia um 7 a 1 diferente..."
     
     private init() {
         self.interactor = CoinInteractor()
-        self.firestore = Firestore.firestore()
     }
     
     public func getCoinValue(from: String, to: String, completion: @escaping RETURNED_STOCK_REALTIME) {
@@ -84,87 +80,6 @@ public class CoinFetcher {
             }
             .store(in: &cancellables)
     }
-    
-    private func calculateRatingValue(stocks: [String : StockPriceMinutelyModel]) {
-        
-    }
-    
-    private func setCoinMessage(coin: inout OldCoinModel, documents: [QueryDocumentSnapshot]?, error: Error?) {
-        coin.message = self.defaultMessage
-        
-        guard let documents = documents else {
-            print("Error getting documents: \(String(describing: error))")
-            return
-        }
-        
-        let maxCount = documents.count > 0 ? documents.count - 1 : 0
-        let randomRange: Int = Int.random(in: 0...maxCount)
-        
-        if let message = documents[randomRange].data()["message"] as? String {
-            coin.message = message
-        }
-        
-    }
-    
-    
-    private func setCoinMessage(coin: inout RealtimeCurrencyExchangeRate, documents: [QueryDocumentSnapshot]?, error: Error?) {
-        coin.message = self.defaultMessage
-        
-        guard let documents = documents else {
-            print("Error getting documents: \(String(describing: error))")
-            return
-        }
-        
-        let maxCount = documents.count > 0 ? documents.count - 1 : 0
-        let randomRange: Int = Int.random(in: 0...maxCount)
-        
-        if let message = documents[randomRange].data()["message"] as? String {
-            coin.message = message
-        }
-        
-    }
-    
-//
-//    public var rate: RateEnum {
-//        if let exchangeRate = self.exchangeRate, let value = Double(exchangeRate) {
-//            switch value {
-//            case _ where value < 0:
-//                return .down
-//            case _ where value > 0:
-//                return .up
-//            default:
-//                return .stable
-//            }
-//        }
-//
-//        return .stable
-//    }
-//
-//
-//    public var formattedHour: String {
-//        let date = Date(timeIntervalSince1970: Double(self.lastRefreshed ?? "") ?? 0.0)
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "HH:mm"
-//        dateFormatter.locale = .current
-//
-//        return dateFormatter.string(from: date)
-//    }
-//
-//    public var formattedDate: String {
-//        let dateFormatter = DateFormatter()
-//
-//        if let lastRefreshed = self.lastRefreshed {
-//            let date = dateFormatter.date(from: lastRefreshed) ?? Date()
-//
-//            dateFormatter.dateFormat = "dd MMMM HH:mm"
-//            dateFormatter.locale = Locale(identifier: "pt-BR")
-//
-//            return dateFormatter.string(from: date)
-//        }
-//
-//        return ""
-//    }
 
 }
 

@@ -37,11 +37,15 @@ public struct CoinModel: TimelineEntry, Codable {
     }
     
     public var rate: RateEnum {
+        
         if let pctChange = self.pctChange {
-            switch pctChange {
-            case _ where pctChange < 0:
+            
+            let pctChangeRounded = Double(round(100 * pctChange)/100)
+            
+            switch pctChangeRounded {
+            case _ where pctChangeRounded < 0:
                 return .down
-            case _ where pctChange > 0:
+            case _ where pctChangeRounded > 0:
                 return .up
             default:
                 return .stable
