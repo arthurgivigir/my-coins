@@ -14,6 +14,7 @@ struct MyCoinsApp: App {
     private var homeViewModel = HomeViewModel()
     
     init() {
+        UIApplication.shared.clearLaunchScreenCache()
         MyCoinsServices.shared.setupFirebase()
     }
     
@@ -24,4 +25,17 @@ struct MyCoinsApp: App {
                 .preferredColorScheme(.dark)
         }
     }
+}
+
+
+public extension UIApplication {
+
+    func clearLaunchScreenCache() {
+        do {
+            try FileManager.default.removeItem(atPath: NSHomeDirectory()+"/Library/SplashBoard")
+        } catch {
+            print("Failed to delete launch screen cache: \(error)")
+        }
+    }
+
 }
