@@ -75,9 +75,14 @@ public struct PullToRefreshModifier: ViewModifier {
                                 self.draggedOffset = CGSize(width: value.translation.width * factor,
                                                     height: value.translation.height * factor)
                                 
+                                let xDist =  abs(value.location.x - self.startPos.x)
+                                let yDist =  abs(value.location.y - self.startPos.y)
+                                
                                 if maxDistance > 0, value.translation.height >= maxDistance {
                                     return
-                                } else {
+                                }
+                                
+                                if self.startPos.y < value.location.y && yDist < xDist {
                                     withAnimation {
                                         self.opacity = 1.0
                                     }
@@ -91,6 +96,9 @@ public struct PullToRefreshModifier: ViewModifier {
                             
                             /// Identify when user swipe up
                             if self.startPos.y > value.location.y && yDist > xDist {
+                                withAnimation {
+                                    self.opacity = 0.0
+                                }
                                 return
                             }
                             
