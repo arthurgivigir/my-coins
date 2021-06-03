@@ -13,36 +13,47 @@ import MyCoinsServices
 final class HomeViewModel: ObservableObject {
     
     @Published private (set) var coinModel = CoinModel(date: Date())
-    @Published var rangeValues = [(String, Double)]()
-    @Published var chartValues = [(Double)]()
-    @Published var chartCategories = [(String)]()
+    @Published var chartValues = [Double]()
+    @Published var chartCategories = [String]()
     @Published var showToast: Bool = false
     @Published var messageToast: String = ""
     @Published var subtitleToast: String = ""
     
+    private var lastUpdate: Date = Date()
     private var cancellables: Set<AnyCancellable> = []
     
     public func fetch() {
         
         self.refreshValues()
-        self.getValueFromCoin()
-        self.getRangeFromCoin()
+        self.getCoinValues()
         
         Timer.publish(every: 600, on: .main, in: .default)
             .autoconnect()
             .sink { time in
-                self.getValueFromCoin()
-                self.getRangeFromCoin()
-                print(time)
+                self.getCoinValues()
             }
             .store(in: &cancellables)
     }
     
-    private func getValueFromCoin() {
+    public func reload() {
+        if !Date().timeIntervalSince(lastUpdate).isLess(than: 300) {
+            self.refreshValues()
+            self.getCoinValues()
+            self.lastUpdate = Date()
+            return
+        }
+        
+        self.showToast = true
+        self.messageToast = "Aguarde mais um pouco!"
+        self.subtitleToast = "Espere 5 minutos para tentar atualizar novamente!"
+        
+    }
+    
+    private func getCoinValues() {
+        
         CoinFetcher
             .shared
-            .getValueFrom(coin: "USD-BRLT") { [weak self] coinModel, error in
-                
+            .getCoinValues(from: "USD", to: "BRL") { [weak self] coinModel, chartCategories, chartValues, error in
                 if let error = error as? APIErrorEnum {
                     self?.errorCheck(error)
                     return
@@ -50,34 +61,17 @@ final class HomeViewModel: ObservableObject {
                 
                 if let coinModel = coinModel {
                     self?.coinModel = coinModel
-                    return
+                }
+                
+                if let chartCategories = chartCategories,
+                   let chartValues = chartValues {
+                    self?.chartCategories = chartCategories
+                    self?.chartValues = chartValues
                 }
             }
     }
     
-    private func getRangeFromCoin() {
-        CoinFetcher
-            .shared
-            .getRangeFrom(coin: "USD-BRLT", range: 25) { [weak self] values, error in
-            
-            if let error = error as? APIErrorEnum {
-                self?.errorCheck(error)
-                return
-            }
-            
-            self?.rangeValues = values
-            
-            _ = values.map { name, value in
-                self?.chartValues.append(value)
-                self?.chartCategories.append(name)
-            }
-        
-            return
-        }
-    }
-    
     private func refreshValues() {
-        self.rangeValues = []
         self.chartValues = []
         self.chartCategories = []
     }

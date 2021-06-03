@@ -1,20 +1,41 @@
 //
 //  StockPriceModel.swift
-//  
+//
 //
 //  Created by Arthur Gradim Givigir on 26/04/21.
 //
 
 import Foundation
+import WidgetKit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // MARK: - StockPriceModel
-public struct StockPriceModel: Codable {
+public struct StockPriceMinutelyDailyModel: Codable {
     public let stockPriceDailyModel: StockPriceDailyModel
     public let stockPriceMinutelyModel: [String: StockPriceMinutelyModel]
 
     enum CodingKeys: String, CodingKey {
         case stockPriceDailyModel = "Meta Data"
-        case stockPriceMinutelyModel = "Time Series FX (5min)"
+        case stockPriceMinutelyModel = "Time Series FX (15min)"
     }
 }
 
@@ -41,11 +62,32 @@ public struct StockPriceDailyModel: Codable {
 }
 
 // MARK: - TimeSeriesFX5Min
-public struct StockPriceMinutelyModel: Codable {
+public struct StockPriceMinutelyModel: TimelineEntry, Codable {
+    public var date: Date = Date()
     public let open: String
     public let high: String
     public let low: String
     public let close: String
+    public var message: String?
+    public var updatedAt: Date?
+    public var pctChange: Double?
+    
+    private var formatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale(identifier: "pt_BR")
+        return formatter
+    }
+    
+    public var formattedBit: String {
+        let defaultValue = "R$ 0,00"
+        
+        if let value = Double(self.close) {
+            return formatter.string(from: NSNumber(value: value)) ?? defaultValue
+        }
+        
+        return defaultValue
+    }
     
     enum CodingKeys: String, CodingKey {
         case open = "1. open"

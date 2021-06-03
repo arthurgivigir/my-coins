@@ -31,9 +31,9 @@ struct Provider: IntentTimelineProvider {
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [CoinModel] = []
-
+        
         CoinFetcher.shared
-            .getValueFrom(coin: "USD-BRL") { coin, error in
+            .getCoinValue(from: "USD", to: "BRL") { coin, error in
                 
                 if let error = error {
                     print("😭 Ocorreu um erro: \(error.localizedDescription)")
