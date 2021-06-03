@@ -18,6 +18,7 @@ final class HomeViewModel: ObservableObject {
     @Published var showToast: Bool = false
     @Published var messageToast: String = ""
     @Published var subtitleToast: String = ""
+    @Published var showToastError: Bool = true
     
     private var lastUpdate: Date = Date()
     private var cancellables: Set<AnyCancellable> = []
@@ -44,6 +45,7 @@ final class HomeViewModel: ObservableObject {
         }
         
         self.showToast = true
+        self.showToastError = true
         self.messageToast = "Aguarde mais um pouco!"
         self.subtitleToast = "Espere 5 minutos para tentar atualizar novamente!"
         
@@ -71,6 +73,13 @@ final class HomeViewModel: ObservableObject {
             }
     }
     
+    public func showWidgetConfig() {
+        self.showToast = true
+        self.showToastError = false
+        self.messageToast = "Aguarde mais um pouco!"
+        self.subtitleToast = "Em breve teremos novidades por aqui!"
+    }
+    
     private func refreshValues() {
         self.chartValues = []
         self.chartCategories = []
@@ -81,6 +90,7 @@ final class HomeViewModel: ObservableObject {
         case .network:
             print("😭 Ocorreu um erro: \(String(describing: error?.localizedDescription))")
             self.showToast = true
+            self.showToastError = true
             self.messageToast = "Ocorreu um erro!"
             self.subtitleToast = "Verifique sua conexão e tente novamente!"
             return
@@ -88,10 +98,12 @@ final class HomeViewModel: ObservableObject {
         default:
             print("😭 Ocorreu um erro: \(String(describing: error?.localizedDescription))")
             self.showToast = true
+            self.showToastError = true
             self.messageToast = "Ocorreu um erro!"
             self.subtitleToast = "Tente novamente!"
             return
         }
     }
+    
     
 }

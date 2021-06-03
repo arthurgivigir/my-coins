@@ -79,11 +79,7 @@ struct HomeView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button("Configuração do Widget") {
-                            self.showingAlert = true
-                        }
-                        
-                        Button("Sobre") {
-                            self.showingSheet = true
+                            self.homeViewModel.showWidgetConfig()
                         }
                     }
                     label: {
@@ -98,7 +94,7 @@ struct HomeView: View {
         .toast(isPresenting: self.$homeViewModel.showToast){
             AlertToast(
                 displayMode: .hud,
-                type: .error(.red),
+                type: self.homeViewModel.showToastError ? .error(.red) : .regular,
                 title: self.homeViewModel.messageToast,
                 subTitle: self.homeViewModel.subtitleToast
             )
