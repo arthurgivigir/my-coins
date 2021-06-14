@@ -28,5 +28,6 @@ struct HomeChartView: View {
 struct HomeChartView_Previews: PreviewProvider {
     static var previews: some View {
         HomeChartView()
+            .environmentObject(HomeViewModel())
     }
 }

@@ -24,7 +24,6 @@ struct HomeView: View {
         NavigationView {
             VStack {
                 // Widget Space
-                
                 HomeHeaderView()
                     .padding(20)
                     .frame(minWidth: 0,
@@ -53,9 +52,7 @@ struct HomeView: View {
                         .background(Color.white)
                         .cornerRadius(20)
                         .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
-//                        .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.fetch))
-                    
-                    
+
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
                 .background(Color.white.opacity(0.6))

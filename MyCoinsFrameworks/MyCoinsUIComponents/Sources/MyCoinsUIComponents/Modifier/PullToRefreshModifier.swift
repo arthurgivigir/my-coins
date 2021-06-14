@@ -39,15 +39,15 @@ public struct PullToRefreshModifier: ViewModifier {
 
     public func body(content: Content) -> some View {
         ZStack(alignment: .top) {
-            MCLottieView(name: "capital_investment", loopMode: .loop)
-                .scaledToFit()
+
+            ProgressView()
                 .opacity(opacity)
+                .foregroundColor(.white)
                 .frame(minWidth: 0,
                        maxWidth: .infinity,
                        minHeight: 0,
                        maxHeight: 100,
                    alignment: .center)
-                .offset(y: 25)
             
             content
                 .offset(
@@ -75,17 +75,12 @@ public struct PullToRefreshModifier: ViewModifier {
                                 self.draggedOffset = CGSize(width: value.translation.width * factor,
                                                     height: value.translation.height * factor)
                                 
-                                let xDist =  abs(value.location.x - self.startPos.x)
-                                let yDist =  abs(value.location.y - self.startPos.y)
-                                
                                 if maxDistance > 0, value.translation.height >= maxDistance {
                                     return
                                 }
                                 
-                                if self.startPos.y < value.location.y && yDist < xDist {
-                                    withAnimation {
-                                        self.opacity = 1.0
-                                    }
+                                withAnimation {
+                                    self.opacity = 1.0
                                 }
                             }
                         }
