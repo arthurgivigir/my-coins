@@ -16,12 +16,18 @@ protocol CoinServiceProtocol {
 
 struct CoinService: CoinServiceProtocol {
 
-    private let apiKey = "4HI32LN6NHWCD8TH"
-    private let alphavantageUrl = "https://www.alphavantage.co/"
+    private let jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHAiOiJjb20uZ2l2aWdpci5NeUNvaW5zIiwiYXBwbmFtZSI6Inpvb2luIiwiYXBwaWQiOiJIN0VEVjU1MjRLIiwicGFzc3dvcmQiOiJiZk1LQkRCbm1OdlRxTWF3NFFrM2d0XzkyOSJ9.5nB7kg_8aRMh-XE56N1F0L8R50PIbDaat56STpjuZus"
+    private let alphavantageUrl = "https://zooin.herokuapp.com"
     
     func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[CoinModel]?, Error> {
-        if let url = URL(string: "\(alphavantageUrl)query?function=FX_INTRADAY&from_symbol=\(from)&to_symbol=\(to)&interval=\(TimeInterval.fifteen.rawValue)&outputsize=\(OutputSize.compact)&apikey=\(apiKey)") {
-            return AF.request(url)
+        
+        if let url = URL(string: "\(alphavantageUrl)/getCoinValues") {
+            
+            let httpHeader: HTTPHeaders = [
+                .authorization(bearerToken: jwtToken)
+            ]
+            
+            return AF.request(url, headers: httpHeader)
                 .publishDecodable(type: CoinResponse.self, queue: .global(qos: .background))
                 .value()
                 .map { coinResponse in

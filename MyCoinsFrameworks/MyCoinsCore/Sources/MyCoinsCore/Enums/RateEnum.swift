@@ -7,10 +7,21 @@
 
 import Foundation
 
-public enum RateEnum {
+public enum RateEnum: String {
     case up
     case down
     case stable
+    
+    public init?(_ stringValue: String) {
+        switch stringValue {
+        case "upMessage":
+            self = .up
+        case "downMessage":
+            self = .down
+        default:
+            self = .stable
+        }
+    }
     
     public func getTableName() -> String {
         switch self {

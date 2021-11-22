@@ -27,15 +27,13 @@ public struct CoinInteractor: CoinInteractorProtocol {
         return self.coinService
             .getCoinValuesFrom(from: from, to: to)
             .map { coinModels -> CoinModel? in
-                var todayCoin = coinModels?.first
-                let yesterdayCoin = coinModels?.filter { todayCoin?.updatedAt?.yesterday() == $0.updatedAt }.first
-                
-                let todayValue = Double(todayCoin?.close ?? "0") ?? 0.0
-                let yesterdayValue = Double(yesterdayCoin?.close ?? "0") ?? 0.0
-                
-                todayCoin?.pctChange = todayValue - yesterdayValue
-                
-                return todayCoin
+                return coinModels?.first(where: { coinModel in
+                    if let _ = coinModel.message {
+                        return true
+                    }
+                    
+                    return false
+                })
             }
             .eraseToAnyPublisher()
     }
@@ -45,21 +43,6 @@ public struct CoinInteractor: CoinInteractorProtocol {
         return self.coinService
             .getCoinValuesFrom(from: from, to: to)
             .map { coinsModel -> [CoinModel]? in
-                
-                if var coins = coinsModel,
-                    var todayCoin = coins.first {
-                    
-                    let yesterdayCoin = coins.filter { todayCoin.updatedAt?.yesterday() == $0.updatedAt }.first
-                    
-                    let todayValue = Double(todayCoin.close ) ?? 0.0
-                    let yesterdayValue = Double(yesterdayCoin?.close ?? "0") ?? 0.0
-                    
-                    todayCoin.pctChange = todayValue - yesterdayValue
-                    coins[0] = todayCoin
-                   
-                    return coins
-                }
- 
                 return coinsModel
             }
             .eraseToAnyPublisher()

@@ -15,9 +15,10 @@ public struct CoinModel: TimelineEntry, Codable {
     public let low: String
     public let close: String
     public var message: String?
-    public var updatedAt: Date?
+    public var updatedAt: String?
     public var pctChange: Double?
     public var formattedUpdatedAt: String?
+    internal var rate: String?
     
     public var formattedBit: String {
         let defaultValue = "R$ 0,00"
@@ -36,20 +37,9 @@ public struct CoinModel: TimelineEntry, Codable {
         return formatter
     }
     
-    public var rate: RateEnum {
-        
-        if let pctChange = self.pctChange {
-            
-            let pctChangeRounded = Double(round(100 * pctChange)/100)
-            
-            switch pctChangeRounded {
-            case _ where pctChangeRounded < 0:
-                return .down
-            case _ where pctChangeRounded > 0:
-                return .up
-            default:
-                return .stable
-            }
+    public var rateEnum: RateEnum {
+        if let rate = rate {
+            return RateEnum(rate) ?? .stable
         }
         
         return .stable
@@ -60,15 +50,17 @@ public struct CoinModel: TimelineEntry, Codable {
         open: String = "",
         high: String = "",
         low: String = "",
+        rate: String = "",
         close: String = "",
         message: String? = nil,
-        updatedAt: Date? = nil,
+        updatedAt: String? = nil,
         pctChange: Double? = nil
     ) {
         self.open = open
         self.high = high
         self.low = low
         self.close = close
+        self.rate = rate
         self.message = message
         self.updatedAt = updatedAt
         self.pctChange = pctChange
@@ -79,6 +71,10 @@ public struct CoinModel: TimelineEntry, Codable {
         case high = "2. high"
         case low = "3. low"
         case close = "4. close"
+        case updatedAt = "updatedAt"
+        case message = "message"
+        case pctChange = "pctChange"
+        case rate = "rate"
     }
 
 }
