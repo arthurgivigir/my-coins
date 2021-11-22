@@ -67,7 +67,7 @@ public class CoinFetcher {
                 if let coinsModel = coinsModel {
                     _ = coinsModel.enumerated().map { offset, coinModel in
                         
-                        if offset >= 25 {
+                        if offset >= 100 {
                             return
                         }
                         
