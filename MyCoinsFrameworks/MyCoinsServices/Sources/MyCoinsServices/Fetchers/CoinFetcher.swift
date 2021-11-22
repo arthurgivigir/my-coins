@@ -67,13 +67,13 @@ public class CoinFetcher {
                 if let coinsModel = coinsModel {
                     _ = coinsModel.enumerated().map { offset, coinModel in
                         
-                        if offset >= 100 {
+                        if offset >= 25 {
                             return
                         }
                         
                         let coinValue = Double(coinModel.close)
                         values.append(coinValue ?? 0.0)
-                        categories.append(coinModel.formattedUpdatedAt ?? "")
+                        categories.append("")
                         
                         var todayCoin: CoinModel? {
                             if let _ = coinModel.message {
@@ -83,7 +83,7 @@ public class CoinFetcher {
                             return nil
                         }
                         
-                        completion(todayCoin, categories.reversed(), values.reversed(), nil)
+                        completion(todayCoin, categories, values.reversed(), nil)
                     }
                 }
             }

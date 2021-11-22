@@ -17,7 +17,9 @@ public struct CoinModel: TimelineEntry, Codable {
     public var message: String?
     public var updatedAt: String?
     public var pctChange: Double?
-    public var formattedUpdatedAt: String?
+    public var formattedUpdatedAt: String? {
+        self.updatedAt?.formattedDate()
+    }
     internal var rate: String?
     
     public var formattedBit: String {
