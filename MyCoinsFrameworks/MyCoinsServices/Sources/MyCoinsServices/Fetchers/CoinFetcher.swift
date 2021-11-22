@@ -127,33 +127,3 @@ public class CoinFetcher {
     }
 
 }
-
-
-extension String {
-    
-    public func formattedDate() -> String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        
-        let date = dateFormatter.date(from: self) ?? Date()
-        dateFormatter.dateFormat = "dd MMMM HH:mm"
-        dateFormatter.locale = Locale(identifier: "pt-BR")
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    func toDate() -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        
-        return dateFormatter.date(from: self)
-    }
-}
-
-extension Date {
-    func yesterday() -> Date? {
-        return Calendar.current.date(byAdding: .day, value: -1, to: self)
-    }
-}

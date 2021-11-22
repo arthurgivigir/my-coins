@@ -9,29 +9,28 @@ import MyCoinsCore
 
 internal struct CoinResponse: Codable {
     
+    let metaData: MetaDataModel?
     let coinValues: [CoinModel]
+}
+
+
+internal struct MetaDataModel: Codable {
     
-    enum StockPriceMinutelyDailyKeys: String, CodingKey {
-        case stockPriceDailyModel = "Meta Data"
-        case stockPriceMinutelyModel = "Time Series FX (15min)"
-    }
+    public let information: String?
+    public let fromSymbol: String?
+    public let toSymbol: String?
+    public let lastRefreshed: String?
+    public let interval: String?
+    public let ouputSize: String?
+    public let timeZone: String?
     
-    public init(from decoder: Decoder) throws {
-        
-        let values = try decoder.container(keyedBy: StockPriceMinutelyDailyKeys.self)
-        let stockPriceMinutely = try values.decode([String: CoinModel].self, forKey: .stockPriceMinutelyModel)
-        
-        let stockPriceMinutelyArray = Array(stockPriceMinutely)
-            .sorted { $0.key > $1.key }
-            .map { stock -> CoinModel in
-            
-                var stockOrganized = stock.value
-                stockOrganized.updatedAt = stock.key.toDate()
-                stockOrganized.formattedUpdatedAt = stock.key.formattedDate()
-                
-                return stockOrganized
-            }
-        
-        self.coinValues = stockPriceMinutelyArray
+    enum CodingKeys: String, CodingKey {
+        case information = "1. Information"
+        case fromSymbol = "2. From Symbol"
+        case toSymbol = "3. To Symbol"
+        case lastRefreshed = "4. Last Refreshed"
+        case interval = "5. Interval"
+        case ouputSize = "6. Output Size"
+        case timeZone = "7. Time Zone"
     }
 }
