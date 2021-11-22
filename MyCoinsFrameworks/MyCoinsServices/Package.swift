@@ -19,7 +19,6 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.2.0")),
-        .package(name: "Firebase", url: "https://github.com/firebase/firebase-ios-sdk.git", .branch("master")),
         .package(path: "MyCoinsCore")
     ],
     targets: [
@@ -30,7 +29,6 @@ let package = Package(
             dependencies: [
                 "Alamofire",
                 "MyCoinsCore",
-                .product(name: "FirebaseFirestore", package: "Firebase"),
             ]
         ),
         .testTarget(

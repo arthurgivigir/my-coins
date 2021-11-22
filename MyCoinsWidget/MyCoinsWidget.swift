@@ -16,10 +16,6 @@ import MyCoinsUIComponents
 
 struct Provider: IntentTimelineProvider {
     
-    init() {
-        MyCoinsServices.shared.setupFirebase()
-    }
-    
     func placeholder(in context: Context) -> CoinModel {
         CoinModel(date: Date())
     }

@@ -59,7 +59,7 @@ public struct MainWidgetView : View {
                             .font(.system(self.primaryFont))
                             .foregroundColor(.white)
                         
-                        RateView(rate: coin.rate)
+                        RateView(rate: coin.rateEnum)
                             .frame(width: 10, height: 10, alignment: .center)
                     }
                     
