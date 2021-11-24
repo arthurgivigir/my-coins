@@ -25,12 +25,6 @@ struct HomeView: View {
             VStack {
                 // Widget Space
                 HomeHeaderView()
-                    .padding(20)
-                    .frame(minWidth: 0,
-                           maxWidth: .infinity,
-                           minHeight: 0,
-                           maxHeight: 220,
-                       alignment: .center)
                 
                 // Chart and animation space
                 VStack {
@@ -72,20 +66,20 @@ struct HomeView: View {
             .edgesIgnoringSafeArea(.bottom)
             .navigationBarTitle("Zooin", displayMode: .inline)
             .background(self.background)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button("Configuração do Widget") {
-                            self.homeViewModel.showWidgetConfig()
-                        }
-                    }
-                    label: {
-                        Label("menu", systemImage: "ellipsis")
-                            .font(.system(size: 20, weight: .regular))
-                            .foregroundColor(.white)
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Menu {
+//                        Button("Configuração do Widget") {
+//                            self.homeViewModel.showWidgetConfig()
+//                        }
+//                    }
+//                    label: {
+//                        Label("menu", systemImage: "ellipsis")
+//                            .font(.system(size: 20, weight: .regular))
+//                            .foregroundColor(.white)
+//                    }
+//                }
+//            }
             
         }
         .toast(isPresenting: self.$homeViewModel.showToast){

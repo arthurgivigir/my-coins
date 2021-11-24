@@ -25,6 +25,7 @@ let package = Package(
         .package(name: "SwiftUICharts", url: "https://github.com/AppPear/ChartView", from: "1.5.5"),
         .package(name: "Charts", url: "https://github.com/danielgindi/Charts", from: "4.0.1"),
         .package(name: "AAInfographics", url: "https://github.com/AAChartModel/AAChartKit-Swift", from: "6.0.0"),
+        .package(name: "StockCharts", url: "https://github.com/denniscm190/StockCharts.git", from: "1.2.9"),
         
     ],
     targets: [
