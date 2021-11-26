@@ -7,7 +7,8 @@
 
 import SwiftUI
 import SwiftUICharts
-import AAInfographics
+import Charts
+import StockCharts
 
 public struct ChartView: View {
     
@@ -16,25 +17,41 @@ public struct ChartView: View {
     
     @Binding private var chartData: [Double]
     @Binding private var chartCategories: [String]
+    @Binding private var data: LineChartData
     
     public init(
         title: String,
         subtitle: String,
         chartData: Binding<[Double]>,
-        chartCategories: Binding<[String]>) {
-        self.title = title
-        self.subtitle = subtitle
-        self._chartData = chartData
-        self._chartCategories = chartCategories
+        chartCategories: Binding<[String]>,
+        lineChartData: Binding<LineChartData>) {
+            self.title = title
+            self.subtitle = subtitle
+            self._chartData = chartData
+            self._chartCategories = chartCategories
+            self._data = lineChartData
     }
     
     public var body: some View {
-        ChartViewReprentable(
-            title: self.title,
-            subtitle: self.subtitle,
-            chartData: self.$chartData,
-            chartCategories: self.$chartCategories
-        )
+        
+        LineChart(chartData: data)
+                    .pointMarkers(chartData: data)
+                    .touchOverlay(chartData: data,
+                                  formatter: numberFormatter)
+                    .xAxisGrid(chartData: data)
+                    .xAxisLabels(chartData: data)
+                    .infoBox(chartData: data)
+                    .id(data.id)
+                    .padding(.horizontal)
+    }
+
+    private var numberFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.generatesDecimalNumbers = true
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
     }
 }
 
@@ -44,53 +61,54 @@ struct SwiftUIView_Previews: PreviewProvider {
             title: "Teste",
             subtitle: "Testando",
             chartData: .constant([1,2,3,4,5,3,2,4]),
-            chartCategories: .constant(["1", "2", "3", "4", "5", "3", "2", "4"])
+            chartCategories: .constant(["1", "2", "3", "4", "5", "3", "2", "4"]), 
+            lineChartData: .constant(LineChartData(dataSets: LineDataSet(dataPoints: [LineChartDataPoint(value: 1.0), LineChartDataPoint(value: 2.0), LineChartDataPoint(value: 0.5)])))
         )
     }
 }
 
-private struct ChartViewReprentable: UIViewRepresentable {
-
-    private var title: String
-    private var subtitle: String
-
-    @Binding private var chartData: [Double]
-    @Binding private var chartCategories: [String]
-    
-    internal init(
-        title: String,
-        subtitle: String,
-        chartData: Binding<[Double]>,
-        chartCategories: Binding<[String]>
-    ) {
-        self.title = title
-        self.subtitle = subtitle
-        self._chartData = chartData
-        self._chartCategories = chartCategories
-    }
-    
-    func makeUIView(context: Context) -> AAChartView {
-        AAChartView()
-    }
-
-    func updateUIView(_ uiView: AAChartView, context: Context) {
-        let aaChartModel = AAChartModel()
-            .chartType(.line)//Can be any of the chart types listed under `AAChartType`.
-            .animationType(.bounce)
-            .title(self.title)//The chart title
-//            .subtitle(self.subtitle)//The chart subtitle
-            .dataLabelsEnabled(false) //Enable or disable the data labels. Defaults to false
-            .tooltipValueSuffix("USD")//the value suffix of the chart tooltip
-            .categories(self.chartCategories)
-            .colorsTheme(["#9019EB"])
-            .dataLabelsStyle(AAStyle(color: "#310F42", fontSize: 17.0, weight: .bold))
-            .series([
-                AASeriesElement()
-                    .name("")
-                    .data(self.chartData),
-                ])
-        
-        uiView.aa_drawChartWithChartModel(aaChartModel)
-        uiView.scrollView.bounces = false
-    }
-}
+//private struct ChartViewReprentable: UIViewRepresentable {
+//
+//    private var title: String
+//    private var subtitle: String
+//
+//    @Binding private var chartData: [Double]
+//    @Binding private var chartCategories: [String]
+//
+//    internal init(
+//        title: String,
+//        subtitle: String,
+//        chartData: Binding<[Double]>,
+//        chartCategories: Binding<[String]>
+//    ) {
+//        self.title = title
+//        self.subtitle = subtitle
+//        self._chartData = chartData
+//        self._chartCategories = chartCategories
+//    }
+//
+//    func makeUIView(context: Context) -> AAChartView {
+//        AAChartView()
+//    }
+//
+//    func updateUIView(_ uiView: AAChartView, context: Context) {
+//        let aaChartModel = AAChartModel()
+//            .chartType(.line)//Can be any of the chart types listed under `AAChartType`.
+//            .animationType(.bounce)
+//            .title(self.title)//The chart title
+////            .subtitle(self.subtitle)//The chart subtitle
+//            .dataLabelsEnabled(false) //Enable or disable the data labels. Defaults to false
+//            .tooltipValueSuffix("USD")//the value suffix of the chart tooltip
+//            .categories(self.chartCategories)
+//            .colorsTheme(["#9019EB"])
+//            .dataLabelsStyle(AAStyle(color: "#310F42", fontSize: 17.0, weight: .bold))
+//            .series([
+//                AASeriesElement()
+//                    .name("")
+//                    .data(self.chartData),
+//                ])
+//
+//        uiView.aa_drawChartWithChartModel(aaChartModel)
+//        uiView.scrollView.bounces = false
+//    }
+//}

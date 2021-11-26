@@ -19,9 +19,11 @@ public extension View {
     }
     
     func setNavigationColor() {
-        UINavigationBar.appearance().barTintColor = .clear
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+        let purpleColor = UIColor(Color.mcPrimary)
+        UINavigationBar.appearance().barTintColor = purpleColor
         UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     

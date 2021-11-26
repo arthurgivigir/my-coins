@@ -22,38 +22,61 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                // Widget Space
-                HomeHeaderView()
-                
-                // Chart and animation space
+            ScrollView {
                 VStack {
+                    // Widget Space
+                    HomeHeaderView()
                     
-                    VStack(alignment: .leading) {
-                        Text("Última atualização: \(self.homeViewModel.coinModel.formattedUpdatedAt ?? "")")
-                            .font(.caption2)
-                            .foregroundColor(.black.opacity(0.8))
-                        Text("Referência: 1 Dólar americano (comercial)")
-                            .font(.caption2)
-                            .foregroundColor(.black.opacity(0.8))
-                    }
-                    .padding(20)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 60, alignment: .topLeading)
-                    
-                    HomeChartView()
-                        .padding(30)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-                        .background(Color.white)
-                        .cornerRadius(20)
-                        .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+                    // Chart and animation space
+                    VStack {
+                        
+                        VStack(alignment: .leading) {
+                            Text("Última atualização: \(self.homeViewModel.coinModel.formattedUpdatedAt ?? "")")
+                                .font(.caption2)
+                                .foregroundColor(.black.opacity(0.8))
+                            Text("Referência: 1 Dólar americano (comercial)")
+                                .font(.caption2)
+                                .foregroundColor(.black.opacity(0.8))
+                        }
+                        .padding(20)
+                        .frame(
+                            minWidth: 0,
+                            maxWidth: .infinity,
+                            minHeight: 0,
+                            maxHeight: 60,
+                            alignment: .topLeading
+                        )
+                        
+                        HomeChartView()
+                            .padding(30)
+                            .frame(
+                                minWidth: 0,
+                                maxWidth: .infinity,
+                                minHeight: 0,
+                                maxHeight: .infinity,
+                                alignment: .top)
+                            .background(Color.white)
+                            .cornerRadius(20)
+                            .shadow(
+                                color: .black.opacity(0.5),
+                                radius: 20,
+                                x: 0.5,
+                                y: 0.5)
 
+                    }
+                    .frame(
+                        minWidth: 0,
+                        maxWidth: .infinity,
+                        minHeight: 0,
+                        maxHeight: .infinity,
+                        alignment: .top
+                    )
+                    .background(Color.white.opacity(0.6))
+                    .cornerRadius(20)
+                    .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
                 }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-                .background(Color.white.opacity(0.6))
-                .cornerRadius(20)
-                .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
             }
-            .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.reload))
+//            .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.reload))
             .onAppear() {
                 self.homeViewModel.fetch()
             }
@@ -66,21 +89,6 @@ struct HomeView: View {
             .edgesIgnoringSafeArea(.bottom)
             .navigationBarTitle("Zooin", displayMode: .inline)
             .background(self.background)
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    Menu {
-//                        Button("Configuração do Widget") {
-//                            self.homeViewModel.showWidgetConfig()
-//                        }
-//                    }
-//                    label: {
-//                        Label("menu", systemImage: "ellipsis")
-//                            .font(.system(size: 20, weight: .regular))
-//                            .foregroundColor(.white)
-//                    }
-//                }
-//            }
-            
         }
         .toast(isPresenting: self.$homeViewModel.showToast){
             AlertToast(

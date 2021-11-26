@@ -24,9 +24,7 @@ struct HomeHeaderView: View {
 //                   minHeight: 0,
 //                   maxHeight: 180,
 //               alignment: .center)
-//            .background(BlurEffectView(effect: .regular).opacity(0.2))
-//            .cornerRadius(20)
-//            .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+            
         
         VStack(alignment: .leading, spacing: 15) {
             Text("Olá, Tudo bem? 👋🏽")

@@ -18,9 +18,10 @@ struct HomeChartView: View {
                 title: "Variação cambial",
                 subtitle: "Dólar hoje",
                 chartData: self.$homeViewModel.chartValues,
-                chartCategories: self.$homeViewModel.chartCategories
+                chartCategories: self.$homeViewModel.chartCategories,
+                lineChartData: self.$homeViewModel.lineChartData
             )
-            .frame(width: UIScreen.main.bounds.width, height: 220, alignment: .top)
+            .frame(minWidth: UIScreen.main.bounds.width, minHeight: 300, maxHeight: 600,alignment: .top)
         }
     }
 }

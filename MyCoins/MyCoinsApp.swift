@@ -15,7 +15,7 @@ struct MyCoinsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            TabBarView()
                 .environmentObject(self.homeViewModel)
                 .preferredColorScheme(.dark)
         }
