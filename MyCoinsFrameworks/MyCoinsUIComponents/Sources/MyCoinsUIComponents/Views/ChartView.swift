@@ -12,24 +12,10 @@ import StockCharts
 
 public struct ChartView: View {
     
-    private var title: String
-    private var subtitle: String
-    
-    @Binding private var chartData: [Double]
-    @Binding private var chartCategories: [String]
     @Binding private var data: LineChartData
     
-    public init(
-        title: String,
-        subtitle: String,
-        chartData: Binding<[Double]>,
-        chartCategories: Binding<[String]>,
-        lineChartData: Binding<LineChartData>) {
-            self.title = title
-            self.subtitle = subtitle
-            self._chartData = chartData
-            self._chartCategories = chartCategories
-            self._data = lineChartData
+    public init(lineChartData: Binding<LineChartData>) {
+        self._data = lineChartData
     }
     
     public var body: some View {
@@ -71,10 +57,6 @@ public struct ChartView: View {
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
         ChartView(
-            title: "Teste",
-            subtitle: "Testando",
-            chartData: .constant([1,2,3,4,5,3,2,4]),
-            chartCategories: .constant(["1", "2", "3", "4", "5", "3", "2", "4"]), 
             lineChartData: .constant(LineChartData(dataSets: LineDataSet(dataPoints: [LineChartDataPoint(value: 1.0), LineChartDataPoint(value: 2.0), LineChartDataPoint(value: 0.5)])))
         )
     }

@@ -15,7 +15,7 @@ import SwiftUI
 final class HomeViewModel: ObservableObject {
     
     @Published private (set) var coinModel = CoinModel(date: Date())
-    @Published var chartValues = [Double]()
+    @Published var chartValues = [CoinModel]()
     @Published var chartCategories = [String]()
     @Published var showToast: Bool = false
     @Published var messageToast: String = ""
@@ -25,8 +25,8 @@ final class HomeViewModel: ObservableObject {
     
     private var lastUpdate: Date = Date()
     private var cancellables: Set<AnyCancellable> = []
-    private var minValue = 0.0
-    private var maxValue = 0.0
+    private var minValue = "0.0"
+    private var maxValue = "0.0"
     private var chartMetaData = ChartMetadata(
         title: "Variação cambial",
         subtitle: "Referência: 1 Dólar americano (comercial)",
@@ -59,7 +59,7 @@ final class HomeViewModel: ObservableObject {
         
         CoinFetcher
             .shared
-            .getCoinValues(from: "USD", to: "BRL") { [weak self] coinModel, chartCategories, chartValues, error in
+            .getCoinValues(from: "USD", to: "BRL") { [weak self] coinModel, chartValues, error in
                 if let error = error as? APIErrorEnum {
                     self?.errorCheck(error)
                     return
@@ -69,14 +69,19 @@ final class HomeViewModel: ObservableObject {
                     self?.coinModel = coinModel
                 }
                 
-                if let chartCategories = chartCategories,
-                   let chartValues = chartValues {
-                    self?.chartCategories = chartCategories
+//                if let chartCategories = chartCategories,
+//                   let chartValues = chartValues {
+//                    self?.chartValues = chartValues
+//                    self?.setChartData()
+//
+//                }
+                
+                if let chartValues = chartValues {
                     self?.chartValues = chartValues
                     self?.setChartData()
-                    
-                    self?.maxValue = chartValues.max { $0 > $1 } ?? 0.0
-                    self?.minValue = chartValues.min { $0 > $1 } ?? 0.0
+                        
+                    self?.maxValue = chartValues.max { $0.close > $1.close }?.close ?? "0.0"
+                    self?.minValue = chartValues.min { $0.close > $1.close }?.close ?? "0.0"
                 }
             }
     }
@@ -91,11 +96,14 @@ final class HomeViewModel: ObservableObject {
             color = .mcSecondary
         }
         
-        let dataPoints = self.chartValues.enumerated().map { offset, value -> LineChartDataPoint in
-            LineChartDataPoint(
+        let dataPoints = self.chartValues.enumerated().map { offset, coinModel -> LineChartDataPoint in
+            
+            let value = Double(coinModel.close) ?? 0.0
+            
+            return LineChartDataPoint(
                 value: value,
                 xAxisLabel: "R$ \(value)",
-                description: "Horário",
+                description: coinModel.updatedAt?.formattedDate() ?? "",
                 pointColour: PointColour(border: color, fill: color)
             )
         }
@@ -118,8 +126,8 @@ final class HomeViewModel: ObservableObject {
                                         yAxisLabelPosition: .leading,
                                         yAxisLabelColour: Color.gray,
                                         yAxisNumberOfLabels: 7,
-                                        baseline: .minimumWithMaximum(of: maxValue),
-                                        topLine: .maximum(of: minValue),
+                                        baseline: .minimumWithMaximum(of: Double(maxValue) ?? 0.0),
+                                        topLine: .maximum(of: Double(minValue) ?? 0.0),
                                         globalAnimation: .easeOut(duration: 0.5))
         
         self.lineChartData = LineChartData(dataSets: data,

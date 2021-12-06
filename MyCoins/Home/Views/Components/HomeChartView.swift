@@ -15,10 +15,6 @@ struct HomeChartView: View {
     var body: some View {
         VStack {
             ChartView(
-                title: "Variação cambial",
-                subtitle: "Dólar hoje",
-                chartData: self.$homeViewModel.chartValues,
-                chartCategories: self.$homeViewModel.chartCategories,
                 lineChartData: self.$homeViewModel.lineChartData
             )
             .frame(minWidth: UIScreen.main.bounds.width, minHeight: 200, maxHeight: 400,alignment: .top)
