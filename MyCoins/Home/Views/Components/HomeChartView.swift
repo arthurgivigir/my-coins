@@ -21,7 +21,8 @@ struct HomeChartView: View {
                 chartCategories: self.$homeViewModel.chartCategories,
                 lineChartData: self.$homeViewModel.lineChartData
             )
-            .frame(minWidth: UIScreen.main.bounds.width, minHeight: 300, maxHeight: 600,alignment: .top)
+            .frame(minWidth: UIScreen.main.bounds.width, minHeight: 200, maxHeight: 400,alignment: .top)
+            .padding(.bottom, 50)
         }
     }
 }

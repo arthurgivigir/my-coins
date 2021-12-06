@@ -35,14 +35,27 @@ public struct ChartView: View {
     public var body: some View {
         
         LineChart(chartData: data)
-                    .pointMarkers(chartData: data)
-                    .touchOverlay(chartData: data,
-                                  formatter: numberFormatter)
-                    .xAxisGrid(chartData: data)
-                    .xAxisLabels(chartData: data)
-                    .infoBox(chartData: data)
-                    .id(data.id)
-                    .padding(.horizontal)
+            .pointMarkers(chartData: data)
+            .touchOverlay(chartData: data,
+                          formatter: numberFormatter)
+            .xAxisGrid(chartData: data)
+            .yAxisGrid(chartData: data)
+            .yAxisLabels(chartData: data,
+                         formatter: numberFormatter,
+                         colourIndicator: .style(size: 12))
+            .infoBox(chartData: data)
+            .headerBox(chartData: data)
+            .id(data.id)
+            .frame(
+                minWidth: 150,
+                maxWidth: 900,
+                minHeight: 150,
+                idealHeight: 500,
+                maxHeight: 600,
+                alignment: .center
+            )
+            .padding(.horizontal)
+        
     }
 
     private var numberFormatter: NumberFormatter {

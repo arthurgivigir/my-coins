@@ -21,7 +21,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        NavigationView {
+        GeometryReader { geometry in
             ScrollView {
                 VStack {
                     // Widget Space
@@ -48,13 +48,13 @@ struct HomeView: View {
                         )
                         
                         HomeChartView()
-                            .padding(30)
+                            .padding(.vertical, 30)
                             .frame(
                                 minWidth: 0,
                                 maxWidth: .infinity,
-                                minHeight: 0,
+                                minHeight: 400,
                                 maxHeight: .infinity,
-                                alignment: .top)
+                                alignment: .center)
                             .background(Color.white)
                             .cornerRadius(20)
                             .shadow(
@@ -75,31 +75,25 @@ struct HomeView: View {
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
                 }
+                .frame(minHeight: geometry.size.height)
             }
-//            .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.reload))
+    //            .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.reload))
+            .background(self.background)
             .onAppear() {
                 self.homeViewModel.fetch()
             }
-            .frame(minWidth: 0,
-                   maxWidth: .infinity,
-                   minHeight: 0,
-                   maxHeight: .infinity,
-                   alignment: .top
-            )
-            .edgesIgnoringSafeArea(.bottom)
-            .navigationBarTitle("Zooin", displayMode: .inline)
-            .background(self.background)
-        }
-        .toast(isPresenting: self.$homeViewModel.showToast){
-            AlertToast(
-                displayMode: .hud,
-                type: self.homeViewModel.showToastError ? .error(.red) : .regular,
-                title: self.homeViewModel.messageToast,
-                subTitle: self.homeViewModel.subtitleToast
-            )
-        }
-        .sheet(isPresented: $showingSheet) {
-            SheetView()
+            .toast(isPresenting: self.$homeViewModel.showToast){
+                AlertToast(
+                    displayMode: .hud,
+                    type: self.homeViewModel.showToastError ? .error(.red) : .regular,
+                    title: self.homeViewModel.messageToast,
+                    subTitle: self.homeViewModel.subtitleToast
+                )
+            }
+            .sheet(isPresented: $showingSheet) {
+                SheetView()
+            }
+            
         }
     }
 }

@@ -25,13 +25,23 @@ final class HomeViewModel: ObservableObject {
     
     private var lastUpdate: Date = Date()
     private var cancellables: Set<AnyCancellable> = []
+    private var minValue = 0.0
+    private var maxValue = 0.0
+    private var chartMetaData = ChartMetadata(
+        title: "Variação cambial",
+        subtitle: "Referência: 1 Dólar americano (comercial)",
+        titleFont: .headline,
+        titleColour: .black,
+        subtitleFont: .subheadline,
+        subtitleColour: .gray
+    )
     
     public func fetch() {
         
         self.refreshValues()
         self.getCoinValues()
         
-        Timer.publish(every: 600, on: .main, in: .default)
+        Timer.publish(every: 30, on: .main, in: .default)
             .autoconnect()
             .sink { time in
                 self.getCoinValues()
@@ -64,6 +74,9 @@ final class HomeViewModel: ObservableObject {
                     self?.chartCategories = chartCategories
                     self?.chartValues = chartValues
                     self?.setChartData()
+                    
+                    self?.maxValue = chartValues.max { $0 > $1 } ?? 0.0
+                    self?.minValue = chartValues.min { $0 > $1 } ?? 0.0
                 }
             }
     }
@@ -71,44 +84,47 @@ final class HomeViewModel: ObservableObject {
     
     public func setChartData() {
         
-        
-        let gridStyle = GridStyle(numberOfLines: 7,
-                                           lineColour   : Color(.lightGray).opacity(0.5),
-                                           lineWidth    : 1,
-                                           dash         : [8],
-                                           dashPhase    : 0)
-        
-        let chartStyle = LineChartStyle(infoBoxPlacement    : .infoBox(isStatic: false),
-                                                infoBoxContentAlignment: .vertical,
-                                                infoBoxBorderColour : Color.primary,
-                                                infoBoxBorderStyle  : StrokeStyle(lineWidth: 1),
-                                                
-                                                markerType          : .vertical(attachment: .line(dot: .style(DotStyle()))),
-                                                
-                                                xAxisGridStyle      : gridStyle,
-                                                xAxisLabelPosition  : .bottom,
-                                                xAxisLabelColour    : Color.primary,
-                                                xAxisLabelsFrom     : .dataPoint(rotation: .degrees(0)),
-                                                xAxisTitle          : "xAxisTitle",
-                                                
-                                                yAxisGridStyle      : gridStyle,
-                                                yAxisLabelPosition  : .leading,
-                                                yAxisLabelColour    : Color.primary,
-                                                yAxisNumberOfLabels : 10,
-                                                globalAnimation     : .easeOut(duration: 1))
-        
+        var color: Color = Color.mcQuaternary
+        if self.coinModel.rateEnum == .down {
+            color = .mcTertiary
+        } else if self.coinModel.rateEnum == .up {
+            color = .mcSecondary
+        }
         
         let dataPoints = self.chartValues.enumerated().map { offset, value -> LineChartDataPoint in
-            LineChartDataPoint(value: value, xAxisLabel: self.chartCategories[offset], description: "\(value)", pointColour: PointColour(border: .purple, fill: .red))
+            LineChartDataPoint(
+                value: value,
+                xAxisLabel: "R$ \(value)",
+                description: "Horário",
+                pointColour: PointColour(border: color, fill: color)
+            )
         }
         
         let data = LineDataSet(dataPoints: dataPoints,
-                legendTitle: "Steps",
-                pointStyle: PointStyle(),
-                style: LineStyle(lineColour: ColourStyle(colour: .red), lineType: .curvedLine))
+        style: LineStyle(lineColour: ColourStyle(colour: color), lineType: .line))
         
-        lineChartData = LineChartData(dataSets       : data,
-                                      chartStyle     : chartStyle)
+        let gridStyle = GridStyle(numberOfLines: 7,
+                                   lineColour: Color(.lightGray).opacity(0.5),
+                                   lineWidth: 1,
+                                   dash: [8],
+                                   dashPhase: 0)
+        
+        let chartStyle = LineChartStyle(infoBoxPlacement: .infoBox(isStatic: false),
+                                        infoBoxContentAlignment: .vertical,
+                                        infoBoxBorderColour: Color.black,
+                                        infoBoxBorderStyle: StrokeStyle(lineWidth: 1),
+                                        markerType: .vertical(attachment: .line(dot: .style(DotStyle()))),
+                                        yAxisGridStyle: gridStyle,
+                                        yAxisLabelPosition: .leading,
+                                        yAxisLabelColour: Color.gray,
+                                        yAxisNumberOfLabels: 7,
+                                        baseline: .minimumWithMaximum(of: maxValue),
+                                        topLine: .maximum(of: minValue),
+                                        globalAnimation: .easeOut(duration: 0.5))
+        
+        self.lineChartData = LineChartData(dataSets: data,
+                                           metadata: chartMetaData,
+                                           chartStyle: chartStyle)
     }
     
     public func showWidgetConfig() {
