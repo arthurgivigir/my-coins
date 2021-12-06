@@ -13,7 +13,6 @@
 		5647D4892626456000819595 /* capital_investment.json in Resources */ = {isa = PBXBuildFile; fileRef = 5647D4882626456000819595 /* capital_investment.json */; };
 		5647D48D2626457600819595 /* LottieNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647D48C2626457600819595 /* LottieNames.swift */; };
 		56C2ADF727514E3E000C6996 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2ADF627514E3E000C6996 /* TabBarView.swift */; };
-		56C2ADF9275A51CD000C6996 /* LineChartDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2ADF8275A51CD000C6996 /* LineChartDemoView.swift */; };
 		56C7A39926225AD9007CBA3E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C7A39826225AD9007CBA3E /* HomeView.swift */; };
 		56D83F9025E1970A00DE2FBB /* MyCoinsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D83F8F25E1970A00DE2FBB /* MyCoinsApp.swift */; };
 		56D83F9425E1970D00DE2FBB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56D83F9325E1970D00DE2FBB /* Assets.xcassets */; };
@@ -109,7 +108,6 @@
 		568921882607E0EB00576399 /* MyCoinsServices */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsServices; sourceTree = "<group>"; };
 		56A982C926111BC400B139D9 /* MyCoinsUIComponents */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsUIComponents; sourceTree = "<group>"; };
 		56C2ADF627514E3E000C6996 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
-		56C2ADF8275A51CD000C6996 /* LineChartDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartDemoView.swift; sourceTree = "<group>"; };
 		56C7A39826225AD9007CBA3E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		56D83F8C25E1970A00DE2FBB /* MyCoins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCoins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56D83F8F25E1970A00DE2FBB /* MyCoinsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoinsApp.swift; sourceTree = "<group>"; };
@@ -331,7 +329,6 @@
 			children = (
 				6C32FBF8263DCD8500C0ADD8 /* HomeHeaderView.swift */,
 				6C32FBFA263DCEA300C0ADD8 /* HomeChartView.swift */,
-				56C2ADF8275A51CD000C6996 /* LineChartDemoView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -518,7 +515,6 @@
 			files = (
 				6C32FBF9263DCD8500C0ADD8 /* HomeHeaderView.swift in Sources */,
 				56C2ADF727514E3E000C6996 /* TabBarView.swift in Sources */,
-				56C2ADF9275A51CD000C6996 /* LineChartDemoView.swift in Sources */,
 				56F8E935262CC41B00BB224C /* HomeViewModel.swift in Sources */,
 				56C7A39926225AD9007CBA3E /* HomeView.swift in Sources */,
 				56EAABA6266D5BC3000E12EC /* LaunchScreenView.swift in Sources */,
