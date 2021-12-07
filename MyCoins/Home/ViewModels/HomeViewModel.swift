@@ -69,13 +69,6 @@ final class HomeViewModel: ObservableObject {
                     self?.coinModel = coinModel
                 }
                 
-//                if let chartCategories = chartCategories,
-//                   let chartValues = chartValues {
-//                    self?.chartValues = chartValues
-//                    self?.setChartData()
-//
-//                }
-                
                 if let chartValues = chartValues {
                     self?.chartValues = chartValues
                     self?.setChartData()

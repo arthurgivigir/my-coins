@@ -21,61 +21,75 @@ struct HomeView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                VStack {
-                    // Widget Space
-                    HomeHeaderView()
-                    
-                    // Chart and animation space
+        NavigationView {
+            GeometryReader { geometry in
+                ScrollView {
                     VStack {
-                        HomeChartView()
-                            .padding(.vertical, 30)
-                            .frame(
-                                minWidth: 0,
-                                maxWidth: .infinity,
-                                minHeight: 400,
-                                maxHeight: .infinity,
-                                alignment: .center)
-                            .background(Color.white)
-                            .cornerRadius(20)
-                            .shadow(
-                                color: .black.opacity(0.5),
-                                radius: 20,
-                                x: 0.5,
-                                y: 0.5)
+                        // Widget Space
+                        HomeHeaderView()
+                        
+                        // Chart and animation space
+                        VStack {
+                            HomeChartView()
+                                .padding(.vertical, 30)
+                                .frame(
+                                    minWidth: 0,
+                                    maxWidth: .infinity,
+                                    minHeight: 400,
+                                    maxHeight: .infinity,
+                                    alignment: .center)
+                                .background(Color.white)
+                                .cornerRadius(20)
+                                .shadow(
+                                    color: .black.opacity(0.5),
+                                    radius: 20,
+                                    x: 0.5,
+                                    y: 0.5)
 
+                        }
+                        .frame(
+                            minWidth: 0,
+                            maxWidth: .infinity,
+                            minHeight: 0,
+                            maxHeight: .infinity,
+                            alignment: .top
+                        )
+                        .background(Color.white.opacity(0.6))
+                        .cornerRadius(20)
+                        .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
                     }
-                    .frame(
-                        minWidth: 0,
-                        maxWidth: .infinity,
-                        minHeight: 0,
-                        maxHeight: .infinity,
-                        alignment: .top
-                    )
-                    .background(Color.white.opacity(0.6))
-                    .cornerRadius(20)
-                    .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+                    .frame(minHeight: geometry.size.height)
                 }
-                .frame(minHeight: geometry.size.height)
+                .background(self.background)
+                .onAppear() {
+                    self.homeViewModel.fetch()
+                }
+                .toast(isPresenting: self.$homeViewModel.showToast){
+                    AlertToast(
+                        displayMode: .hud,
+                        type: self.homeViewModel.showToastError ? .error(.red) : .regular,
+                        title: self.homeViewModel.messageToast,
+                        subTitle: self.homeViewModel.subtitleToast
+                    )
+                }
+                .sheet(isPresented: $showingSheet) {
+                    SheetView()
+                }
+                
             }
-    //            .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.reload))
-            .background(self.background)
-            .onAppear() {
-                self.homeViewModel.fetch()
+            .navigationBarTitle("", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        self.homeViewModel.reload()
+                    }, label: {
+                        HStack {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                    })
+                    .foregroundColor(.white)
+                }
             }
-            .toast(isPresenting: self.$homeViewModel.showToast){
-                AlertToast(
-                    displayMode: .hud,
-                    type: self.homeViewModel.showToastError ? .error(.red) : .regular,
-                    title: self.homeViewModel.messageToast,
-                    subTitle: self.homeViewModel.subtitleToast
-                )
-            }
-            .sheet(isPresented: $showingSheet) {
-                SheetView()
-            }
-            
         }
     }
 }

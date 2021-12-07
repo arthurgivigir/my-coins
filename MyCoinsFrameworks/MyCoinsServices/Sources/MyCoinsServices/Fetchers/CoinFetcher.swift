@@ -61,24 +61,11 @@ public class CoinFetcher {
 
             } receiveValue: { coinsModel in
                 
-                if let coinsModel = coinsModel?.prefix(upTo: 25) {
-                    _ = coinsModel.enumerated().map { offset, coinModel in
-                        
-                        if offset >= 25 {
-                            return
-                        }
-                        
-                        var todayCoin: CoinModel? {
-                            if let _ = coinModel.message {
-                                return coinModel
-                            }
-                            
-                            return nil
-                        }
-                        
-                        completion(todayCoin, coinsModel.reversed(), nil)
-                    }
-                }
+                let newCoinsModel = coinsModel?.prefix(25)
+                let todayCoin = newCoinsModel?.first(where: { $0.message != nil })
+                
+                completion(todayCoin, newCoinsModel?.reversed(), nil)
+                
             }
             .store(in: &cancellables)
     }

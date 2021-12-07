@@ -10,28 +10,26 @@ import SwiftUI
 struct TabBarView: View {
     
     var body: some View {
-        NavigationView {
-            TabView {
-                HomeView()
-                    .tabItem {
-                        Label("Home", systemImage: "house.fill")
-                    }
-                    
-                Text("Widget")
-                    .tabItem {
-                        Label("Widget", systemImage: "square.and.pencil")
-                    }
+        
+        TabView {
+            HomeView()
+                .tabItem {
+                    Label("Cotação", systemImage: "dollarsign.circle")
+                }
                 
-            }
-            .navigationBarTitle("", displayMode: .inline)
-            .frame(minWidth: 0,
-                   maxWidth: .infinity,
-                   minHeight: 0,
-                   maxHeight: .infinity,
-                   alignment: .top
-            )
-            .accentColor(.white)
+            Text("Widget")
+                .tabItem {
+                    Label("Widget", systemImage: "pencil.circle.fill")
+                }
+            
         }
+        .frame(minWidth: 0,
+               maxWidth: .infinity,
+               minHeight: 0,
+               maxHeight: .infinity,
+               alignment: .top
+        )
+        .accentColor(.white)
         .onAppear {
             UITabBar.appearance().backgroundColor = UIColor(Color.mcPrimary)
             UITabBar.appearance().barTintColor = UIColor(Color.mcPrimary)
