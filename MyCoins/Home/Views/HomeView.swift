@@ -29,24 +29,6 @@ struct HomeView: View {
                     
                     // Chart and animation space
                     VStack {
-                        
-                        VStack(alignment: .leading) {
-                            Text("Última atualização: \(self.homeViewModel.coinModel.formattedUpdatedAt ?? "")")
-                                .font(.caption2)
-                                .foregroundColor(.black.opacity(0.8))
-                            Text("Referência: 1 Dólar americano (comercial)")
-                                .font(.caption2)
-                                .foregroundColor(.black.opacity(0.8))
-                        }
-                        .padding(20)
-                        .frame(
-                            minWidth: 0,
-                            maxWidth: .infinity,
-                            minHeight: 0,
-                            maxHeight: 60,
-                            alignment: .topLeading
-                        )
-                        
                         HomeChartView()
                             .padding(.vertical, 30)
                             .frame(

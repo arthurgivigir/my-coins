@@ -32,16 +32,7 @@ public struct ChartView: View {
             .infoBox(chartData: data)
             .headerBox(chartData: data)
             .id(data.id)
-            .frame(
-                minWidth: 150,
-                maxWidth: 900,
-                minHeight: 150,
-                idealHeight: 500,
-                maxHeight: 600,
-                alignment: .center
-            )
             .padding(.horizontal)
-        
     }
 
     private var numberFormatter: NumberFormatter {
@@ -61,49 +52,3 @@ struct SwiftUIView_Previews: PreviewProvider {
         )
     }
 }
-
-//private struct ChartViewReprentable: UIViewRepresentable {
-//
-//    private var title: String
-//    private var subtitle: String
-//
-//    @Binding private var chartData: [Double]
-//    @Binding private var chartCategories: [String]
-//
-//    internal init(
-//        title: String,
-//        subtitle: String,
-//        chartData: Binding<[Double]>,
-//        chartCategories: Binding<[String]>
-//    ) {
-//        self.title = title
-//        self.subtitle = subtitle
-//        self._chartData = chartData
-//        self._chartCategories = chartCategories
-//    }
-//
-//    func makeUIView(context: Context) -> AAChartView {
-//        AAChartView()
-//    }
-//
-//    func updateUIView(_ uiView: AAChartView, context: Context) {
-//        let aaChartModel = AAChartModel()
-//            .chartType(.line)//Can be any of the chart types listed under `AAChartType`.
-//            .animationType(.bounce)
-//            .title(self.title)//The chart title
-////            .subtitle(self.subtitle)//The chart subtitle
-//            .dataLabelsEnabled(false) //Enable or disable the data labels. Defaults to false
-//            .tooltipValueSuffix("USD")//the value suffix of the chart tooltip
-//            .categories(self.chartCategories)
-//            .colorsTheme(["#9019EB"])
-//            .dataLabelsStyle(AAStyle(color: "#310F42", fontSize: 17.0, weight: .bold))
-//            .series([
-//                AASeriesElement()
-//                    .name("")
-//                    .data(self.chartData),
-//                ])
-//
-//        uiView.aa_drawChartWithChartModel(aaChartModel)
-//        uiView.scrollView.bounces = false
-//    }
-//}

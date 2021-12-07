@@ -14,12 +14,12 @@ struct TabBarView: View {
             TabView {
                 HomeView()
                     .tabItem {
-                        Label("Home", systemImage: "list.dash")
+                        Label("Home", systemImage: "house.fill")
                     }
                     
                 Text("Widget")
                     .tabItem {
-                        Label("Widget", systemImage: "list.dash")
+                        Label("Widget", systemImage: "square.and.pencil")
                     }
                 
             }
@@ -30,10 +30,12 @@ struct TabBarView: View {
                    maxHeight: .infinity,
                    alignment: .top
             )
+            .accentColor(.white)
         }
         .onAppear {
-            UITabBar.appearance().backgroundColor = .white
-            UITabBar.appearance().barTintColor = .white
+            UITabBar.appearance().backgroundColor = UIColor(Color.mcPrimary)
+            UITabBar.appearance().barTintColor = UIColor(Color.mcPrimary)
+            UITabBar.appearance().unselectedItemTintColor = UIColor(Color.purple)
         }
     }
     

@@ -17,9 +17,19 @@ struct HomeChartView: View {
             ChartView(
                 lineChartData: self.$homeViewModel.lineChartData
             )
-            .frame(minWidth: UIScreen.main.bounds.width, minHeight: 200, maxHeight: 400,alignment: .top)
-            .padding(.bottom, 50)
+            .padding(.bottom, 16)
+            
+            Text("Última atualização: \(self.homeViewModel.coinModel.formattedUpdatedAt ?? "")")
+                .foregroundColor(.gray)
+                .font(.footnote)
+                .padding(.horizontal)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    alignment: .leading
+                )
         }
+        .padding(.bottom, 50)
+        .frame(minHeight: 200, maxHeight: 400,alignment: .top)
     }
 }
 
