@@ -27,6 +27,7 @@ struct HomeView: View {
                     VStack {
                         // Widget Space
                         HomeHeaderView()
+                            .redacted(reason: self.homeViewModel.loadingState == .loading ? .placeholder : [])
                         
                         // Chart and animation space
                         VStack {
@@ -45,6 +46,8 @@ struct HomeView: View {
                                     radius: 20,
                                     x: 0.5,
                                     y: 0.5)
+                                .redacted(reason: self.homeViewModel.loadingState == .loading ? .placeholder : [])
+                            
 
                         }
                         .frame(

@@ -14,17 +14,6 @@ struct HomeHeaderView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     
     var body: some View {
-//        MainWidgetView(
-//            coin: self.homeViewModel.coinModel,
-//            hasBackground: false,
-//            primaryFont: .largeTitle,
-//            secondaryFont: .callout)
-//            .frame(minWidth: 0,
-//                   maxWidth: .infinity,
-//                   minHeight: 0,
-//                   maxHeight: 180,
-//               alignment: .center)
-            
         
         VStack(alignment: .leading, spacing: 15) {
             Text("Olá, Tudo bem? 👋🏽")
@@ -57,7 +46,7 @@ struct HomeHeaderView: View {
                maxWidth: .infinity,
                minHeight: 0,
                maxHeight: 220,
-           alignment: .leading)
+           alignment: .topLeading)
     }
 }
 

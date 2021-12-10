@@ -7,8 +7,6 @@
 
 import SwiftUI
 import SwiftUICharts
-import Charts
-import StockCharts
 
 public struct ChartView: View {
     

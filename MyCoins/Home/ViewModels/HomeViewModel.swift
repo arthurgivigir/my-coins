@@ -22,6 +22,7 @@ final class HomeViewModel: ObservableObject {
     @Published var subtitleToast: String = ""
     @Published var showToastError: Bool = true
     @Published var lineChartData: LineChartData = LineChartData(dataSets: LineDataSet(dataPoints: []))
+    @Published var loadingState: LoadingState = .loading
     
     private var lastUpdate: Date = Date()
     private var cancellables: Set<AnyCancellable> = []
@@ -38,6 +39,7 @@ final class HomeViewModel: ObservableObject {
     
     public func fetch() {
         
+        self.loadingState = .loading
         self.refreshValues()
         self.getCoinValues()
         
@@ -50,6 +52,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     public func reload() {
+        self.loadingState = .loading
         self.refreshValues()
         self.getCoinValues()
         self.lastUpdate = Date()
@@ -76,6 +79,8 @@ final class HomeViewModel: ObservableObject {
                     self?.maxValue = chartValues.max { $0.close > $1.close }?.close ?? "0.0"
                     self?.minValue = chartValues.min { $0.close > $1.close }?.close ?? "0.0"
                 }
+                
+                self?.loadingState = .loaded
             }
     }
     
@@ -121,7 +126,7 @@ final class HomeViewModel: ObservableObject {
                                         yAxisNumberOfLabels: 7,
                                         baseline: .minimumWithMaximum(of: Double(maxValue) ?? 0.0),
                                         topLine: .maximum(of: Double(minValue) ?? 0.0),
-                                        globalAnimation: .easeOut(duration: 0.5))
+                                        globalAnimation: .easeOut(duration: 1.0))
         
         self.lineChartData = LineChartData(dataSets: data,
                                            metadata: chartMetaData,
@@ -141,6 +146,9 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func errorCheck(_ error: APIErrorEnum?) {
+        
+        self.loadingState = .error
+        
         switch error {
         case .network:
             print("😭 Ocorreu um erro: \(String(describing: error?.localizedDescription))")

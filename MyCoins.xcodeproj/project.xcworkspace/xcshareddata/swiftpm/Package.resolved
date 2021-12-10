@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "AAInfographics",
-        "repositoryURL": "https://github.com/AAChartModel/AAChartKit-Swift",
-        "state": {
-          "branch": null,
-          "revision": "9be1dcdf92c5b9ed9e2b83f4dd9fbd801e40e1ce",
-          "version": "6.0.0"
-        }
-      },
-      {
         "package": "Alamofire",
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
@@ -35,33 +26,6 @@
           "branch": null,
           "revision": "e428f89675588f2fe58891eac5f7c971098cf1a0",
           "version": "3.2.2"
-        }
-      },
-      {
-        "package": "StockCharts",
-        "repositoryURL": "https://github.com/denniscm190/StockCharts.git",
-        "state": {
-          "branch": null,
-          "revision": "5a374cada5703ae6da1e11f1b28afed2cc96984c",
-          "version": "1.2.9"
-        }
-      },
-      {
-        "package": "Charts",
-        "repositoryURL": "https://github.com/spacenation/swiftui-charts.git",
-        "state": {
-          "branch": null,
-          "revision": "b044e7eb04d0026490eecb115f4fc07197dad942",
-          "version": "1.1.0"
-        }
-      },
-      {
-        "package": "Shapes",
-        "repositoryURL": "https://github.com/spacenation/swiftui-shapes.git",
-        "state": {
-          "branch": null,
-          "revision": "c58b15c37eae9bd20525c6daa93a06a689ca75cb",
-          "version": "1.1.0"
         }
       },
       {
