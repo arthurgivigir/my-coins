@@ -12,7 +12,7 @@ public extension View {
         return LinearGradient(
                 gradient:
                     Gradient(
-                        colors: [.mcPrimaryDarker, .mcPrimary]),
+                        colors: [.mcPrimary, .mcPrimary]),
                         startPoint: .top, endPoint: .bottom
                     )
                 .edgesIgnoringSafeArea(.vertical)

@@ -42,7 +42,7 @@ struct HomeView: View {
                                 .background(Color.white)
                                 .cornerRadius(20)
                                 .shadow(
-                                    color: .black.opacity(0.5),
+                                    color: .mcPrimaryDarker.opacity(0.5),
                                     radius: 20,
                                     x: 0.5,
                                     y: 0.5)
@@ -59,9 +59,9 @@ struct HomeView: View {
                         )
                         .background(Color.white.opacity(0.6))
                         .cornerRadius(20)
-                        .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+                        .shadow(color: .mcPrimaryDarker.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
                     }
-                    .frame(minHeight: geometry.size.height)
+                    .frame(minHeight: geometry.size.height - 20)
                 }
                 .background(self.background)
                 .onAppear() {

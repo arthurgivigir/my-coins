@@ -17,7 +17,7 @@ struct TabBarView: View {
                     Label("Cotação", systemImage: "dollarsign.circle")
                 }
                 
-            Text("Widget")
+            WidgetView()
                 .tabItem {
                     Label("Widget", systemImage: "pencil.circle.fill")
                 }
