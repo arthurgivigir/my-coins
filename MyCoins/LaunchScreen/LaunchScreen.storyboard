@@ -22,7 +22,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" name="PrimaryDarker"/>
+                        <color key="backgroundColor" name="Primary"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Uwx-ja-ulF" secondAttribute="bottom" constant="50" id="TbD-js-0nt"/>
                             <constraint firstItem="Uwx-ja-ulF" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="YU6-N8-NB4"/>
@@ -41,8 +41,8 @@
     </scenes>
     <resources>
         <image name="Launchscreen-icon" width="341.5" height="341.5"/>
-        <namedColor name="PrimaryDarker">
-            <color red="0.19215686274509805" green="0.058823529411764705" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Primary">
+            <color red="0.56470588235294117" green="0.098039215686274508" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

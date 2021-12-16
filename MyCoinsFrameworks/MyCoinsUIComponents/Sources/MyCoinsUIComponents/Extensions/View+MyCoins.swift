@@ -12,16 +12,18 @@ public extension View {
         return LinearGradient(
                 gradient:
                     Gradient(
-                        colors: [.mcPrimaryDarker, .mcPrimary]),
+                        colors: [.mcPrimary, .mcPrimary]),
                         startPoint: .top, endPoint: .bottom
                     )
                 .edgesIgnoringSafeArea(.vertical)
     }
     
     func setNavigationColor() {
-        UINavigationBar.appearance().barTintColor = .clear
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+        let purpleColor = UIColor(Color.mcPrimary)
+        UINavigationBar.appearance().barTintColor = purpleColor
         UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     

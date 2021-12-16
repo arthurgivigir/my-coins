@@ -11,7 +11,7 @@ public extension String {
     
     func formattedDate() -> String{
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         dateFormatter.timeZone = TimeZone.current
         
         let date = dateFormatter.date(from: self) ?? Date()

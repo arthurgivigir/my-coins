@@ -22,82 +22,77 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                // Widget Space
-                HomeHeaderView()
-                    .padding(20)
-                    .frame(minWidth: 0,
-                           maxWidth: .infinity,
-                           minHeight: 0,
-                           maxHeight: 220,
-                       alignment: .center)
-                
-                // Chart and animation space
-                VStack {
-                    
-                    VStack(alignment: .leading) {
-                        Text("Última atualização: \(self.homeViewModel.coinModel.formattedUpdatedAt ?? "")")
-                            .font(.caption2)
-                            .foregroundColor(.black.opacity(0.8))
-                        Text("Referência: 1 Dólar americano (comercial)")
-                            .font(.caption2)
-                            .foregroundColor(.black.opacity(0.8))
-                    }
-                    .padding(20)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 60, alignment: .topLeading)
-                    
-                    HomeChartView()
-                        .padding(30)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-                        .background(Color.white)
-                        .cornerRadius(20)
-                        .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+            GeometryReader { geometry in
+                ScrollView {
+                    VStack {
+                        // Widget Space
+                        HomeHeaderView()
+                            .redacted(reason: self.homeViewModel.loadingState == .loading ? .placeholder : [])
+                        
+                        // Chart and animation space
+                        VStack {
+                            HomeChartView()
+                                .padding(.vertical, 30)
+                                .frame(
+                                    minWidth: 0,
+                                    maxWidth: .infinity,
+                                    minHeight: 400,
+                                    maxHeight: .infinity,
+                                    alignment: .center)
+                                .background(Color.white)
+                                .cornerRadius(20)
+                                .shadow(
+                                    color: .mcPrimaryDarker.opacity(0.5),
+                                    radius: 20,
+                                    x: 0.5,
+                                    y: 0.5)
+                                .redacted(reason: self.homeViewModel.loadingState == .loading ? .placeholder : [])
+                            
 
+                        }
+                        .frame(
+                            minWidth: 0,
+                            maxWidth: .infinity,
+                            minHeight: 0,
+                            maxHeight: .infinity,
+                            alignment: .top
+                        )
+                        .background(Color.white.opacity(0.6))
+                        .cornerRadius(20)
+                        .shadow(color: .mcPrimaryDarker.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+                    }
+                    .frame(minHeight: geometry.size.height - 20)
                 }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-                .background(Color.white.opacity(0.6))
-                .cornerRadius(20)
-                .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+                .background(self.background)
+                .onAppear() {
+                    self.homeViewModel.fetch()
+                }
+                .toast(isPresenting: self.$homeViewModel.showToast){
+                    AlertToast(
+                        displayMode: .hud,
+                        type: self.homeViewModel.showToastError ? .error(.red) : .regular,
+                        title: self.homeViewModel.messageToast,
+                        subTitle: self.homeViewModel.subtitleToast
+                    )
+                }
+                .sheet(isPresented: $showingSheet) {
+                    SheetView()
+                }
+                
             }
-            .modifier(PullToRefreshModifier(direction: .vertical, target: self.homeViewModel.reload))
-            .onAppear() {
-                self.homeViewModel.fetch()
-            }
-            .frame(minWidth: 0,
-                   maxWidth: .infinity,
-                   minHeight: 0,
-                   maxHeight: .infinity,
-                   alignment: .top
-            )
-            .edgesIgnoringSafeArea(.bottom)
-            .navigationBarTitle("Zooin", displayMode: .inline)
-            .background(self.background)
+            .navigationBarTitle("", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button("Configuração do Widget") {
-                            self.homeViewModel.showWidgetConfig()
+                    Button(action: {
+                        self.homeViewModel.reload()
+                    }, label: {
+                        HStack {
+                            Image(systemName: "arrow.clockwise")
                         }
-                    }
-                    label: {
-                        Label("menu", systemImage: "ellipsis")
-                            .font(.system(size: 20, weight: .regular))
-                            .foregroundColor(.white)
-                    }
+                    })
+                    .foregroundColor(.white)
                 }
             }
-            
-        }
-        .toast(isPresenting: self.$homeViewModel.showToast){
-            AlertToast(
-                displayMode: .hud,
-                type: self.homeViewModel.showToastError ? .error(.red) : .regular,
-                title: self.homeViewModel.messageToast,
-                subTitle: self.homeViewModel.subtitleToast
-            )
-        }
-        .sheet(isPresented: $showingSheet) {
-            SheetView()
         }
     }
 }

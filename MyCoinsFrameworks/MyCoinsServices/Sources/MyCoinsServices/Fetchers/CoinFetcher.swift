@@ -14,7 +14,7 @@ public class CoinFetcher {
     public static let shared: CoinFetcher = CoinFetcher()
     
     public typealias RETURNED_STOCK_REALTIME = (CoinModel?, Error?) -> Void
-    public typealias RETURNED_ARRAY_METHOD = (CoinModel?, [String]?, [Double]?, Error?) -> Void
+    public typealias RETURNED_ARRAY_METHOD = (CoinModel?, [CoinModel]?, Error?) -> Void
     
     private var cancellables = Set<AnyCancellable>()
     private let interactor: CoinInteractor
@@ -54,38 +54,18 @@ public class CoinFetcher {
 
                 switch receivedCompletition {
                 case .failure(let error):
-                    completion(nil, nil, nil, error)
+                    completion(nil, nil, error)
                 case .finished:
                     print("😃Finished publisher from getValueFrom")
                 }
 
             } receiveValue: { coinsModel in
                 
-                var categories: [String] = []
-                var values: [Double] = []
+                let newCoinsModel = coinsModel?.prefix(25)
+                let todayCoin = newCoinsModel?.first(where: { $0.message != nil })
                 
-                if let coinsModel = coinsModel {
-                    _ = coinsModel.enumerated().map { offset, coinModel in
-                        
-                        if offset >= 25 {
-                            return
-                        }
-                        
-                        let coinValue = Double(coinModel.close)
-                        values.append(coinValue ?? 0.0)
-                        categories.append("")
-                        
-                        var todayCoin: CoinModel? {
-                            if let _ = coinModel.message {
-                                return coinModel
-                            }
-                            
-                            return nil
-                        }
-                        
-                        completion(todayCoin, categories, values.reversed(), nil)
-                    }
-                }
+                completion(todayCoin, newCoinsModel?.reversed(), nil)
+                
             }
             .store(in: &cancellables)
     }

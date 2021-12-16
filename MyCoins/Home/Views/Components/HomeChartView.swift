@@ -15,13 +15,21 @@ struct HomeChartView: View {
     var body: some View {
         VStack {
             ChartView(
-                title: "Variação cambial",
-                subtitle: "Dólar hoje",
-                chartData: self.$homeViewModel.chartValues,
-                chartCategories: self.$homeViewModel.chartCategories
+                lineChartData: self.$homeViewModel.lineChartData
             )
-            .frame(width: UIScreen.main.bounds.width, height: 220, alignment: .top)
+            .padding(.bottom, 16)
+            
+            Text("Última atualização: \(self.homeViewModel.coinModel.formattedUpdatedAt ?? "")")
+                .foregroundColor(.gray)
+                .font(.footnote)
+                .padding(.horizontal)
+                .frame(
+                    width: UIScreen.main.bounds.width,
+                    alignment: .leading
+                )
         }
+        .padding(.bottom, 50)
+        .frame(minHeight: 200, maxHeight: 400,alignment: .top)
     }
 }
 

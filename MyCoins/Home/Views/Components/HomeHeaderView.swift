@@ -14,19 +14,43 @@ struct HomeHeaderView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
     
     var body: some View {
-        MainWidgetView(
-            coin: self.homeViewModel.coinModel,
-            hasBackground: false,
-            primaryFont: .largeTitle,
-            secondaryFont: .callout)
-            .frame(minWidth: 0,
-                   maxWidth: .infinity,
-                   minHeight: 0,
-                   maxHeight: 180,
-               alignment: .center)
-            .background(BlurEffectView(effect: .regular).opacity(0.2))
-            .cornerRadius(20)
-            .shadow(color: .black.opacity(0.5), radius: 20, x: 0.5, y: 0.5)
+        
+        VStack(alignment: .leading, spacing: 15) {
+            Text("Olá, Tudo bem? 👋🏽")
+                .font(.system(.footnote))
+                .foregroundColor(.white)
+                .fontWeight(.light)
+                .shadow(color: .mcPrimaryDarker, radius: 20)
+            
+            HStack {
+                Text(self.homeViewModel.coinModel.formattedBit)
+                    .bold()
+                    .font(.system(.largeTitle))
+                    .foregroundColor(.white)
+                    .shadow(color: .mcPrimaryDarker, radius: 20)
+                
+                RateView(rate: self.homeViewModel.coinModel.rateEnum)
+                    .frame(width: 10, height: 10, alignment: .center)
+            }
+            
+            Divider()
+                .background(Color.white)
+                .frame(width: 150, alignment: .center)
+                .shadow(color: .mcPrimaryDarker, radius: 20)
+            
+            Text(self.homeViewModel.coinModel.message ?? "Nada novo por aqui... Circulando! Circulando! Circulando!")
+                .font(.system(.body))
+                .minimumScaleFactor(0.5)
+                .foregroundColor(.white)
+                .shadow(color: .mcPrimaryDarker, radius: 20)
+            
+        }
+        .padding(20)
+        .frame(minWidth: 0,
+               maxWidth: .infinity,
+               minHeight: 0,
+               maxHeight: 220,
+           alignment: .topLeading)
     }
 }
 
@@ -35,9 +59,8 @@ struct HomeHeaderView_Previews: PreviewProvider {
         HomeHeaderView()
             .environmentObject(HomeViewModel())
             .frame(minWidth: 0,
-                   maxWidth: 400,
-                   minHeight: 0,
-                   maxHeight: 280,
-               alignment: .center)
+                   maxWidth: .infinity
+            )
+            .background(Color.purple)
     }
 }
