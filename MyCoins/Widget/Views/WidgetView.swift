@@ -18,7 +18,9 @@ struct WidgetView: View {
         NavigationView {
             VStack(spacing: 40) {
                 MainWidgetView(
-                    coin: CoinModel(date: Date())
+                    coin: CoinModel(date: Date()),
+                    topColor: self.$widgetViewModel.topColor,
+                    bottomColor: self.$widgetViewModel.bottomColor
                 )
                 .cornerRadius(25)
                 .frame(width: 180, height: 180)
@@ -26,11 +28,20 @@ struct WidgetView: View {
                 .shadow(color: Color.purple.opacity(0.7), radius: 10, x: -5, y: -5)
                 
                 VStack {
-                    ScrollView {
-                        Text("Color Picker")
+                    List {
+                        Section(header: Text("Configurações")) {
+                            WidgetTopColorCell(bgColor: self.$widgetViewModel.topColor)
+                            WidgetBottomColorCell(bgColor: self.$widgetViewModel.bottomColor)
+                            WidgetResetColorCell(
+                                topColor: self.$widgetViewModel.topColor,
+                                bottomColor: self.$widgetViewModel.bottomColor
+                            )
+                        }
+                        .listRowBackground(Color.gray.opacity(0.1))
                     }
+                    .listStyle(.insetGrouped)
+                    
                 }
-                .padding(20)
                 .frame(
                     minWidth: 0,
                     maxWidth: .infinity,
@@ -53,6 +64,10 @@ struct WidgetView: View {
                 alignment: .top
             )
             .background(self.background)
+            .onAppear {
+                UITableView.appearance().backgroundColor = .white
+                UITableView.appearance().overrideUserInterfaceStyle = .light
+            }
         }
     }
 }
@@ -62,3 +77,41 @@ struct WidgetView_Previews: PreviewProvider {
         WidgetView()
     }
 }
+
+struct WidgetTopColorCell: View {
+    @Binding var bgColor: Color
+
+    var body: some View {
+        HStack {
+            ColorPicker("Cor do topo", selection: $bgColor, supportsOpacity: false)
+        }
+    }
+}
+
+struct WidgetBottomColorCell: View {
+    @Binding var bgColor: Color
+    
+    var body: some View {
+        HStack {
+            ColorPicker("Cor da base", selection: $bgColor, supportsOpacity: false)
+        }
+    }
+}
+
+struct WidgetResetColorCell: View {
+    
+    @Binding var topColor: Color
+    @Binding var bottomColor: Color
+    
+    var body: some View {
+        HStack {
+            Text("Voltar a configuração inicial")
+        }
+        .onTapGesture {
+            self.topColor = .mcPrimaryDarker
+            self.bottomColor = .mcPrimary
+        }
+    }
+}
+
+
