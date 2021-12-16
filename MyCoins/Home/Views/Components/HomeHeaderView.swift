@@ -20,12 +20,14 @@ struct HomeHeaderView: View {
                 .font(.system(.footnote))
                 .foregroundColor(.white)
                 .fontWeight(.light)
+                .shadow(color: .mcPrimaryDarker, radius: 20)
             
             HStack {
                 Text(self.homeViewModel.coinModel.formattedBit)
                     .bold()
                     .font(.system(.largeTitle))
                     .foregroundColor(.white)
+                    .shadow(color: .mcPrimaryDarker, radius: 20)
                 
                 RateView(rate: self.homeViewModel.coinModel.rateEnum)
                     .frame(width: 10, height: 10, alignment: .center)
@@ -34,11 +36,13 @@ struct HomeHeaderView: View {
             Divider()
                 .background(Color.white)
                 .frame(width: 150, alignment: .center)
+                .shadow(color: .mcPrimaryDarker, radius: 20)
             
             Text(self.homeViewModel.coinModel.message ?? "Nada novo por aqui... Circulando! Circulando! Circulando!")
                 .font(.system(.body))
                 .minimumScaleFactor(0.5)
                 .foregroundColor(.white)
+                .shadow(color: .mcPrimaryDarker, radius: 20)
             
         }
         .padding(20)

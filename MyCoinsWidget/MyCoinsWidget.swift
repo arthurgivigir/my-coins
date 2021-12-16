@@ -112,7 +112,7 @@ struct MyCoinsWidget: Widget {
 //            TextWidgetView(coin: entry)
         }
         .configurationDisplayName("Zooin Widget")
-        .description("Este é um exemplo do nosso widget!")
+        .description("Este é widget do Zooin!")
     }
 }
 

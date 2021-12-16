@@ -11,12 +11,9 @@ import MyCoinsServices
 @main
 struct MyCoinsApp: App {
     
-    private var homeViewModel = HomeViewModel()
-    
     var body: some Scene {
         WindowGroup {
             TabBarView()
-                .environmentObject(self.homeViewModel)
                 .preferredColorScheme(.dark)
         }
     }

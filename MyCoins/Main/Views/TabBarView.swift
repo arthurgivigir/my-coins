@@ -9,15 +9,20 @@ import SwiftUI
 
 struct TabBarView: View {
     
+    private var homeViewModel = HomeViewModel()
+    private var widgetViewMode = WidgetViewModel()
+    
     var body: some View {
         
         TabView {
             HomeView()
+                .environmentObject(self.homeViewModel)
                 .tabItem {
                     Label("Cotação", systemImage: "dollarsign.circle")
                 }
                 
             WidgetView()
+                .environmentObject(self.widgetViewMode)
                 .tabItem {
                     Label("Widget", systemImage: "pencil.circle.fill")
                 }

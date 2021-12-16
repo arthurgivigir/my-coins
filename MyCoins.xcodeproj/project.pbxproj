@@ -12,6 +12,7 @@
 		563E975A261907260063A3A8 /* MyCoinsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 563E9759261907260063A3A8 /* MyCoinsCore */; };
 		5647D4892626456000819595 /* capital_investment.json in Resources */ = {isa = PBXBuildFile; fileRef = 5647D4882626456000819595 /* capital_investment.json */; };
 		5647D48D2626457600819595 /* LottieNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647D48C2626457600819595 /* LottieNames.swift */; };
+		5650FE282767FBFC007F3563 /* WidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650FE272767FBFC007F3563 /* WidgetViewModel.swift */; };
 		56C2ADF727514E3E000C6996 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2ADF627514E3E000C6996 /* TabBarView.swift */; };
 		56C2ADFB2763F290000C6996 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2ADFA2763F28F000C6996 /* WidgetView.swift */; };
 		56C7A39926225AD9007CBA3E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C7A39826225AD9007CBA3E /* HomeView.swift */; };
@@ -105,6 +106,7 @@
 /* Begin PBXFileReference section */
 		5647D4882626456000819595 /* capital_investment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capital_investment.json; sourceTree = "<group>"; };
 		5647D48C2626457600819595 /* LottieNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieNames.swift; sourceTree = "<group>"; };
+		5650FE272767FBFC007F3563 /* WidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewModel.swift; sourceTree = "<group>"; };
 		568921812607E0B200576399 /* MyCoinsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsCore; sourceTree = "<group>"; };
 		568921882607E0EB00576399 /* MyCoinsServices */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsServices; sourceTree = "<group>"; };
 		56A982C926111BC400B139D9 /* MyCoinsUIComponents */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsUIComponents; sourceTree = "<group>"; };
@@ -196,6 +198,47 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		5650FE222767FBA4007F3563 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				5650FE262767FBE9007F3563 /* ViewModels */,
+				5650FE252767FBD6007F3563 /* Views */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		5650FE232767FBB7007F3563 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5650FE242767FBC7007F3563 /* Views */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		5650FE242767FBC7007F3563 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				56C2ADF627514E3E000C6996 /* TabBarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5650FE252767FBD6007F3563 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				56C2ADFA2763F28F000C6996 /* WidgetView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5650FE262767FBE9007F3563 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5650FE272767FBFC007F3563 /* WidgetViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		56C7A39426225AAA007CBA3E /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,8 +253,6 @@
 			children = (
 				6C32FBF6263DCD6B00C0ADD8 /* Components */,
 				56C7A39826225AD9007CBA3E /* HomeView.swift */,
-				56C2ADF627514E3E000C6996 /* TabBarView.swift */,
-				56C2ADFA2763F28F000C6996 /* WidgetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -246,6 +287,8 @@
 				56EAABA2266D5B91000E12EC /* LaunchScreen */,
 				562BC2342626430D0093AAB1 /* Resources */,
 				56C7A39426225AAA007CBA3E /* Home */,
+				5650FE222767FBA4007F3563 /* Widget */,
+				5650FE232767FBB7007F3563 /* Main */,
 				56D83F8F25E1970A00DE2FBB /* MyCoinsApp.swift */,
 				56D83F9825E1970D00DE2FBB /* Info.plist */,
 				6C1C3E17263F24E1001327BC /* GoogleService-Info.plist */,
@@ -523,6 +566,7 @@
 				56C2ADFB2763F290000C6996 /* WidgetView.swift in Sources */,
 				56EAABA6266D5BC3000E12EC /* LaunchScreenView.swift in Sources */,
 				5647D48D2626457600819595 /* LottieNames.swift in Sources */,
+				5650FE282767FBFC007F3563 /* WidgetViewModel.swift in Sources */,
 				56D83F9025E1970A00DE2FBB /* MyCoinsApp.swift in Sources */,
 				6C32FBFB263DCEA300C0ADD8 /* HomeChartView.swift in Sources */,
 				6C16C46226420564008F0FD3 /* MyCoinsWidget.intentdefinition in Sources */,
