@@ -24,8 +24,8 @@ final class HomeViewModel: ObservableObject {
     @Published var lineChartData: LineChartData = LineChartData(dataSets: LineDataSet(dataPoints: []))
     @Published var loadingState: LoadingState = .loading
     
+    private var timer: AnyCancellable?
     private var lastUpdate: Date = Date()
-    private var cancellables: Set<AnyCancellable> = []
     private var minValue = "0.0"
     private var maxValue = "0.0"
     private var chartMetaData = ChartMetadata(
@@ -38,17 +38,16 @@ final class HomeViewModel: ObservableObject {
     )
     
     public func fetch() {
-        
+        self.timer?.cancel()
         self.loadingState = .loading
         self.refreshValues()
         self.getCoinValues()
         
-        Timer.publish(every: 30, on: .main, in: .default)
-            .autoconnect()
-            .sink { time in
-                self.getCoinValues()
-            }
-            .store(in: &cancellables)
+        timer = Timer.publish(every: 30, on: .main, in: .default)
+                    .autoconnect()
+                    .sink { time in
+                        self.getCoinValues()
+                    }
     }
     
     public func reload() {

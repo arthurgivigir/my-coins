@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Image+MyCoins.swift
 //  
 //
 //  Created by Arthur Gradim Givigir on 10/04/21.

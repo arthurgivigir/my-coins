@@ -36,9 +36,9 @@ struct Provider: IntentTimelineProvider {
                 
                 entry = WidgetModel(coin: coin)
                 
-                if let userDefaults = UserDefaults(suiteName: UserDefaultsEnum.suiteName.rawValue) {
-                    entry.topColor = Color(userDefaults.colorForKey(key: UserDefaultsEnum.topColor.rawValue) ?? UIColor(.mcPrimaryDarker))
-                    entry.bottomColor = Color(userDefaults.colorForKey(key: UserDefaultsEnum.bottomColor.rawValue) ?? UIColor(.mcPrimary))
+                MyCoinsUserDefaults.shared.getColors { topColor, bottomColor in
+                    entry.topColor = topColor
+                    entry.bottomColor = bottomColor
                 }
                 
                 completion(entry)
@@ -64,11 +64,10 @@ struct Provider: IntentTimelineProvider {
                 
                 var widgetModel = WidgetModel(date: coin.date, coin: coin)
                 
-                if let userDefaults = UserDefaults(suiteName: UserDefaultsEnum.suiteName.rawValue) {
-                    widgetModel.topColor = Color(userDefaults.colorForKey(key: UserDefaultsEnum.topColor.rawValue) ?? UIColor(.mcPrimaryDarker))
-                    widgetModel.bottomColor = Color(userDefaults.colorForKey(key: UserDefaultsEnum.bottomColor.rawValue) ?? UIColor(.mcPrimary))
+                MyCoinsUserDefaults.shared.getColors { topColor, bottomColor in
+                    widgetModel.topColor = topColor
+                    widgetModel.bottomColor = bottomColor
                 }
-
                 entries.append(widgetModel)
                 
                 let timeline = Timeline(entries: entries, policy: .atEnd)

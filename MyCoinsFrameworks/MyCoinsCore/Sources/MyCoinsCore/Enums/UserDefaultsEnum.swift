@@ -10,7 +10,10 @@ import Foundation
 public enum UserDefaultsEnum: String {
     
     case suiteName = "group.com.givigir.MyCoins"
-    case topColor = "topColor"
-    case bottomColor = "bottomColor"
+    
+    public enum Colors: String {
+        case topColor = "topColor"
+        case bottomColor = "bottomColor"
+    }
     
 }

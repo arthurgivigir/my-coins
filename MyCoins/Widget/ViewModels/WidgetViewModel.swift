@@ -20,15 +20,14 @@ final class WidgetViewModel: ObservableObject {
     
     init() {
         
-        if let userDefaults = UserDefaults(suiteName: UserDefaultsEnum.suiteName.rawValue) {
-            self.topColor = Color(userDefaults.colorForKey(key: UserDefaultsEnum.topColor.rawValue) ?? UIColor(.mcPrimaryDarker))
-            self.bottomColor = Color(userDefaults.colorForKey(key: UserDefaultsEnum.bottomColor.rawValue) ?? UIColor(.mcPrimary))
+        MyCoinsUserDefaults.shared.getColors { topColor, bottomColor in
+            self.topColor = topColor
+            self.bottomColor = bottomColor
         }
         
         $topColor
             .sink { newColor in
-                if let userDefaults = UserDefaults(suiteName: UserDefaultsEnum.suiteName.rawValue) {
-                    userDefaults.setColor(color: UIColor(newColor), forKey: UserDefaultsEnum.topColor.rawValue)
+                MyCoinsUserDefaults.shared.setColor(newColor, key: .topColor) {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
             }
@@ -36,8 +35,7 @@ final class WidgetViewModel: ObservableObject {
         
         $bottomColor
             .sink { newColor in
-                if let userDefaults = UserDefaults(suiteName: UserDefaultsEnum.suiteName.rawValue) {
-                    userDefaults.setColor(color: UIColor(newColor), forKey: UserDefaultsEnum.bottomColor.rawValue)
+                MyCoinsUserDefaults.shared.setColor(newColor, key: .bottomColor) {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
             }

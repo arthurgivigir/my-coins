@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Color+MyCoins.swift
 //  
 //
 //  Created by Arthur Gradim Givigir on 03/04/21.
