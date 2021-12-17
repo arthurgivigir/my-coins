@@ -9,6 +9,7 @@ import SwiftUI
 import MyCoinsUIComponents
 import Combine
 import WidgetKit
+import MyCoinsCore
 
 final class WidgetViewModel: ObservableObject {
     
@@ -19,15 +20,15 @@ final class WidgetViewModel: ObservableObject {
     
     init() {
         
-        if let userDefaults = UserDefaults(suiteName: "group.com.givigir.MyCoins") {
-            self.topColor = Color(userDefaults.colorForKey(key: "topColor") ?? UIColor(.mcPrimaryDarker))
-            self.bottomColor = Color(userDefaults.colorForKey(key: "bottomColor") ?? UIColor(.mcPrimary))
+        if let userDefaults = UserDefaults(suiteName: UserDefaultsEnum.suiteName.rawValue) {
+            self.topColor = Color(userDefaults.colorForKey(key: UserDefaultsEnum.topColor.rawValue) ?? UIColor(.mcPrimaryDarker))
+            self.bottomColor = Color(userDefaults.colorForKey(key: UserDefaultsEnum.bottomColor.rawValue) ?? UIColor(.mcPrimary))
         }
         
         $topColor
             .sink { newColor in
-                if let userDefaults = UserDefaults(suiteName: "group.com.givigir.MyCoins") {
-                    userDefaults.setColor(color: UIColor(newColor), forKey: "topColor")
+                if let userDefaults = UserDefaults(suiteName: UserDefaultsEnum.suiteName.rawValue) {
+                    userDefaults.setColor(color: UIColor(newColor), forKey: UserDefaultsEnum.topColor.rawValue)
                     WidgetCenter.shared.reloadAllTimelines()
                 }
             }
@@ -35,40 +36,11 @@ final class WidgetViewModel: ObservableObject {
         
         $bottomColor
             .sink { newColor in
-                if let userDefaults = UserDefaults(suiteName: "group.com.givigir.MyCoins") {
-                    userDefaults.setColor(color: UIColor(newColor), forKey: "bottomColor")
+                if let userDefaults = UserDefaults(suiteName: UserDefaultsEnum.suiteName.rawValue) {
+                    userDefaults.setColor(color: UIColor(newColor), forKey: UserDefaultsEnum.bottomColor.rawValue)
                     WidgetCenter.shared.reloadAllTimelines()
                 }
             }
             .store(in: &cancellables)
     }
-}
-
-extension UserDefaults {
-  func colorForKey(key: String) -> UIColor? {
-    var colorReturnded: UIColor?
-    if let colorData = data(forKey: key) {
-      do {
-        if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
-          colorReturnded = color
-        }
-      } catch {
-        print("Error UserDefaults")
-      }
-    }
-    return colorReturnded
-  }
-  
-  func setColor(color: UIColor?, forKey key: String) {
-    var colorData: NSData?
-    if let color = color {
-      do {
-        let data = try NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) as NSData?
-        colorData = data
-      } catch {
-        print("Error UserDefaults")
-      }
-    }
-    set(colorData, forKey: key)
-  }
 }
