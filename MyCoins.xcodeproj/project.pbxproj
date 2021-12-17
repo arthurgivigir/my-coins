@@ -106,6 +106,8 @@
 /* Begin PBXFileReference section */
 		5647D4882626456000819595 /* capital_investment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capital_investment.json; sourceTree = "<group>"; };
 		5647D48C2626457600819595 /* LottieNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieNames.swift; sourceTree = "<group>"; };
+		564FCECA276BFDA500C9FC66 /* MyCoins.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyCoins.entitlements; sourceTree = "<group>"; };
+		564FCECB276BFECD00C9FC66 /* MyCoinsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyCoinsWidgetExtension.entitlements; sourceTree = "<group>"; };
 		5650FE272767FBFC007F3563 /* WidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewModel.swift; sourceTree = "<group>"; };
 		568921812607E0B200576399 /* MyCoinsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsCore; sourceTree = "<group>"; };
 		568921882607E0EB00576399 /* MyCoinsServices */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsServices; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 		56D83F8325E1970A00DE2FBB = {
 			isa = PBXGroup;
 			children = (
+				564FCECB276BFECD00C9FC66 /* MyCoinsWidgetExtension.entitlements */,
 				56D83F8E25E1970A00DE2FBB /* MyCoins */,
 				56D8404125E19C2400DE2FBB /* MyCoinsFrameworks */,
 				56D83FA025E1970D00DE2FBB /* MyCoinsTests */,
@@ -284,6 +287,7 @@
 		56D83F8E25E1970A00DE2FBB /* MyCoins */ = {
 			isa = PBXGroup;
 			children = (
+				564FCECA276BFDA500C9FC66 /* MyCoins.entitlements */,
 				56EAABA2266D5B91000E12EC /* LaunchScreen */,
 				562BC2342626430D0093AAB1 /* Resources */,
 				56C7A39426225AAA007CBA3E /* Home */,
@@ -752,6 +756,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyCoins/MyCoins.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"MyCoins/Preview Content\"";
@@ -777,6 +782,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyCoins/MyCoins.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_ASSET_PATHS = "\"MyCoins/Preview Content\"";
@@ -885,6 +891,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MyCoinsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = H7EDV5524K;
@@ -909,6 +916,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MyCoinsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = H7EDV5524K;

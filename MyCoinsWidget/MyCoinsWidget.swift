@@ -16,17 +16,23 @@ import MyCoinsUIComponents
 
 struct Provider: IntentTimelineProvider {
     
-    func placeholder(in context: Context) -> CoinModel {
-        CoinModel(date: Date())
+    func placeholder(in context: Context) -> WidgetModel {
+        WidgetModel(coin: CoinModel(date: Date()))
     }
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (CoinModel) -> ()) {
-        let entry = CoinModel(date: Date())
+    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetModel) -> ()) {
+        var entry = WidgetModel(coin: CoinModel(date: Date()))
+        
+        if let userDefaults = UserDefaults(suiteName: "group.com.givigir.MyCoins") {
+            entry.topColor = Color(userDefaults.colorForKey(key: "topColor") ?? .clear)
+            entry.bottomColor = Color(userDefaults.colorForKey(key: "bottomColor") ?? .clear)
+        }
+        
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [CoinModel] = []
+        var entries: [WidgetModel] = []
         
         CoinFetcher.shared
             .getCoinValue(from: "USD", to: "BRL") { coin, error in
@@ -41,8 +47,15 @@ struct Provider: IntentTimelineProvider {
                 let date = Date()
                 let calendar = Calendar.current
                 coin.date = calendar.date(byAdding: .minute, value: 5, to: date)!
+                
+                var widgetModel = WidgetModel(date: coin.date, coin: coin)
+                
+                if let userDefaults = UserDefaults(suiteName: "group.com.givigir.MyCoins") {
+                    widgetModel.topColor = Color(userDefaults.colorForKey(key: "topColor") ?? .clear)
+                    widgetModel.bottomColor = Color(userDefaults.colorForKey(key: "bottomColor") ?? .clear)
+                }
 
-                entries.append(coin)
+                entries.append(widgetModel)
                 
                 let timeline = Timeline(entries: entries, policy: .atEnd)
                 completion(timeline)
@@ -108,7 +121,7 @@ struct MyCoinsWidget: Widget {
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-            MainWidgetView(coin: entry)
+            MainWidgetView(coin: entry.coin, topColor: .constant(entry.topColor ?? .mcPrimaryDarker), bottomColor: .constant(entry.bottomColor ?? .mcPrimary))
 //            TextWidgetView(coin: entry)
         }
         .configurationDisplayName("Zooin Widget")
@@ -126,4 +139,34 @@ struct MyCoinsWidget_Previews: PreviewProvider {
 //        TextWidgetView(coin: CoinModel(date: Date()))
 //            .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
+}
+
+
+extension UserDefaults {
+  func colorForKey(key: String) -> UIColor? {
+    var colorReturnded: UIColor?
+    if let colorData = data(forKey: key) {
+      do {
+        if let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
+          colorReturnded = color
+        }
+      } catch {
+        print("Error UserDefaults")
+      }
+    }
+    return colorReturnded
+  }
+  
+  func setColor(color: UIColor?, forKey key: String) {
+    var colorData: NSData?
+    if let color = color {
+      do {
+        let data = try NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false) as NSData?
+        colorData = data
+      } catch {
+        print("Error UserDefaults")
+      }
+    }
+    set(colorData, forKey: key)
+  }
 }
