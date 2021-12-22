@@ -55,6 +55,7 @@ struct WidgetView: View {
                     radius: 20,
                     x: 0.5,
                     y: 0.5)
+                .padding(.bottom, 20)
             }
             .frame(
                 minWidth: 0,
