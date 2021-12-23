@@ -17,26 +17,37 @@ public struct MainWidgetView : View {
     private var primaryFont: Font.TextStyle = .headline
     private var secondaryFont: Font.TextStyle = .footnote
     
+    @Binding var topColor: Color
+    @Binding var bottomColor: Color
+    
     private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
     
     public init(
         coin: CoinModel,
-        hasBackground: Bool = true
+        hasBackground: Bool = true,
+        topColor: Binding<Color> = .constant(.mcPrimaryDarker),
+        bottomColor: Binding<Color> = .constant(.mcPrimary)
     ) {
         self.coin = coin
         self.hasBackground = hasBackground
+        self._topColor = topColor
+        self._bottomColor = bottomColor
     }
     
     public init(
         coin: CoinModel,
         hasBackground: Bool = true,
         primaryFont: Font.TextStyle,
-        secondaryFont: Font.TextStyle
+        secondaryFont: Font.TextStyle,
+        topColor: Binding<Color>,
+        bottomColor: Binding<Color>
     ) {
         self.coin = coin
         self.hasBackground = hasBackground
         self.primaryFont = primaryFont
         self.secondaryFont = secondaryFont
+        self._topColor = topColor
+        self._bottomColor = bottomColor
     }
     
     public var body: some View {
@@ -46,7 +57,7 @@ public struct MainWidgetView : View {
                 LinearGradient(
                     gradient:
                         Gradient(
-                            colors: [.mcPrimaryDarker, .mcPrimary]),
+                            colors: [topColor, bottomColor]),
                             startPoint: .top, endPoint: .bottom
                         )
             }
