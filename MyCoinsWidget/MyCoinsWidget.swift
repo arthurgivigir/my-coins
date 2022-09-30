@@ -20,9 +20,12 @@ struct Provider: IntentTimelineProvider {
         WidgetModel(coin: CoinModel(date: Date()))
     }
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (WidgetModel) -> ()) {
+    func getSnapshot(
+        for configuration: ConfigurationIntent,
+        in context: Context,
+        completion: @escaping (WidgetModel) -> ()
+    ) {
         var entry = WidgetModel(coin: CoinModel(date: Date(), close: "3.40"))
-        
         
         CoinFetcher.shared
             .getCoinValue(from: "USD", to: "BRL") { coin, error in
@@ -45,7 +48,11 @@ struct Provider: IntentTimelineProvider {
             }
     }
 
-    func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(
+        for configuration: ConfigurationIntent,
+        in context: Context,
+        completion: @escaping (Timeline<Entry>) -> ()
+    ) {
         var entries: [WidgetModel] = []
         
         CoinFetcher.shared
@@ -60,9 +67,15 @@ struct Provider: IntentTimelineProvider {
                 
                 let date = Date()
                 let calendar = Calendar.current
-                coin.date = calendar.date(byAdding: .minute, value: 5, to: date)!
+                coin.date = calendar.date(
+                    byAdding: .minute,
+                    value: 5, to: date
+                )!
                 
-                var widgetModel = WidgetModel(date: coin.date, coin: coin)
+                var widgetModel = WidgetModel(
+                    date: coin.date,
+                    coin: coin
+                )
                 
                 MyCoinsUserDefaults.shared.getColors { topColor, bottomColor in
                     widgetModel.topColor = topColor
@@ -70,7 +83,10 @@ struct Provider: IntentTimelineProvider {
                 }
                 entries.append(widgetModel)
                 
-                let timeline = Timeline(entries: entries, policy: .atEnd)
+                let timeline = Timeline(
+                    entries: entries,
+                    policy: .atEnd
+                )
                 completion(timeline)
         }
     }
@@ -81,8 +97,16 @@ struct MyCoinsWidget: Widget {
     let kind: String = "MyCoinsWidget"
 
     var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-            MainWidgetView(coin: entry.coin, topColor: .constant(entry.topColor ?? .mcPrimaryDarker), bottomColor: .constant(entry.bottomColor ?? .mcPrimary))
+        IntentConfiguration(
+            kind: kind,
+            intent: ConfigurationIntent.self,
+            provider: Provider()
+        ) { entry in
+            MainWidgetView(
+                coin: entry.coin,
+                topColor: .constant(entry.topColor ?? .mcPrimaryDarker),
+                bottomColor: .constant(entry.bottomColor ?? .mcPrimary)
+            )
         }
         .configurationDisplayName("Zooin Widget")
         .description("Este é widget do Zooin!")
@@ -91,7 +115,9 @@ struct MyCoinsWidget: Widget {
 
 struct MyCoinsWidget_Previews: PreviewProvider {
     static var previews: some View {
-        MainWidgetView(coin: CoinModel(date: Date()))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        MainWidgetView(
+            coin: CoinModel(date: Date())
+        )
+        .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

@@ -14,6 +14,13 @@ struct WidgetView: View {
     
     @EnvironmentObject var widgetViewModel: WidgetViewModel
     
+    init() {
+        UITableView.appearance().backgroundColor = .white
+        UITableView.appearance().overrideUserInterfaceStyle = .light
+        UICollectionView.appearance().backgroundColor = .clear
+        UICollectionView.appearance().overrideUserInterfaceStyle = .light
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 40) {
@@ -40,7 +47,6 @@ struct WidgetView: View {
                         .listRowBackground(Color.gray.opacity(0.1))
                     }
                     .listStyle(.insetGrouped)
-                    
                 }
                 .frame(
                     minWidth: 0,
@@ -65,10 +71,7 @@ struct WidgetView: View {
                 alignment: .top
             )
             .background(self.background)
-            .onAppear {
-                UITableView.appearance().backgroundColor = .white
-                UITableView.appearance().overrideUserInterfaceStyle = .light
-            }
+            .navigationBarHidden(false)
         }
     }
 }
