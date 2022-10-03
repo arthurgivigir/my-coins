@@ -47,8 +47,7 @@ struct HomeView: View {
                                     x: 0.5,
                                     y: 0.5)
                                 .redacted(reason: self.homeViewModel.loadingState == .loading ? .placeholder : [])
-                            
-
+                 
                         }
                         .frame(
                             minWidth: 0,
