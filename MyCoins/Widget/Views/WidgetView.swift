@@ -78,7 +78,7 @@ struct WidgetView: View {
 
 struct WidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetView()
+        WidgetView().environmentObject(WidgetViewModel())
     }
 }
 
