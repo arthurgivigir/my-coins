@@ -1,12 +1,13 @@
 //
 //  RateView.swift
-//  
+//
 //
 //  Created by Arthur Gradim Givigir on 05/04/21.
 //
 
 import SwiftUI
 import MyCoinsCore
+import MyCoinsUIComponents
 
 public struct RateView: View {
     
