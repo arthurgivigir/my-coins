@@ -72,11 +72,11 @@ final class HomeViewModel: ObservableObject {
                 }
                 
                 if let chartValues = chartValues {
-                    self?.chartValues = chartValues
-                    self?.setChartData()
-                        
                     self?.maxValue = chartValues.max { $0.close > $1.close }?.close ?? "0.0"
                     self?.minValue = chartValues.min { $0.close > $1.close }?.close ?? "0.0"
+                    
+                    self?.chartValues = chartValues
+                    self?.setChartData()
                 }
                 
                 self?.loadingState = .loaded
@@ -130,13 +130,6 @@ final class HomeViewModel: ObservableObject {
         self.lineChartData = LineChartData(dataSets: data,
                                            metadata: chartMetaData,
                                            chartStyle: chartStyle)
-    }
-    
-    public func showWidgetConfig() {
-        self.showToast = true
-        self.showToastError = false
-        self.messageToast = "Aguarde mais um pouco!"
-        self.subtitleToast = "Em breve teremos novidades por aqui!"
     }
     
     private func refreshValues() {
