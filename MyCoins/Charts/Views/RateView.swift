@@ -11,9 +11,9 @@ import MyCoinsUIComponents
 
 public struct RateView: View {
     
-    private let rate: RateEnum
+    private let rate: Rate
     
-    public init(rate: RateEnum) {
+    public init(rate: Rate) {
         self.rate = rate
     }
     
@@ -112,7 +112,7 @@ struct RateView_Previews: PreviewProvider {
     static var previews: some View {
 //        TextWidgetView(coin: CoinModel(date: Date()))
 //            .previewContext(WidgetPreviewContext(family: .systemSmall))
-        RateView(rate: RateEnum.stable)
+        RateView(rate: Rate.stable)
             .padding(20)
     }
 }

@@ -39,9 +39,9 @@ public struct CoinModel: TimelineEntry, Codable {
         return formatter
     }
     
-    public var rateEnum: RateEnum {
+    public var rateEnum: Rate {
         if let rate = rate {
-            return RateEnum(rate) ?? .stable
+            return Rate(rate) ?? .stable
         }
         
         return .stable

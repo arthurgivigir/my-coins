@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum RateEnum: String {
+public enum Rate: String {
     case up
     case down
     case stable
