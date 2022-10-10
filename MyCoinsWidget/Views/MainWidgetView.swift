@@ -19,6 +19,7 @@ public struct MainWidgetView : View {
     
     @Binding var topColor: Color
     @Binding var bottomColor: Color
+    @Environment(\.widgetFamily) private var family
     
     private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
     
@@ -51,56 +52,29 @@ public struct MainWidgetView : View {
     }
     
     public var body: some View {
-        ZStack {
-            
-            if hasBackground {
-                LinearGradient(
-                    gradient:
-                        Gradient(
-                            colors: [topColor, bottomColor]),
-                            startPoint: .top, endPoint: .bottom
-                        )
+        
+        switch family {
+        case .accessoryRectangular:
+            RectangularWidgetView(coin: coin)
+        case .accessoryCircular:
+            if #available(iOS 16.0, *) {
+                CircularWidgetView(coin: coin)
             }
-            
-            GeometryReader { geometry in
-                VStack {
-                    HStack {
-                        Text(coin.formattedBit)
-                            .bold()
-                            .font(.system(self.primaryFont))
-                            .foregroundColor(.white)
-                        
-                        RateView(rate: coin.rateEnum)
-                            .frame(width: 10, height: 10, alignment: .center)
-                    }
-                    
-                    Divider()
-                        .background(Color.white)
-                        .frame(width: 100, alignment: .center)
-                    
-                    Text(coin.message ?? "Nada novo por aqui... Circulando! Circulando!")
-                        .font(.system(self.secondaryFont))
-                        .fontWeight(.light)
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.white)
-                }
-                .padding(.vertical, 10)
-                .padding(.horizontal, 20)
-                .frame(width: geometry.size.width,
-                       height: geometry.size.height,
-                       alignment: .center)
-            }
-
+        case .accessoryInline:
+            InlineWidgetView(coin: coin)
+        default:
+            SmallWidgetView(
+                coin: coin,
+                hasBackground: hasBackground,
+                topColor: $topColor,
+                bottomColor: $bottomColor
+            )
         }
-        .background(self.hasBackground ? Color.white : .clear)
     }
 }
 
 struct MainWidgetView_Previews: PreviewProvider {
     static var previews: some View {
         MainWidgetView(coin: CoinModel(date: Date()))
-            .previewDevice(PreviewDevice(rawValue: "iPhone 12 mini"))
-//            .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

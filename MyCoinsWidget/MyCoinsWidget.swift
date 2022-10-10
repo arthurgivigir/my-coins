@@ -17,6 +17,25 @@ import MyCoinsUIComponents
 @main
 struct MyCoinsWidget: Widget {
     let kind: String = "MyCoinsWidget"
+    
+    private var supportedFamilies: [WidgetFamily] {
+        if #available(iOSApplicationExtension 16.0, *) {
+            return [
+                .systemSmall,
+                .systemMedium,
+                .systemLarge,
+                .accessoryCircular,
+                .accessoryRectangular,
+                .accessoryInline
+            ]
+        } else {
+            return [
+                .systemSmall,
+                .systemMedium,
+                .systemLarge
+            ]
+        }
+    }
 
     var body: some WidgetConfiguration {
         IntentConfiguration(
@@ -30,8 +49,9 @@ struct MyCoinsWidget: Widget {
                 bottomColor: .constant(entry.bottomColor ?? .mcPrimary)
             )
         }
-        .configurationDisplayName("Zooin Widget")
-        .description("Este é widget do Zooin!")
+        .configurationDisplayName("Zooin")
+        .description("Mostra a alta ou a queda do dólar, acompanhado de algumas frases engraçadas e bem divertidas.")
+        .supportedFamilies(supportedFamilies)
     }
 }
 

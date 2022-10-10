@@ -17,6 +17,16 @@
 		5647D48D2626457600819595 /* LottieNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647D48C2626457600819595 /* LottieNames.swift */; };
 		5650FE282767FBFC007F3563 /* WidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650FE272767FBFC007F3563 /* WidgetViewModel.swift */; };
 		5656DABE28F06E0600EF12C8 /* GetCoinProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5656DABD28F06E0600EF12C8 /* GetCoinProvider.swift */; };
+		565927E128F489CF005084AE /* RateWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565927E028F489CF005084AE /* RateWidgetView.swift */; };
+		565927E228F489CF005084AE /* RateWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565927E028F489CF005084AE /* RateWidgetView.swift */; };
+		565927E428F48E0F005084AE /* CircularWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565927E328F48E0F005084AE /* CircularWidgetView.swift */; };
+		565927E528F48E0F005084AE /* CircularWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565927E328F48E0F005084AE /* CircularWidgetView.swift */; };
+		566BEA7F28F08C8F003F6032 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA7E28F08C8F003F6032 /* SmallWidgetView.swift */; };
+		566BEA8028F08C8F003F6032 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA7E28F08C8F003F6032 /* SmallWidgetView.swift */; };
+		566BEA8228F09EAD003F6032 /* RectangularWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA8128F09EAD003F6032 /* RectangularWidgetView.swift */; };
+		566BEA8328F09EAD003F6032 /* RectangularWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA8128F09EAD003F6032 /* RectangularWidgetView.swift */; };
+		566BEA8528F0AE0C003F6032 /* InlineWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA8428F0AE0C003F6032 /* InlineWidgetView.swift */; };
+		566BEA8628F0AE0C003F6032 /* InlineWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA8428F0AE0C003F6032 /* InlineWidgetView.swift */; };
 		56B603B728EB614F0018C449 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E2084728EB6013002D35B2 /* RateView.swift */; };
 		56C2ADF727514E3E000C6996 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2ADF627514E3E000C6996 /* TabBarView.swift */; };
 		56C2ADFB2763F290000C6996 /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C2ADFA2763F28F000C6996 /* WidgetView.swift */; };
@@ -119,6 +129,11 @@
 		564FCECB276BFECD00C9FC66 /* MyCoinsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyCoinsWidgetExtension.entitlements; sourceTree = "<group>"; };
 		5650FE272767FBFC007F3563 /* WidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewModel.swift; sourceTree = "<group>"; };
 		5656DABD28F06E0600EF12C8 /* GetCoinProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCoinProvider.swift; sourceTree = "<group>"; };
+		565927E028F489CF005084AE /* RateWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateWidgetView.swift; sourceTree = "<group>"; };
+		565927E328F48E0F005084AE /* CircularWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularWidgetView.swift; sourceTree = "<group>"; };
+		566BEA7E28F08C8F003F6032 /* SmallWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetView.swift; sourceTree = "<group>"; };
+		566BEA8128F09EAD003F6032 /* RectangularWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularWidgetView.swift; sourceTree = "<group>"; };
+		566BEA8428F0AE0C003F6032 /* InlineWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineWidgetView.swift; sourceTree = "<group>"; };
 		568921812607E0B200576399 /* MyCoinsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsCore; sourceTree = "<group>"; };
 		568921882607E0EB00576399 /* MyCoinsServices */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsServices; sourceTree = "<group>"; };
 		56A982C926111BC400B139D9 /* MyCoinsUIComponents */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MyCoinsUIComponents; sourceTree = "<group>"; };
@@ -274,6 +289,11 @@
 			isa = PBXGroup;
 			children = (
 				56E2084128EB3996002D35B2 /* MainWidgetView.swift */,
+				566BEA7E28F08C8F003F6032 /* SmallWidgetView.swift */,
+				566BEA8128F09EAD003F6032 /* RectangularWidgetView.swift */,
+				566BEA8428F0AE0C003F6032 /* InlineWidgetView.swift */,
+				565927E028F489CF005084AE /* RateWidgetView.swift */,
+				565927E328F48E0F005084AE /* CircularWidgetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -611,8 +631,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				566BEA8228F09EAD003F6032 /* RectangularWidgetView.swift in Sources */,
 				6C32FBF9263DCD8500C0ADD8 /* HomeHeaderView.swift in Sources */,
+				566BEA8528F0AE0C003F6032 /* InlineWidgetView.swift in Sources */,
 				56C2ADF727514E3E000C6996 /* TabBarView.swift in Sources */,
+				565927E428F48E0F005084AE /* CircularWidgetView.swift in Sources */,
+				565927E128F489CF005084AE /* RateWidgetView.swift in Sources */,
 				56F8E935262CC41B00BB224C /* HomeViewModel.swift in Sources */,
 				56C7A39926225AD9007CBA3E /* HomeView.swift in Sources */,
 				56C2ADFB2763F290000C6996 /* WidgetView.swift in Sources */,
@@ -624,6 +648,7 @@
 				56D83F9025E1970A00DE2FBB /* MyCoinsApp.swift in Sources */,
 				6C32FBFB263DCEA300C0ADD8 /* HomeChartView.swift in Sources */,
 				6C16C46226420564008F0FD3 /* MyCoinsWidget.intentdefinition in Sources */,
+				566BEA7F28F08C8F003F6032 /* SmallWidgetView.swift in Sources */,
 				5611986E28EB353600FEED02 /* ChartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,8 +675,13 @@
 			files = (
 				56B603B728EB614F0018C449 /* RateView.swift in Sources */,
 				56D8402825E19B8100DE2FBB /* MyCoinsWidget.swift in Sources */,
+				566BEA8328F09EAD003F6032 /* RectangularWidgetView.swift in Sources */,
+				565927E528F48E0F005084AE /* CircularWidgetView.swift in Sources */,
 				6C16C46326420564008F0FD3 /* MyCoinsWidget.intentdefinition in Sources */,
+				565927E228F489CF005084AE /* RateWidgetView.swift in Sources */,
+				566BEA8628F0AE0C003F6032 /* InlineWidgetView.swift in Sources */,
 				56E2084428EB3A38002D35B2 /* MainWidgetView.swift in Sources */,
+				566BEA8028F08C8F003F6032 /* SmallWidgetView.swift in Sources */,
 				5656DABE28F06E0600EF12C8 /* GetCoinProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
