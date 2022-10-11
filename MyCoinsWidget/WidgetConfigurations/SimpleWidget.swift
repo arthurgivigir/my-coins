@@ -11,7 +11,7 @@ import WidgetKit
 import MyCoinsCore
 
 struct SimpleWidget: Widget {
-    let kind: String = "SimpleWidget"
+    let kind: String = "MyCoinsWidget"
     
     private var supportedFamilies: [WidgetFamily] {
         if #available(iOSApplicationExtension 16.0, *) {

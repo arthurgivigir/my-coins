@@ -340,8 +340,8 @@
 		5659285728F5E759005084AE /* Gauge */ = {
 			isa = PBXGroup;
 			children = (
-				5659284D28F5E0D3005084AE /* GaugeCircularWidgetView.swift */,
 				5659285828F5E775005084AE /* MainGaugeWidgetView.swift */,
+				5659284D28F5E0D3005084AE /* GaugeCircularWidgetView.swift */,
 				5659285A28F5E978005084AE /* GaugeRectangularWidgetView.swift */,
 			);
 			path = Gauge;
