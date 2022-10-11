@@ -28,7 +28,7 @@ struct CircularWidgetView: View {
                         .monospacedDigit()
                         .widgetAccentable(true)
 
-                    RateWidgetView(rate: .down)
+                    RateWidgetView(rate: coin.rateEnum)
                         .font(.headline)
                 }
             }
