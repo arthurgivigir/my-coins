@@ -1,29 +1,23 @@
 //
-//  MyCoinsWidget.swift
-//  MyCoinsWidget
+//  SimpleWidget.swift
+//  MyCoinsWidgetExtension
 //
-//  Created by Arthur Givigir on 2/20/21.
+//  Created by Arthur Givigir on 11/10/22.
 //
 
-import WidgetKit
+import Foundation
 import SwiftUI
-import Intents
-import Combine
+import WidgetKit
 import MyCoinsCore
-import MyCoinsServices
-import MyCoinsWidgetUIComponents
-import MyCoinsUIComponents
 
-@main
-struct MyCoinsWidget: Widget {
-    let kind: String = "MyCoinsWidget"
+struct SimpleWidget: Widget {
+    let kind: String = "SimpleWidget"
     
     private var supportedFamilies: [WidgetFamily] {
         if #available(iOSApplicationExtension 16.0, *) {
             return [
                 .systemSmall,
                 .systemMedium,
-                .systemLarge,
                 .accessoryCircular,
                 .accessoryRectangular,
                 .accessoryInline
@@ -31,8 +25,7 @@ struct MyCoinsWidget: Widget {
         } else {
             return [
                 .systemSmall,
-                .systemMedium,
-                .systemLarge
+                .systemMedium
             ]
         }
     }
@@ -50,12 +43,12 @@ struct MyCoinsWidget: Widget {
             )
         }
         .configurationDisplayName("Zooin")
-        .description("Mostra a alta ou a queda do dólar, acompanhado de algumas frases engraçadas e bem divertidas.")
+        .description("Mostra a alta ou a queda do dólar de forma simples e rápida")
         .supportedFamilies(supportedFamilies)
     }
 }
 
-struct MyCoinsWidget_Previews: PreviewProvider {
+struct SimpleWidget_Previews: PreviewProvider {
     static var previews: some View {
         MainWidgetView(
             coin: CoinModel(date: Date())

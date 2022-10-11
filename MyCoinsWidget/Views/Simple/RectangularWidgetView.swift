@@ -34,9 +34,7 @@ struct RectangularWidgetView: View {
                 
                 if #available(iOS 16.0, *) {
                     ViewThatFits {
-                        Text(coin.message ?? "Nada novo por aqui... Circulando! Circulando! ")
-                            .font(.caption2)
-                            .fontWeight(.regular)
+                        Text(coin.message ?? "Nada novo por aqui... Circulando! Circulando!")
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .widgetAccentable()

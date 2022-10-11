@@ -25,27 +25,21 @@ struct GetCoinProvider: IntentTimelineProvider {
         in context: Context,
         completion: @escaping (WidgetModel) -> ()
     ) {
-        var entry = WidgetModel(coin: CoinModel(date: Date(), close: "3.40"))
+        var entry = WidgetModel(coin: CoinModel(
+            date: Date(),
+            high: "5.82",
+            low: "5.21",
+            rate: "upMessage",
+            close: "5.36",
+            message: "Quem vai ser hexa primeiro, a seleção ou o dólar?")
+        )
         
-        CoinFetcher.shared
-            .getCoinValue(from: .USD, to: .BRL) { coin, error in
-                
-                if let error = error {
-                    print("😭 Ocorreu um erro: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let coin = coin else { return }
-                
-                entry = WidgetModel(coin: coin)
-                
-                MyCoinsUserDefaults.shared.getColors { topColor, bottomColor in
-                    entry.topColor = topColor
-                    entry.bottomColor = bottomColor
-                }
-                
-                completion(entry)
-            }
+        MyCoinsUserDefaults.shared.getColors { topColor, bottomColor in
+            entry.topColor = topColor
+            entry.bottomColor = bottomColor
+        }
+        
+        completion(entry)
     }
 
     func getTimeline(
