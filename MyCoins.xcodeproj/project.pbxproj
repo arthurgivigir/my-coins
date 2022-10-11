@@ -21,6 +21,19 @@
 		565927E228F489CF005084AE /* RateWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565927E028F489CF005084AE /* RateWidgetView.swift */; };
 		565927E428F48E0F005084AE /* CircularWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565927E328F48E0F005084AE /* CircularWidgetView.swift */; };
 		565927E528F48E0F005084AE /* CircularWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565927E328F48E0F005084AE /* CircularWidgetView.swift */; };
+		5659281B28F5B3DA005084AE /* MyCoinsWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659281A28F5B3DA005084AE /* MyCoinsWatchApp.swift */; };
+		5659281D28F5B3DA005084AE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659281C28F5B3DA005084AE /* ContentView.swift */; };
+		5659281F28F5B3DB005084AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5659281E28F5B3DB005084AE /* Assets.xcassets */; };
+		5659282228F5B3DB005084AE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5659282128F5B3DB005084AE /* Preview Assets.xcassets */; };
+		5659282C28F5B3DB005084AE /* MyCoinsWatch_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659282B28F5B3DB005084AE /* MyCoinsWatch_Watch_AppTests.swift */; };
+		5659283628F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659283528F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITests.swift */; };
+		5659283828F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659283728F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITestsLaunchTests.swift */; };
+		5659284328F5B429005084AE /* MyCoinsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5659284228F5B429005084AE /* MyCoinsCore */; };
+		5659284428F5B429005084AE /* MyCoinsCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 5659284228F5B429005084AE /* MyCoinsCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5659284628F5B429005084AE /* MyCoinsServices in Frameworks */ = {isa = PBXBuildFile; productRef = 5659284528F5B429005084AE /* MyCoinsServices */; };
+		5659284728F5B429005084AE /* MyCoinsServices in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 5659284528F5B429005084AE /* MyCoinsServices */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		5659284928F5B429005084AE /* MyCoinsUIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 5659284828F5B429005084AE /* MyCoinsUIComponents */; };
+		5659284A28F5B429005084AE /* MyCoinsUIComponents in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 5659284828F5B429005084AE /* MyCoinsUIComponents */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		566BEA7F28F08C8F003F6032 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA7E28F08C8F003F6032 /* SmallWidgetView.swift */; };
 		566BEA8028F08C8F003F6032 /* SmallWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA7E28F08C8F003F6032 /* SmallWidgetView.swift */; };
 		566BEA8228F09EAD003F6032 /* RectangularWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566BEA8128F09EAD003F6032 /* RectangularWidgetView.swift */; };
@@ -61,6 +74,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5659282828F5B3DB005084AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 56D83F8425E1970A00DE2FBB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5659281728F5B3D9005084AE;
+			remoteInfo = "MyCoinsWatch Watch App";
+		};
+		5659283228F5B3DB005084AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 56D83F8425E1970A00DE2FBB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5659281728F5B3D9005084AE;
+			remoteInfo = "MyCoinsWatch Watch App";
+		};
 		56D83F9E25E1970D00DE2FBB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 56D83F8425E1970A00DE2FBB /* Project object */;
@@ -85,6 +112,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5659284B28F5B429005084AE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5659284428F5B429005084AE /* MyCoinsCore in Embed Frameworks */,
+				5659284728F5B429005084AE /* MyCoinsServices in Embed Frameworks */,
+				5659284A28F5B429005084AE /* MyCoinsUIComponents in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		56D83FD925E1984B00DE2FBB /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -131,6 +171,16 @@
 		5656DABD28F06E0600EF12C8 /* GetCoinProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCoinProvider.swift; sourceTree = "<group>"; };
 		565927E028F489CF005084AE /* RateWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateWidgetView.swift; sourceTree = "<group>"; };
 		565927E328F48E0F005084AE /* CircularWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularWidgetView.swift; sourceTree = "<group>"; };
+		5659281828F5B3D9005084AE /* Zooin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zooin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5659281A28F5B3DA005084AE /* MyCoinsWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoinsWatchApp.swift; sourceTree = "<group>"; };
+		5659281C28F5B3DA005084AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5659281E28F5B3DB005084AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5659282128F5B3DB005084AE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5659282728F5B3DB005084AE /* MyCoinsWatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyCoinsWatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5659282B28F5B3DB005084AE /* MyCoinsWatch_Watch_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoinsWatch_Watch_AppTests.swift; sourceTree = "<group>"; };
+		5659283128F5B3DB005084AE /* MyCoinsWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyCoinsWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5659283528F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoinsWatch_Watch_AppUITests.swift; sourceTree = "<group>"; };
+		5659283728F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoinsWatch_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		566BEA7E28F08C8F003F6032 /* SmallWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidgetView.swift; sourceTree = "<group>"; };
 		566BEA8128F09EAD003F6032 /* RectangularWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularWidgetView.swift; sourceTree = "<group>"; };
 		566BEA8428F0AE0C003F6032 /* InlineWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineWidgetView.swift; sourceTree = "<group>"; };
@@ -169,6 +219,30 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5659281528F5B3D9005084AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5659284328F5B429005084AE /* MyCoinsCore in Frameworks */,
+				5659284628F5B429005084AE /* MyCoinsServices in Frameworks */,
+				5659284928F5B429005084AE /* MyCoinsUIComponents in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5659282428F5B3DB005084AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5659282E28F5B3DB005084AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		56D83F8925E1970A00DE2FBB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,6 +380,42 @@
 			path = Providers;
 			sourceTree = "<group>";
 		};
+		5659281928F5B3DA005084AE /* MyCoinsWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				5659281A28F5B3DA005084AE /* MyCoinsWatchApp.swift */,
+				5659281C28F5B3DA005084AE /* ContentView.swift */,
+				5659281E28F5B3DB005084AE /* Assets.xcassets */,
+				5659282028F5B3DB005084AE /* Preview Content */,
+			);
+			path = "MyCoinsWatch Watch App";
+			sourceTree = "<group>";
+		};
+		5659282028F5B3DB005084AE /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5659282128F5B3DB005084AE /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5659282A28F5B3DB005084AE /* MyCoinsWatch Watch AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				5659282B28F5B3DB005084AE /* MyCoinsWatch_Watch_AppTests.swift */,
+			);
+			path = "MyCoinsWatch Watch AppTests";
+			sourceTree = "<group>";
+		};
+		5659283428F5B3DB005084AE /* MyCoinsWatch Watch AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5659283528F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITests.swift */,
+				5659283728F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITestsLaunchTests.swift */,
+			);
+			path = "MyCoinsWatch Watch AppUITests";
+			sourceTree = "<group>";
+		};
 		56C7A39426225AAA007CBA3E /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +443,9 @@
 				56D83FA025E1970D00DE2FBB /* MyCoinsTests */,
 				56D83FAB25E1970E00DE2FBB /* MyCoinsUITests */,
 				56D8402625E19B8100DE2FBB /* MyCoinsWidget */,
+				5659281928F5B3DA005084AE /* MyCoinsWatch Watch App */,
+				5659282A28F5B3DB005084AE /* MyCoinsWatch Watch AppTests */,
+				5659283428F5B3DB005084AE /* MyCoinsWatch Watch AppUITests */,
 				56D83FC525E1984A00DE2FBB /* Frameworks */,
 				56D83F8D25E1970A00DE2FBB /* Products */,
 			);
@@ -345,6 +458,9 @@
 				56D83F9D25E1970D00DE2FBB /* MyCoinsTests.xctest */,
 				56D83FA825E1970E00DE2FBB /* MyCoinsUITests.xctest */,
 				56D8402325E19B8100DE2FBB /* MyCoinsWidgetExtension.appex */,
+				5659281828F5B3D9005084AE /* Zooin.app */,
+				5659282728F5B3DB005084AE /* MyCoinsWatch Watch AppTests.xctest */,
+				5659283128F5B3DB005084AE /* MyCoinsWatch Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -454,6 +570,65 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5659281728F5B3D9005084AE /* MyCoinsWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5659283F28F5B3DB005084AE /* Build configuration list for PBXNativeTarget "MyCoinsWatch Watch App" */;
+			buildPhases = (
+				5659281428F5B3D9005084AE /* Sources */,
+				5659281528F5B3D9005084AE /* Frameworks */,
+				5659281628F5B3D9005084AE /* Resources */,
+				5659284B28F5B429005084AE /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MyCoinsWatch Watch App";
+			packageProductDependencies = (
+				5659284228F5B429005084AE /* MyCoinsCore */,
+				5659284528F5B429005084AE /* MyCoinsServices */,
+				5659284828F5B429005084AE /* MyCoinsUIComponents */,
+			);
+			productName = "MyCoinsWatch Watch App";
+			productReference = 5659281828F5B3D9005084AE /* Zooin.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5659282628F5B3DB005084AE /* MyCoinsWatch Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5659284028F5B3DB005084AE /* Build configuration list for PBXNativeTarget "MyCoinsWatch Watch AppTests" */;
+			buildPhases = (
+				5659282328F5B3DB005084AE /* Sources */,
+				5659282428F5B3DB005084AE /* Frameworks */,
+				5659282528F5B3DB005084AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5659282928F5B3DB005084AE /* PBXTargetDependency */,
+			);
+			name = "MyCoinsWatch Watch AppTests";
+			productName = "MyCoinsWatch Watch AppTests";
+			productReference = 5659282728F5B3DB005084AE /* MyCoinsWatch Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5659283028F5B3DB005084AE /* MyCoinsWatch Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5659284128F5B3DB005084AE /* Build configuration list for PBXNativeTarget "MyCoinsWatch Watch AppUITests" */;
+			buildPhases = (
+				5659282D28F5B3DB005084AE /* Sources */,
+				5659282E28F5B3DB005084AE /* Frameworks */,
+				5659282F28F5B3DB005084AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5659283328F5B3DB005084AE /* PBXTargetDependency */,
+			);
+			name = "MyCoinsWatch Watch AppUITests";
+			productName = "MyCoinsWatch Watch AppUITests";
+			productReference = 5659283128F5B3DB005084AE /* MyCoinsWatch Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		56D83F8B25E1970A00DE2FBB /* MyCoins */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 56D83FB125E1970E00DE2FBB /* Build configuration list for PBXNativeTarget "MyCoins" */;
@@ -545,9 +720,20 @@
 		56D83F8425E1970A00DE2FBB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					5659281728F5B3D9005084AE = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+					5659282628F5B3DB005084AE = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 5659281728F5B3D9005084AE;
+					};
+					5659283028F5B3DB005084AE = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 5659281728F5B3D9005084AE;
+					};
 					56D83F8B25E1970A00DE2FBB = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -584,11 +770,37 @@
 				56D83F9C25E1970D00DE2FBB /* MyCoinsTests */,
 				56D83FA725E1970E00DE2FBB /* MyCoinsUITests */,
 				56D8402225E19B8100DE2FBB /* MyCoinsWidgetExtension */,
+				5659281728F5B3D9005084AE /* MyCoinsWatch Watch App */,
+				5659282628F5B3DB005084AE /* MyCoinsWatch Watch AppTests */,
+				5659283028F5B3DB005084AE /* MyCoinsWatch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5659281628F5B3D9005084AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5659282228F5B3DB005084AE /* Preview Assets.xcassets in Resources */,
+				5659281F28F5B3DB005084AE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5659282528F5B3DB005084AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5659282F28F5B3DB005084AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		56D83F8A25E1970A00DE2FBB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -627,6 +839,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5659281428F5B3D9005084AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5659281D28F5B3DA005084AE /* ContentView.swift in Sources */,
+				5659281B28F5B3DA005084AE /* MyCoinsWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5659282328F5B3DB005084AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5659282C28F5B3DB005084AE /* MyCoinsWatch_Watch_AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5659282D28F5B3DB005084AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5659283628F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITests.swift in Sources */,
+				5659283828F5B3DB005084AE /* MyCoinsWatch_Watch_AppUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		56D83F8825E1970A00DE2FBB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -689,6 +927,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5659282928F5B3DB005084AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5659281728F5B3D9005084AE /* MyCoinsWatch Watch App */;
+			targetProxy = 5659282828F5B3DB005084AE /* PBXContainerItemProxy */;
+		};
+		5659283328F5B3DB005084AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5659281728F5B3D9005084AE /* MyCoinsWatch Watch App */;
+			targetProxy = 5659283228F5B3DB005084AE /* PBXContainerItemProxy */;
+		};
 		56D83F9F25E1970D00DE2FBB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 56D83F8B25E1970A00DE2FBB /* MyCoins */;
@@ -718,10 +966,159 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5659283928F5B3DB005084AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = $BUILD_VERSION;
+				DEVELOPMENT_ASSET_PATHS = "\"MyCoinsWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = H7EDV5524K;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.givigir.MyCoins.MyCoinsWatch;
+				PRODUCT_NAME = Zooin;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		5659283A28F5B3DB005084AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = $BUILD_VERSION;
+				DEVELOPMENT_ASSET_PATHS = "\"MyCoinsWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = H7EDV5524K;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.givigir.MyCoins.MyCoinsWatch;
+				PRODUCT_NAME = Zooin;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		5659283B28F5B3DB005084AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H7EDV5524K;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.givigir.MyCoinsWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyCoinsWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyCoinsWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		5659283C28F5B3DB005084AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H7EDV5524K;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.givigir.MyCoinsWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyCoinsWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyCoinsWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		5659283D28F5B3DB005084AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H7EDV5524K;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.givigir.MyCoinsWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "MyCoinsWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		5659283E28F5B3DB005084AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H7EDV5524K;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.givigir.MyCoinsWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "MyCoinsWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 		56D83FAF25E1970E00DE2FBB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APP_NAME = Zooin;
+				APP_VERSION = 1.4;
+				BUILD_VERSION = 21;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -783,6 +1180,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APP_NAME = Zooin;
+				APP_VERSION = 1.4;
+				BUILD_VERSION = 21;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -843,20 +1243,20 @@
 				CODE_SIGN_ENTITLEMENTS = MyCoins/MyCoins.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = "$(BUILD_VERSION)";
 				DEVELOPMENT_ASSET_PATHS = "\"MyCoins/Preview Content\"";
 				DEVELOPMENT_TEAM = H7EDV5524K;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				INFOPLIST_FILE = MyCoins/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Zooin;
+				INFOPLIST_KEY_CFBundleDisplayName = "${APP_NAME}";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = "$(APP_VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.givigir.MyCoins;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -874,19 +1274,19 @@
 				CODE_SIGN_ENTITLEMENTS = MyCoins/MyCoins.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = "$(BUILD_VERSION)";
 				DEVELOPMENT_ASSET_PATHS = "\"MyCoins/Preview Content\"";
 				DEVELOPMENT_TEAM = H7EDV5524K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MyCoins/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Zooin;
+				INFOPLIST_KEY_CFBundleDisplayName = "${APP_NAME}";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = "$(APP_VERSION)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.givigir.MyCoins;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -986,7 +1386,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = MyCoinsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = $BUILD_VERSION;
 				DEVELOPMENT_TEAM = H7EDV5524K;
 				INFOPLIST_FILE = MyCoinsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1011,7 +1411,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = MyCoinsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = $BUILD_VERSION;
 				DEVELOPMENT_TEAM = H7EDV5524K;
 				INFOPLIST_FILE = MyCoinsWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1032,6 +1432,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5659283F28F5B3DB005084AE /* Build configuration list for PBXNativeTarget "MyCoinsWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5659283928F5B3DB005084AE /* Debug */,
+				5659283A28F5B3DB005084AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5659284028F5B3DB005084AE /* Build configuration list for PBXNativeTarget "MyCoinsWatch Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5659283B28F5B3DB005084AE /* Debug */,
+				5659283C28F5B3DB005084AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5659284128F5B3DB005084AE /* Build configuration list for PBXNativeTarget "MyCoinsWatch Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5659283D28F5B3DB005084AE /* Debug */,
+				5659283E28F5B3DB005084AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		56D83F8725E1970A00DE2FBB /* Build configuration list for PBXProject "MyCoins" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1106,6 +1533,18 @@
 		563E9759261907260063A3A8 /* MyCoinsCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MyCoinsCore;
+		};
+		5659284228F5B429005084AE /* MyCoinsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyCoinsCore;
+		};
+		5659284528F5B429005084AE /* MyCoinsServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyCoinsServices;
+		};
+		5659284828F5B429005084AE /* MyCoinsUIComponents */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyCoinsUIComponents;
 		};
 		56E2083528EB3690002D35B2 /* MyCoinsCore */ = {
 			isa = XCSwiftPackageProductDependency;
