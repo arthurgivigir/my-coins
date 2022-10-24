@@ -55,6 +55,11 @@ struct SimpleWidget_Previews: PreviewProvider {
         )
         .previewContext(WidgetPreviewContext(family: .systemSmall))
         
+        MainWidgetView(
+            coin: CoinModel(date: Date())
+        )
+        .previewContext(WidgetPreviewContext(family: .systemMedium))
+        
         if #available(iOSApplicationExtension 16.0, *) {
             MainWidgetView(
                 coin: CoinModel(date: Date())

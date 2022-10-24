@@ -62,6 +62,8 @@ public struct MainWidgetView : View {
             }
         case .accessoryInline:
             InlineWidgetView(coin: coin)
+        case .systemMedium:
+            RectangularChartWidgetView()
         default:
             SmallWidgetView(
                 coin: coin,
