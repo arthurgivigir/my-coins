@@ -39,7 +39,7 @@ struct HomeView: View {
                                     minHeight: 400,
                                     maxHeight: .infinity,
                                     alignment: .center)
-                                .background(Color.white)
+                                .background(Color.black)
                                 .cornerRadius(20)
                                 .shadow(
                                     color: .mcPrimaryDarker.opacity(0.5),
@@ -47,7 +47,6 @@ struct HomeView: View {
                                     x: 0.5,
                                     y: 0.5)
                                 .redacted(reason: self.homeViewModel.loadingState == .loading ? .placeholder : [])
-                 
                         }
                         .frame(
                             minWidth: 0,
