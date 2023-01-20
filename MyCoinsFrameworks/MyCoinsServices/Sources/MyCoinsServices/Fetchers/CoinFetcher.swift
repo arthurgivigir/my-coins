@@ -8,6 +8,7 @@
 import Combine
 import MyCoinsCore
 import Foundation
+import CloudKit
 
 public class CoinFetcher {
     
@@ -68,5 +69,19 @@ public class CoinFetcher {
             }
             .store(in: &cancellables)
     }
-
+    
+    public func subscribeToCloud(_ onFinish: @escaping (Result<Void, Error>) -> Void) {
+        self.interactor.subscribeToCloud(onFinish)
+    }
+    
+    public func getServicesInformation(with id: CKRecord.ID?) {
+        self.interactor.getServicesInformation(with: id) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+            case .failure(let failure):
+                print("🚧 Failure: \(failure)")
+            }
+        }
+    }
 }
