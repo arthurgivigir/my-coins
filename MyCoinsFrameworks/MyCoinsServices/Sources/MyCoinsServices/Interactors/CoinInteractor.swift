@@ -77,7 +77,7 @@ public struct CoinInteractor: CoinInteractorProtocol {
 
 final class KeychainHelper {
     static let shared = KeychainHelper()
-    static let SEC_SERVICE = "service-infos"
+    static let SEC_SERVICE = "mercado-maluco-service-infos"
     static let SEC_ACCOUNT = "mercadomaluco"
     
     private init() {}
@@ -97,15 +97,14 @@ final class KeychainHelper {
             return nil
         }
         
-        let jwtToken = String(decoding: data, as: UTF8.self)
-        return ServiceData(id: nil, jwtToken: jwtToken)
+        return try? JSONDecoder().decode(ServiceData.self, from: data)
     }
     
     func save(_ serviceData: ServiceData) {
-        guard let jwtToken = serviceData.jwtToken else { return }
+        guard let serviceDataJson = serviceData.toJson() else { return }
         
         let query = [
-            kSecValueData: Data(jwtToken.utf8),
+            kSecValueData: Data(serviceDataJson.utf8),
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: KeychainHelper.SEC_SERVICE,
             kSecAttrAccount: KeychainHelper.SEC_ACCOUNT
@@ -122,14 +121,14 @@ final class KeychainHelper {
                     kSecAttrAccount: KeychainHelper.SEC_ACCOUNT
                 ] as CFDictionary
                 
-                guard let jwtToken = serviceData.jwtToken else { return }
+                let attributedToUpdate = [kSecValueData: Data(serviceDataJson.utf8)] as CFDictionary
+                let status = SecItemUpdate(query, attributedToUpdate)
+                print("🚧 Failure: \(String(describing: KeychainError(error: status)))")
                 
-                let attributedToUpdate = [kSecValueData: Data(jwtToken.utf8)] as CFDictionary
-                SecItemUpdate(query, attributedToUpdate)
                 return
             }
             
-            print("🚧 Error: \(String(describing: KeychainError(error: status)))")
+            print("🚧 Failure: \(String(describing: KeychainError(error: status)))")
         }
     }
 }

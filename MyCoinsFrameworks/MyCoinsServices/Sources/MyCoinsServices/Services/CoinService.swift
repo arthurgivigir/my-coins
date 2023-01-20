@@ -18,18 +18,30 @@ protocol CoinServiceProtocol {
     func getServicesInformation(with id: CKRecord.ID?, _ onFinish: @escaping ((Result<ServiceData, Error>) -> ()))
 }
 
+extension ServiceData {
+    public static var identifier = "ServiceData"
+}
+
+extension CKContainer {
+    static var appContainer = "iCloud.givigir.MercadoMaluco"
+}
+
+extension CKSubscription {
+    static var alertBody = "A new service data was defined"
+}
+
 class CoinService: CoinServiceProtocol {
 
-    private let record = CKRecord(recordType: "ServiceData")
-    private let appContainer = CKContainer(identifier:  "iCloud.givigir.MercadoMaluco")
+    private let record = CKRecord(recordType: ServiceData.identifier)
+    private let appContainer = CKContainer(identifier: CKContainer.appContainer)
 
-    private let alphavantageUrl = "https://mercado-maluco.vercel.app"
-    private let newSubscription = CKQuerySubscription(recordType: "ServiceData", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
+    private let newSubscription = CKQuerySubscription(recordType: ServiceData.identifier, predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
     
     private var hasSub = false
     
     func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[CoinModel]?, Error> {
-        if let url = URL(string: "\(alphavantageUrl)/api/v1/coins"),
+        
+        if let url = KeychainHelper.shared.getServiceData?.url,
            let jwtToken = KeychainHelper.shared.getServiceData?.jwtToken {
             
             let httpHeader: HTTPHeaders = [
@@ -53,12 +65,12 @@ class CoinService: CoinServiceProtocol {
     
     func subscribeToCloud(_ onFinish: @escaping (Result<Void, Error>) -> Void) {
         let predicate = NSPredicate(value: true)
-        let subscription = CKQuerySubscription(recordType: "ServiceData",
+        let subscription = CKQuerySubscription(recordType: ServiceData.identifier,
                                   predicate: predicate,
                                   options: .firesOnRecordUpdate)
         
         let notificationInfo = CKSubscription.NotificationInfo()
-        notificationInfo.alertBody = "A new service data was defined"
+        notificationInfo.alertBody = CKSubscription.alertBody
         notificationInfo.shouldSendContentAvailable = true
         subscription.notificationInfo = notificationInfo
         
@@ -82,21 +94,32 @@ class CoinService: CoinServiceProtocol {
     
     func getServicesInformation(with id: CKRecord.ID?, _ onFinish: @escaping ((Result<ServiceData, Error>) -> ())) {
         let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: "ServiceData", predicate: predicate)
+        let query = CKQuery(recordType: ServiceData.identifier, predicate: predicate)
         let operation = CKQueryOperation(query: query)
         
         if let id = id {
             appContainer.publicCloudDatabase.fetch(withRecordID: id) { record, error in
                 if let error = error {
-                    print("🚧 failure \(error)")
+                    print("🚧 Failure \(error)")
                     onFinish(.failure(error))
                     return
                 }
                 
                 let id = record?[.id]
                 let jwtToken = record?[.jwtToken]
+                let api = record?[.apiGetCoins]
+                let host = record?[.host]
                 
-                onFinish(.success(ServiceData(id: id, jwtToken: jwtToken)))
+                onFinish(
+                    .success(
+                        ServiceData(
+                            id: id,
+                            jwtToken: jwtToken,
+                            host: host,
+                            apiGetCoins: api
+                        )
+                    )
+                )
             }
             
             appContainer.publicCloudDatabase.add(operation)
@@ -107,10 +130,21 @@ class CoinService: CoinServiceProtocol {
                 case .success(let record):
                     let id = record[.id]
                     let jwtToken = record[.jwtToken]
+                    let api = record[.apiGetCoins]
+                    let host = record[.host]
                     
-                    onFinish(.success(ServiceData(id: id, jwtToken: jwtToken)))
+                    onFinish(
+                        .success(
+                            ServiceData(
+                                id: id,
+                                jwtToken: jwtToken,
+                                host: host,
+                                apiGetCoins: api
+                            )
+                        )
+                    )
                 case .failure(let error):
-                    print("🚧 failure \(error)")
+                    print("🚧 Failure \(error)")
                     onFinish(.failure(error))
                 }
             }
