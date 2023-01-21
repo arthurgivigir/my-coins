@@ -1,16 +1,14 @@
 //
-//  SwiftUIView.swift
-//  
+//  SmallWidgetView.swift
+//  MyCoins
 //
-//  Created by Arthur Givigir on 3/28/21.
+//  Created by Arthur Givigir on 07/10/22.
 //
 
 import SwiftUI
 import MyCoinsCore
-import MyCoinsUIComponents
-import WidgetKit
 
-public struct MainWidgetView : View {
+struct SmallWidgetView: View {
     
     private let coin: CoinModel
     private var hasBackground: Bool = true
@@ -19,6 +17,7 @@ public struct MainWidgetView : View {
     
     @Binding var topColor: Color
     @Binding var bottomColor: Color
+    @Environment(\.widgetFamily) private var family
     
     private let secondGradient: Color = Color.mcPrimary.opacity(0.6)
     
@@ -34,23 +33,7 @@ public struct MainWidgetView : View {
         self._bottomColor = bottomColor
     }
     
-    public init(
-        coin: CoinModel,
-        hasBackground: Bool = true,
-        primaryFont: Font.TextStyle,
-        secondaryFont: Font.TextStyle,
-        topColor: Binding<Color>,
-        bottomColor: Binding<Color>
-    ) {
-        self.coin = coin
-        self.hasBackground = hasBackground
-        self.primaryFont = primaryFont
-        self.secondaryFont = secondaryFont
-        self._topColor = topColor
-        self._bottomColor = bottomColor
-    }
-    
-    public var body: some View {
+    var body: some View {
         ZStack {
             
             if hasBackground {
@@ -97,10 +80,8 @@ public struct MainWidgetView : View {
     }
 }
 
-struct MainWidgetView_Previews: PreviewProvider {
+struct SmallWidgetView_Previews: PreviewProvider {
     static var previews: some View {
-        MainWidgetView(coin: CoinModel(date: Date()))
-            .previewDevice(PreviewDevice(rawValue: "iPhone 12 mini"))
-//            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        SmallWidgetView(coin: CoinModel(date: Date()))
     }
 }

@@ -26,8 +26,8 @@ final class HomeViewModel: ObservableObject {
     
     private var timer: AnyCancellable?
     private var lastUpdate: Date = Date()
-    private var minValue = "0.0"
-    private var maxValue = "0.0"
+    private var minValue = Coins.defaultValue.rawValue
+    private var maxValue = Coins.defaultValue.rawValue
     private var chartMetaData = ChartMetadata(
         title: "Variação cambial",
         subtitle: "Referência: 1 Dólar americano (comercial)",
@@ -61,7 +61,7 @@ final class HomeViewModel: ObservableObject {
         
         CoinFetcher
             .shared
-            .getCoinValues(from: "USD", to: "BRL") { [weak self] coinModel, chartValues, error in
+            .getCoinValues(from: .USD, to: .BRL) { [weak self] coinModel, chartValues, error in
                 if let error = error as? APIErrorEnum {
                     self?.errorCheck(error)
                     return
@@ -72,8 +72,8 @@ final class HomeViewModel: ObservableObject {
                 }
                 
                 if let chartValues = chartValues {
-                    self?.maxValue = chartValues.max { $0.close > $1.close }?.close ?? "0.0"
-                    self?.minValue = chartValues.min { $0.close > $1.close }?.close ?? "0.0"
+                    self?.maxValue = chartValues.max { $0.close > $1.close }?.close ?? Coins.defaultValue.rawValue
+                    self?.minValue = chartValues.min { $0.close > $1.close }?.close ?? Coins.defaultValue.rawValue
                     
                     self?.chartValues = chartValues
                     self?.setChartData()

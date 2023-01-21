@@ -11,9 +11,9 @@ import MyCoinsUIComponents
 
 public struct RateView: View {
     
-    private let rate: RateEnum
+    private let rate: Rate
     
-    public init(rate: RateEnum) {
+    public init(rate: Rate) {
         self.rate = rate
     }
     
@@ -36,7 +36,7 @@ public struct RateView: View {
                 .rotation(self.rotation)
                 .stroke(self.color,
                         style: StrokeStyle(
-                            lineWidth: 5,
+                            lineWidth: 2,
                             lineCap: .round,
                             lineJoin: .round
                         )
@@ -110,9 +110,18 @@ public struct RateView: View {
 
 struct RateView_Previews: PreviewProvider {
     static var previews: some View {
-//        TextWidgetView(coin: CoinModel(date: Date()))
-//            .previewContext(WidgetPreviewContext(family: .systemSmall))
-        RateView(rate: RateEnum.stable)
-            .padding(20)
+        HStack {
+            RateView(rate: .stable)
+                .padding(20)
+                .frame(width: 50, height: 50)
+            
+            RateView(rate: .up)
+                .padding(20)
+                .frame(width: 50, height: 50)
+            
+            RateView(rate: .down)
+                .padding(20)
+                .frame(width: 50, height: 50)
+        }
     }
 }

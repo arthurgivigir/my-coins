@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum UserDefaultsEnum: String {
+public enum MyCoinsUserDefaultsValues: String {
     
     case suiteName = "group.com.givigir.MyCoins"
     

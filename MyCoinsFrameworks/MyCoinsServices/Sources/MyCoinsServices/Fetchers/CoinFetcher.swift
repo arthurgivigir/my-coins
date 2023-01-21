@@ -20,14 +20,13 @@ public class CoinFetcher {
     private let interactor: CoinInteractor
     
     private init() {
-        self.interactor = CoinInteractor()
-        
+        self.interactor = CoinInteractor()     
     }
     
-    public func getCoinValue(from: String, to: String, completion: @escaping RETURNED_STOCK_REALTIME) {
+    public func getCoinValue(from: Coins, to: Coins, completion: @escaping RETURNED_STOCK_REALTIME) {
         
         self.interactor
-            .getCoinValueFrom(from: from, to: to)
+            .getCoinValueFrom(from: from.rawValue, to: to.rawValue)
             .receive(on: RunLoop.main)
             .sink { receivedCompletition in
 
@@ -45,10 +44,10 @@ public class CoinFetcher {
         
     }
     
-    public func getCoinValues(from: String, to: String, completion: @escaping RETURNED_ARRAY_METHOD) {
+    public func getCoinValues(from: Coins, to: Coins, completion: @escaping RETURNED_ARRAY_METHOD) {
         
         self.interactor
-            .getCoinValuesFrom(from: from, to: to)
+            .getCoinValuesFrom(from: from.rawValue, to: to.rawValue)
             .receive(on: RunLoop.main)
             .sink { receivedCompletition in
 
