@@ -17,7 +17,11 @@ public struct ServiceData: Hashable, Codable, Identifiable {
         guard let host = host,
               let apiGetCoins = apiGetCoins else { return nil }
         
-        return URL(string: "\(host)/\(apiGetCoins)")
+        #if DEBUG
+            return URL(string: "http://localhost:3000/api/v1/coins?isMock=true")
+        #else
+            return URL(string: "\(host)/\(apiGetCoins)")
+        #endif
     }
     
     public init(id: String?, jwtToken: String?, host: String?, apiGetCoins: String?) {
