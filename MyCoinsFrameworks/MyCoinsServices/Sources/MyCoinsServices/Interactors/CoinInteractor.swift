@@ -29,7 +29,7 @@ public struct CoinInteractor: CoinInteractorProtocol {
     public func getCoinValueFrom(from: String, to: String) -> AnyPublisher<CoinModel?, Error> {
         
         return self.coinService
-            .getCoinValuesFrom(from: from, to: to)
+            .getCoinValuesFrom(from: from, to: to, isFrom: "widget")
             .map { coinModels -> CoinModel? in
                 return coinModels?.first(where: { coinModel in
                     if let _ = coinModel.message {
@@ -45,7 +45,7 @@ public struct CoinInteractor: CoinInteractorProtocol {
     public func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[CoinModel]?, Error> {
         
         return self.coinService
-            .getCoinValuesFrom(from: from, to: to)
+            .getCoinValuesFrom(from: from, to: to, isFrom: "app")
             .map { coinsModel -> [CoinModel]? in
                 return coinsModel
             }

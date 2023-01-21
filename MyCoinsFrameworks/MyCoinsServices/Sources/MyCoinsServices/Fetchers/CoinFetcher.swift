@@ -35,7 +35,7 @@ public class CoinFetcher {
                 case .failure(let error):
                     completion(nil, error)
                 case .finished:
-                    print("😃Finished publisher from getValueFrom")
+                    print("😃Finished publisher from getValueFrom getCoinValue")
                 }
 
             } receiveValue: { coinModel in
@@ -56,7 +56,7 @@ public class CoinFetcher {
                 case .failure(let error):
                     completion(nil, nil, error)
                 case .finished:
-                    print("😃Finished publisher from getValueFrom")
+                    print("😃Finished publisher from getValueFrom getCoinValues")
                 }
 
             } receiveValue: { coinsModel in

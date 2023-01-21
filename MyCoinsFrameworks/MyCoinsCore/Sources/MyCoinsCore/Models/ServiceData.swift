@@ -13,16 +13,6 @@ public struct ServiceData: Hashable, Codable, Identifiable {
     public let jwtToken: String?
     public let host: String?
     public let apiGetCoins: String?
-    public var url: URL? {
-        guard let host = host,
-              let apiGetCoins = apiGetCoins else { return nil }
-        
-        #if DEBUG
-            return URL(string: "http://localhost:3000/api/v1/coins?isMock=true")
-        #else
-            return URL(string: "\(host)/\(apiGetCoins)")
-        #endif
-    }
     
     public init(id: String?, jwtToken: String?, host: String?, apiGetCoins: String?) {
         self.id = id
@@ -36,6 +26,17 @@ public struct ServiceData: Hashable, Codable, Identifiable {
         case jwtToken
         case host
         case apiGetCoins
+    }
+    
+    public func requestURL(_ isFrom: String) -> URL? {
+        guard let host = host,
+              let apiGetCoins = apiGetCoins else { return nil }
+        
+        #if DEBUG
+            return URL(string: "http://localhost:3000/api/v1/coins?isMock=true&isFrom=\(isFrom)")
+        #else
+            return URL(string: "\(host)/\(apiGetCoins)")
+        #endif
     }
     
     public func toJson() -> String? {

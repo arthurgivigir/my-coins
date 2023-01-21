@@ -13,7 +13,7 @@ import CloudKit
 import UserNotifications
 
 protocol CoinServiceProtocol {
-    func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[CoinModel]?, Error>
+    func getCoinValuesFrom(from: String, to: String, isFrom: String) -> AnyPublisher<[CoinModel]?, Error>
     func subscribeToCloud(_ onFinish: @escaping (Result<Void, Error>) -> Void)
     func getServicesInformation(with id: CKRecord.ID?, _ onFinish: @escaping ((Result<ServiceData, Error>) -> ()))
 }
@@ -39,9 +39,9 @@ class CoinService: CoinServiceProtocol {
     
     private var hasSub = false
     
-    func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[CoinModel]?, Error> {
+    func getCoinValuesFrom(from: String, to: String, isFrom: String) -> AnyPublisher<[CoinModel]?, Error> {
         
-        if let url = KeychainHelper.shared.getServiceData?.url,
+        if let url = KeychainHelper.shared.getServiceData?.requestURL(isFrom),
            let jwtToken = KeychainHelper.shared.getServiceData?.jwtToken {
             
             let httpHeader: HTTPHeaders = [
