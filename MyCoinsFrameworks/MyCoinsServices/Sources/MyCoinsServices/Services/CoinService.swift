@@ -30,10 +30,21 @@ extension CKSubscription {
     static var alertBody = "A new service data was defined"
 }
 
+extension UserDefaults {
+    static var subscriptionWasCreated = "subscriptionWasCreated"
+}
+
 class CoinService: CoinServiceProtocol {
 
+    private let userDefaults = UserDefaults.standard
     private let record = CKRecord(recordType: ServiceData.identifier)
     private let appContainer = CKContainer(identifier: CKContainer.appContainer)
+    private let privateDB = CKContainer(identifier: CKContainer.appContainer).privateCloudDatabase
+    private let operation = CKModifySubscriptionsOperation(
+                                subscriptionsToSave: [],
+                                subscriptionIDsToDelete: []
+                            )
+    
 
     private let newSubscription = CKQuerySubscription(recordType: ServiceData.identifier, predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
     
@@ -41,7 +52,7 @@ class CoinService: CoinServiceProtocol {
     
     func getCoinValuesFrom(from: String, to: String, isFrom: String) -> AnyPublisher<[CoinModel]?, Error> {
         
-        if let url = KeychainHelper.shared.getServiceData?.requestURL(isFrom),
+        if let url = KeychainHelper.shared.getServiceData?.requestURL("\(isFrom)-\(userDefaults.bool(forKey: UserDefaults.subscriptionWasCreated))"),
            let jwtToken = KeychainHelper.shared.getServiceData?.jwtToken {
             
             let httpHeader: HTTPHeaders = [
@@ -64,32 +75,32 @@ class CoinService: CoinServiceProtocol {
     }
     
     func subscribeToCloud(_ onFinish: @escaping (Result<Void, Error>) -> Void) {
+        if userDefaults.bool(forKey: UserDefaults.subscriptionWasCreated) {
+            onFinish(.success(()))
+            return
+        }
+        
         let predicate = NSPredicate(value: true)
         let subscription = CKQuerySubscription(recordType: ServiceData.identifier,
-                                  predicate: predicate,
-                                  options: .firesOnRecordUpdate)
+                                               predicate: predicate,
+                                               options: .firesOnRecordUpdate)
         
         let notificationInfo = CKSubscription.NotificationInfo()
         notificationInfo.alertBody = CKSubscription.alertBody
         notificationInfo.shouldSendContentAvailable = true
         subscription.notificationInfo = notificationInfo
         
-        let operation = CKModifySubscriptionsOperation(
-                subscriptionsToSave: [subscription],
-                subscriptionIDsToDelete: []
-            )
-        
-        operation.modifySubscriptionsResultBlock = { result in
-            switch result {
-            case .success:
-                onFinish(.success(()))
-            case .failure(let error):
+        privateDB.save(subscription) { [weak self] (subscription, error) in
+            if let error = error {
                 onFinish(.failure(error))
+                return
             }
             
+            if let _ = subscription {
+                self?.userDefaults.set(true, forKey: UserDefaults.subscriptionWasCreated)
+                onFinish(.success(()))
+            }
         }
-        operation.qualityOfService = .utility
-        appContainer.publicCloudDatabase.add(operation)
     }
     
     func getServicesInformation(with id: CKRecord.ID?, _ onFinish: @escaping ((Result<ServiceData, Error>) -> ())) {

@@ -25,8 +25,19 @@ public class CoinFetcher {
     }
     
     public func getCoinValue(from: Coins, to: Coins, completion: @escaping RETURNED_STOCK_REALTIME) {
-        
-        self.interactor
+        subscribeToCloud { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.getEarlierCoinValue(from: from, to: to, completion: completion)
+                
+            case .failure(let failure):
+                print("😃Finished publisher from getValueFrom getCoinValue \(failure)")
+            }
+        }
+    }
+    
+    private func getEarlierCoinValue(from: Coins, to: Coins, completion: @escaping RETURNED_STOCK_REALTIME) {
+        interactor
             .getCoinValueFrom(from: from.rawValue, to: to.rawValue)
             .receive(on: RunLoop.main)
             .sink { receivedCompletition in
@@ -35,14 +46,13 @@ public class CoinFetcher {
                 case .failure(let error):
                     completion(nil, error)
                 case .finished:
-                    print("😃Finished publisher from getValueFrom getCoinValue")
+                    print("😃Finished publisher from getValueFrom getEarlierCoinValue")
                 }
 
             } receiveValue: { coinModel in
                 completion(coinModel, nil)
             }
             .store(in: &cancellables)
-        
     }
     
     public func getCoinValues(from: Coins, to: Coins, completion: @escaping RETURNED_ARRAY_METHOD) {
