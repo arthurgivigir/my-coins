@@ -38,16 +38,29 @@ final class HomeViewModel: ObservableObject {
     )
     
     public func fetch() {
-        self.timer?.cancel()
-        self.loadingState = .loading
-        self.refreshValues()
-        self.getCoinValues()
+        CoinFetcher.shared.subscribeToCloud { [weak self] result in
+            switch result {
+            case .success:
+                self?.timer?.cancel()
+                
+                DispatchQueue.main.schedule {
+                    self?.loadingState = .loading
+                }
+                
+                self?.refreshValues()
+                self?.getCoinValues()
+                
+                self?.timer = Timer.publish(every: 60, on: .main, in: .default)
+                            .autoconnect()
+                            .sink { time in
+                                self?.getCoinValues()
+                            }
+                
+            case .failure(let error):
+                self?.errorCheck(error as? APIErrorEnum)
+            }
+        }
         
-        timer = Timer.publish(every: 30, on: .main, in: .default)
-                    .autoconnect()
-                    .sink { time in
-                        self.getCoinValues()
-                    }
     }
     
     public func reload() {
@@ -133,13 +146,16 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func refreshValues() {
-        self.chartValues = []
-        self.chartCategories = []
+        DispatchQueue.main.schedule {
+            self.chartValues = []
+            self.chartCategories = []
+        }
     }
     
     private func errorCheck(_ error: APIErrorEnum?) {
-        
-        self.loadingState = .error
+        DispatchQueue.main.schedule {
+            self.loadingState = .error
+        }
         
         switch error {
         case .network:
@@ -152,10 +168,12 @@ final class HomeViewModel: ObservableObject {
             
         default:
             print("😭 Ocorreu um erro: \(String(describing: error?.localizedDescription))")
-            self.showToast = true
-            self.showToastError = true
-            self.messageToast = "Ocorreu um erro!"
-            self.subtitleToast = "Tente novamente!"
+            DispatchQueue.main.schedule {
+                self.showToast = true
+                self.showToastError = true
+                self.messageToast = "Ocorreu um erro!"
+                self.subtitleToast = "Tente novamente!"
+            }
             return
         }
     }

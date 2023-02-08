@@ -9,19 +9,51 @@ import Foundation
 import MyCoinsCore
 import Alamofire
 import Combine
+import CloudKit
+import UserNotifications
 
 protocol CoinServiceProtocol {
-    func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[CoinModel]?, Error>
+    func getCoinValuesFrom(from: String, to: String, isFrom: String) -> AnyPublisher<[CoinModel]?, Error>
+    func subscribeToCloud(_ onFinish: @escaping (Result<Void, Error>) -> Void)
+    func getServicesInformation(with id: CKRecord.ID?, _ onFinish: @escaping ((Result<ServiceData, Error>) -> ()))
 }
 
-struct CoinService: CoinServiceProtocol {
+extension ServiceData {
+    public static var identifier = "ServiceData"
+}
 
-    private let jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHAiOiJjb20uZ2l2aWdpci5NeUNvaW5zIiwiYXBwbmFtZSI6Inpvb2luIiwiYXBwaWQiOiJIN0VEVjU1MjRLIiwicGFzc3dvcmQiOiJiZk1LQkRCbm1OdlRxTWF3NFFrM2d0XzkyOSJ9.5nB7kg_8aRMh-XE56N1F0L8R50PIbDaat56STpjuZus"
-    private let alphavantageUrl = "https://zooin.herokuapp.com"
+extension CKContainer {
+    static var appContainer = "iCloud.givigir.MercadoMaluco"
+}
+
+extension CKSubscription {
+    static var alertBody = "A new service data was defined"
+}
+
+extension UserDefaults {
+    static var subscriptionWasCreated = "subscriptionWasCreated"
+}
+
+class CoinService: CoinServiceProtocol {
+
+    private let userDefaults = UserDefaults.standard
+    private let record = CKRecord(recordType: ServiceData.identifier)
+    private let appContainer = CKContainer(identifier: CKContainer.appContainer)
+    private let privateDB = CKContainer(identifier: CKContainer.appContainer).privateCloudDatabase
+    private let operation = CKModifySubscriptionsOperation(
+                                subscriptionsToSave: [],
+                                subscriptionIDsToDelete: []
+                            )
     
-    func getCoinValuesFrom(from: String, to: String) -> AnyPublisher<[CoinModel]?, Error> {
+
+    private let newSubscription = CKQuerySubscription(recordType: ServiceData.identifier, predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
+    
+    private var hasSub = false
+    
+    func getCoinValuesFrom(from: String, to: String, isFrom: String) -> AnyPublisher<[CoinModel]?, Error> {
         
-        if let url = URL(string: "\(alphavantageUrl)/getCoinValues") {
+        if let url = KeychainHelper.shared.getServiceData?.requestURL("\(isFrom)-\(userDefaults.bool(forKey: UserDefaults.subscriptionWasCreated))"),
+           let jwtToken = KeychainHelper.shared.getServiceData?.jwtToken {
             
             let httpHeader: HTTPHeaders = [
                 .authorization(bearerToken: jwtToken)
@@ -40,6 +72,96 @@ struct CoinService: CoinServiceProtocol {
         }
         
         return CurrentValueSubject(nil).eraseToAnyPublisher()
+    }
+    
+    func subscribeToCloud(_ onFinish: @escaping (Result<Void, Error>) -> Void) {
+        if userDefaults.bool(forKey: UserDefaults.subscriptionWasCreated) {
+            onFinish(.success(()))
+            return
+        }
+        
+        let predicate = NSPredicate(value: true)
+        let subscription = CKQuerySubscription(recordType: ServiceData.identifier,
+                                               predicate: predicate,
+                                               options: .firesOnRecordUpdate)
+        
+        let notificationInfo = CKSubscription.NotificationInfo()
+        notificationInfo.alertBody = CKSubscription.alertBody
+        notificationInfo.shouldSendContentAvailable = true
+        subscription.notificationInfo = notificationInfo
+        
+        privateDB.save(subscription) { [weak self] (subscription, error) in
+            if let error = error {
+                onFinish(.failure(error))
+                return
+            }
+            
+            if let _ = subscription {
+                self?.userDefaults.set(true, forKey: UserDefaults.subscriptionWasCreated)
+                onFinish(.success(()))
+            }
+        }
+    }
+    
+    func getServicesInformation(with id: CKRecord.ID?, _ onFinish: @escaping ((Result<ServiceData, Error>) -> ())) {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: ServiceData.identifier, predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        
+        if let id = id {
+            appContainer.publicCloudDatabase.fetch(withRecordID: id) { record, error in
+                if let error = error {
+                    print("🚧 Failure \(error)")
+                    onFinish(.failure(error))
+                    return
+                }
+                
+                let id = record?[.id]
+                let jwtToken = record?[.jwtToken]
+                let api = record?[.apiGetCoins]
+                let host = record?[.host]
+                
+                onFinish(
+                    .success(
+                        ServiceData(
+                            id: id,
+                            jwtToken: jwtToken,
+                            host: host,
+                            apiGetCoins: api
+                        )
+                    )
+                )
+            }
+            
+            appContainer.publicCloudDatabase.add(operation)
+            
+        } else {
+            operation.recordMatchedBlock = { _, result in
+                switch result {
+                case .success(let record):
+                    let id = record[.id]
+                    let jwtToken = record[.jwtToken]
+                    let api = record[.apiGetCoins]
+                    let host = record[.host]
+                    
+                    onFinish(
+                        .success(
+                            ServiceData(
+                                id: id,
+                                jwtToken: jwtToken,
+                                host: host,
+                                apiGetCoins: api
+                            )
+                        )
+                    )
+                case .failure(let error):
+                    print("🚧 Failure \(error)")
+                    onFinish(.failure(error))
+                }
+            }
+            
+            appContainer.publicCloudDatabase.add(operation)
+        }
     }
     
     /// Enum of outputsize parameter from alphavantage

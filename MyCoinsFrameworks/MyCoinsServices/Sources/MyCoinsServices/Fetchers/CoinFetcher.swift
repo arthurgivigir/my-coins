@@ -8,6 +8,7 @@
 import Combine
 import MyCoinsCore
 import Foundation
+import CloudKit
 
 public class CoinFetcher {
     
@@ -24,8 +25,19 @@ public class CoinFetcher {
     }
     
     public func getCoinValue(from: Coins, to: Coins, completion: @escaping RETURNED_STOCK_REALTIME) {
-        
-        self.interactor
+        subscribeToCloud { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.getEarlierCoinValue(from: from, to: to, completion: completion)
+                
+            case .failure(let failure):
+                print("😃Finished publisher from getValueFrom getCoinValue \(failure)")
+            }
+        }
+    }
+    
+    private func getEarlierCoinValue(from: Coins, to: Coins, completion: @escaping RETURNED_STOCK_REALTIME) {
+        interactor
             .getCoinValueFrom(from: from.rawValue, to: to.rawValue)
             .receive(on: RunLoop.main)
             .sink { receivedCompletition in
@@ -34,14 +46,13 @@ public class CoinFetcher {
                 case .failure(let error):
                     completion(nil, error)
                 case .finished:
-                    print("😃Finished publisher from getValueFrom")
+                    print("😃Finished publisher from getValueFrom getEarlierCoinValue")
                 }
 
             } receiveValue: { coinModel in
                 completion(coinModel, nil)
             }
             .store(in: &cancellables)
-        
     }
     
     public func getCoinValues(from: Coins, to: Coins, completion: @escaping RETURNED_ARRAY_METHOD) {
@@ -55,7 +66,7 @@ public class CoinFetcher {
                 case .failure(let error):
                     completion(nil, nil, error)
                 case .finished:
-                    print("😃Finished publisher from getValueFrom")
+                    print("😃Finished publisher from getValueFrom getCoinValues")
                 }
 
             } receiveValue: { coinsModel in
@@ -68,5 +79,19 @@ public class CoinFetcher {
             }
             .store(in: &cancellables)
     }
-
+    
+    public func subscribeToCloud(_ onFinish: @escaping (Result<Void, Error>) -> Void) {
+        self.interactor.subscribeToCloud(onFinish)
+    }
+    
+    public func getServicesInformation(with id: CKRecord.ID?) {
+        self.interactor.getServicesInformation(with: id) { result in
+            switch result {
+            case .success(let success):
+                print(success)
+            case .failure(let failure):
+                print("🚧 Failure: \(failure)")
+            }
+        }
+    }
 }
